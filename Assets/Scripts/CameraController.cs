@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     private float scrollScale;
     private float curSize;
 
-    private void FixedUpdate()
+    private void Update()
     {
         ScampPlayer();
 
@@ -44,6 +44,7 @@ public class CameraController : MonoBehaviour
 
     private void ScampPlayer()
     {
-        transform.position = player.transform.position + new Vector3(0, 11, -10);
+        Vector3 targetPos = player.transform.position + new Vector3(0, 11, -10);
+        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * 5f);
     }
 }
