@@ -15,10 +15,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pointer",
-                    "type": "Value",
+                    "name": "Interact",
+                    "type": "PassThrough",
                     "id": "dc6717b9-6c46-415b-b49b-d85a46935fac",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -110,11 +110,11 @@
                 {
                     "name": "",
                     "id": "c6a79688-004f-4df4-b9ae-33b0314a7fad",
-                    "path": "<Pointer>/position",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pointer",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

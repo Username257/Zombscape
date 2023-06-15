@@ -8,11 +8,11 @@ public class PlayerMover : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
 
-    private bool isMove;
     private CharacterController controller;
     private Vector3 moveDir;
     private Animator anim;
     private float ySpeed;
+    [SerializeField] private bool isFreeze;
 
     private void Start()
     {
@@ -23,7 +23,8 @@ public class PlayerMover : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if (!isFreeze)
+            Move();
         Fall();
     }
 
@@ -88,9 +89,22 @@ public class PlayerMover : MonoBehaviour
         controller.Move(Vector3.up * ySpeed * Time.deltaTime);
     }
 
+    public void Freeze()
+    {
+        isFreeze = true;
+        Invoke("Melt", 3f);
+    }
+
+    public void Melt()
+    {
+        isFreeze = false;
+    }
+
     private bool GroundCheck()
     {
         RaycastHit hit;
         return Physics.SphereCast(transform.position + Vector3.up * 1f, 0.5f, Vector3.down, out hit, 0.6f);
     }
+
+    
 }
