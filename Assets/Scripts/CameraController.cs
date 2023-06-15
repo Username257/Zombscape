@@ -15,8 +15,8 @@ public class CameraController : MonoBehaviour
     {
         ScampPlayer();
 
-        if (curSize < 5)
-            curSize = Mathf.Lerp(curSize, 5, 0.2f);
+        if (curSize < 3)
+            curSize = Mathf.Lerp(curSize, 3, 0.2f);
         if (curSize > 10)
             curSize = Mathf.Lerp(curSize, 10, 0.2f);
 
