@@ -92,7 +92,7 @@ public class PlayerMover : MonoBehaviour
     public void Freeze()
     {
         isFreeze = true;
-        Invoke("Melt", 3f);
+        Invoke("Melt", 1.2f);
     }
 
     public void Melt()
