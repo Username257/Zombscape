@@ -91,8 +91,11 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
         if (disToTarget < attackRange)
         {
-            curState = State.Attack;
-            return;
+            if (GameManager.Data.CurLife > 0)
+            {
+                curState = State.Attack;
+                return;
+            }
         }
 
         if (disToTarget >= detectRange)

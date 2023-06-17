@@ -13,6 +13,8 @@ public class PlayerMover : MonoBehaviour
     private Animator anim;
     private float ySpeed;
     [SerializeField] private bool isFreeze;
+    public bool isDie;
+
 
     private void Start()
     {
@@ -23,7 +25,7 @@ public class PlayerMover : MonoBehaviour
 
     private void Update()
     {
-        if (!isFreeze)
+        if (!isFreeze && !isDie)
             Move();
         Fall();
     }
@@ -46,9 +48,12 @@ public class PlayerMover : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
-        moveDir = value.Get<Vector2>();
-        anim.SetBool("IsMove", moveDir.sqrMagnitude > 0);
-        Move();
+        if (!isDie)
+        {
+            moveDir = value.Get<Vector2>();
+            anim.SetBool("IsMove", moveDir.sqrMagnitude > 0);
+            Move();
+        }
     }
 
     private void Sneak()
@@ -89,10 +94,11 @@ public class PlayerMover : MonoBehaviour
         controller.Move(Vector3.up * ySpeed * Time.deltaTime);
     }
 
-    public void Freeze()
+    public void Freeze(float time)
     {
+        float freezeTime =+ time;
         isFreeze = true;
-        Invoke("Melt", 1.2f);
+        Invoke("Melt", freezeTime);
     }
 
     public void Melt()

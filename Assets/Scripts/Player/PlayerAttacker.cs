@@ -19,25 +19,35 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     public int randNum = 0;
     private float cosResult;
     public UnityEvent onDamaged;
+    bool isDie;
+    CharacterController controller;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         playerMover = GetComponent<PlayerMover>();
+        controller = GetComponent<CharacterController>();
         
         cosResult = Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad);
     }
-
+    private void Update()
+    {
+        if (life < 0)
+            Die();
+    }
     public void Hit()
     {
-        playerMover.Freeze();
+        if (!isDie)
+        {
+            playerMover.Freeze(1f);
 
-        randNum = Random.Range(0, 2);
+            randNum = Random.Range(0, 2);
 
-        if (randNum == 0)
-            anim.SetTrigger("IsPunching");
-        else
-            anim.SetTrigger("IsPunching1");
+            if (randNum == 0)
+                anim.SetTrigger("IsPunching");
+            else
+                anim.SetTrigger("IsPunching1");
+        }
     }
 
     public void ApplyDamage()
@@ -62,13 +72,22 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
     public void Damaged(int damage)
     {
-        anim.SetTrigger("IsDamaged");
-        life -= damage;
-        GameManager.Data.CurLife = life;
+        if (!isDie)
+        {
+            playerMover.Freeze(1f);
+            anim.SetTrigger("IsDamaged");
+            life -= damage;
+            GameManager.Data.CurLife = life;
+        }
     }
 
     public void Die()
     {
-        throw new System.NotImplementedException();
+        isDie = true;
+        anim.SetTrigger("IsDie");
+        controller.enabled = false;
+        playerMover.isDie = true;
+        playerMover.enabled = false;
+        this.enabled = false;
     }
 }

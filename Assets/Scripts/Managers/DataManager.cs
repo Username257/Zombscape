@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class DataManager : MonoBehaviour
 {
     
-    [SerializeField] private int curLife;
+    [SerializeField] private int curLife = 100;
     public int CurLife
     {
         get { return curLife; }
