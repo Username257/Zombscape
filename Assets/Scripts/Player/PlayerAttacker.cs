@@ -68,8 +68,16 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
             IDamageable damageable = collider.GetComponent<IDamageable>();
             damageable?.Damaged(damage);
+            Debug.Log("Damaged");
+            StartCoroutine(ApplyDamageWaitTime());
 
         }
+    }
+
+    IEnumerator ApplyDamageWaitTime()
+    {
+        Debug.Log("1초 기다림");
+        yield return new WaitForSeconds(1f);
     }
 
     public void Damaged(int damage)

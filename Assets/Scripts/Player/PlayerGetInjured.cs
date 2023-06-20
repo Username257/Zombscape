@@ -13,7 +13,6 @@ public class PlayerGetInjured : MonoBehaviour
 
     public void GetInjured()
     {
-        Debug.Log("GetInjured");
         Body whichBody = BodySelect();
 
         //none에서 scar, scar에서 bleeding이 됨
@@ -27,7 +26,6 @@ public class PlayerGetInjured : MonoBehaviour
                 break;
             case Body.RArm:
                 GameManager.Data.RArm++;
-                Debug.Log("오른팔 다쳤음을 bodyUI에게 전달");
                 OnGetInjured?.Invoke(1);
                 break;
             case Body.LArm:

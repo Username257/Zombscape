@@ -4,6 +4,7 @@ using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class Zombie : MonoBehaviour, IHideable, IDamageable
 {
@@ -47,6 +48,8 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
         life = zombieData.Hp;
         moveSpeed = zombieData.MoveSpeed;
         damage = zombieData.Damage;
+
+        SetAnimSpeed();
     }
 
     private void Update()
@@ -57,7 +60,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
         disToTarget = (player.transform.position - transform.position).magnitude;
         dir = player.transform.position - transform.position;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 10 * Time.deltaTime);
+        Rotate();
 
         switch (curState)
         {
@@ -76,22 +79,38 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
         }
     }
+    private void SetAnimSpeed()
+    {
+        if (moveSpeed == 3)
+            anim.SetFloat("moveSpeed", 6f);
+        else if (moveSpeed == 0.5)
+            anim.SetFloat("moveSpeed", 2f);
+        else
+            anim.SetFloat("moveSpeed", 4f);
+      
+    }
 
+    public void Rotate()
+    {
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 10 * Time.deltaTime);
+    }
     private void UpdateIdle()
     {
         anim.SetBool("IsWalk", false);
 
-        if (disToTarget < detectRange)
+        if (disToTarget < detectRange && (GameManager.Data.CurLife > 0))
         {
             followTarget = player;
             curState = State.Follow;
             return;
         }
+        if (life <= 0)
+            curState = State.Dead;
     }
 
     private void UpdateFollow()
     {
-        if (!isFreeze)
+        if (!isFreeze && !isDamaged)
         {
             anim.applyRootMotion = false;
             anim.SetBool("IsWalk", true);
@@ -120,6 +139,9 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
         {
             curState = State.Idle;
         }
+
+        if (life <= 0)
+            curState = State.Dead;
     }
 
     private void UpdateAttack()
@@ -161,6 +183,9 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
         {
             curState = State.Idle;
         }
+
+        if (life <= 0)
+            curState = State.Dead;
     }
 
 

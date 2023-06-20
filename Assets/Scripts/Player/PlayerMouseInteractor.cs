@@ -25,9 +25,6 @@ public class PlayerMouseInteractor : MonoBehaviour
         else if (Physics.Raycast(ray, out hit, 1000) && hit.transform.tag == "Item" && value.isPressed)
             ItemClicked?.Invoke();
 
-        else if (Physics.Raycast(ray, out hit, 1000) && hit.transform.tag == "UI" && value.isPressed)
-            Debug.Log("UI°¡ Å¬¸¯ µÊ");
-
         else if (Physics.Raycast(ray, out hit, 1000, clickPass))
         {
             GoAttack?.Invoke();
@@ -38,6 +35,6 @@ public class PlayerMouseInteractor : MonoBehaviour
 
     IEnumerator ClickDelay()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
     }
 }

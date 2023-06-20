@@ -14,7 +14,7 @@ public class PlayerMover : MonoBehaviour
     private float ySpeed;
     [SerializeField] private bool isFreeze;
     public bool isDie;
-
+    public bool isDamaged;
 
     private void Start()
     {
@@ -25,7 +25,7 @@ public class PlayerMover : MonoBehaviour
 
     private void Update()
     {
-        if (!isFreeze && !isDie)
+        if (!isFreeze && !isDie && !isDamaged)
             Move();
         Fall();
     }
@@ -104,6 +104,7 @@ public class PlayerMover : MonoBehaviour
     public void Melt()
     {
         isFreeze = false;
+        isDamaged = false;
     }
 
     private bool GroundCheck()

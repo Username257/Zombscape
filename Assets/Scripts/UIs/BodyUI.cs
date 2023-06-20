@@ -88,7 +88,6 @@ public class BodyUI : MonoBehaviour
                 RArmImg.sprite = bandaged;
             else
                 RArmImg.sprite = none;
-            Debug.Log("ø¿∏•∆» ¿ÃπÃ¡ˆ∞° πŸ≤Ò");
         }
 
         if (whichBody == Body.LArm)
