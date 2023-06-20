@@ -17,6 +17,10 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     [SerializeField] int damage;
     [SerializeField, Range(0, 360)] float angle;
     [SerializeField] float range;
+    [SerializeField] private bool isFreeze;
+    
+    private ZombieData zombieData;
+    public ZombieData ZombieData { set { zombieData = value; } }
 
     GameObject player;
     GameObject followTarget;
@@ -28,6 +32,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     private float cosResult;
     bool isDie;
     bool firstHit;
+    bool isDamaged;
 
 
     public void Start()
@@ -38,6 +43,10 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
         cosResult = Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad);
         curState = State.Idle;
+
+        life = zombieData.Hp;
+        moveSpeed = zombieData.MoveSpeed;
+        damage = zombieData.Damage;
     }
 
     private void Update()
@@ -82,56 +91,65 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
     private void UpdateFollow()
     {
-        anim.applyRootMotion = false;
-        anim.SetBool("IsWalk", true);
-
-        nav.isStopped = false;
-        nav.SetDestination(player.transform.position);
-        nav.speed = moveSpeed;
-
-        if (disToTarget < attackRange)
+        if (!isFreeze)
         {
-            if (GameManager.Data.CurLife > 0)
+            anim.applyRootMotion = false;
+            anim.SetBool("IsWalk", true);
+
+            nav.isStopped = false;
+            nav.SetDestination(player.transform.position);
+            nav.speed = moveSpeed;
+
+            if (disToTarget < attackRange)
             {
-                curState = State.Attack;
+                if (GameManager.Data.CurLife > 0)
+                {
+                    curState = State.Attack;
+                    return;
+                }
+            }
+
+            if (disToTarget >= detectRange)
+            {
+                curState = State.Idle;
                 return;
             }
-        }
-
-        if (disToTarget >= detectRange)
-        {
-            curState = State.Idle;
-            return;
         }
     }
 
     private void UpdateAttack()
     {
-        anim.SetBool("IsWalk", false);
-
-        nav.SetDestination(transform.position);
-        nav.isStopped = true;
-
-        attackTime += Time.deltaTime;
-
-        if (!firstHit)
+        if (!isFreeze || !isDamaged)
         {
-            anim.applyRootMotion = true;
-            anim.SetTrigger("IsAttack");
-            firstHit = true;
-        }
+            anim.SetBool("IsWalk", false);
 
-        if (attackTime > 3f && firstHit)
-        {
-            anim.applyRootMotion = true;
-            anim.SetTrigger("IsAttack");
-            attackTime = 0;
-        }
+            nav.SetDestination(transform.position);
+            nav.isStopped = true;
 
-        if (disToTarget > attackRange)
-        {
-            curState = State.Follow;
-            return;
+            attackTime += Time.deltaTime;
+
+            if (!firstHit)
+            {
+                anim.applyRootMotion = true;
+                anim.SetTrigger("IsAttack");
+                Freeze(3f);
+                firstHit = true;
+            }
+
+            if (attackTime > 3f && firstHit)
+            {
+                anim.applyRootMotion = true;
+                anim.SetTrigger("IsAttack");
+                Freeze(3f);
+                attackTime = 0;
+            }
+
+            if (disToTarget > attackRange)
+            {
+                curState = State.Follow;
+                firstHit = false;
+                return;
+            }
         }
     }
 
@@ -140,7 +158,10 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     {
         if (!isDie)
         {
+            Freeze(3f);
+            anim.applyRootMotion = true;
             anim.SetTrigger("IsDamaged");
+            isDamaged = true;
             life -= damage;
         }
         
@@ -189,5 +210,19 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     {
         transform.localScale = new Vector3(1, 1, 1);
     }
+
+    public void Freeze(float time)
+    {
+        float freezeTime = +time;
+        isFreeze = true;
+        Invoke("Melt", freezeTime);
+    }
+
+    public void Melt()
+    {
+        isFreeze = false;
+        isDamaged = false;
+    }
+
 
 }

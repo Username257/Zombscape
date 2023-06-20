@@ -18,7 +18,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     [SerializeField] int life;
     public int randNum = 0;
     private float cosResult;
-    public UnityEvent onDamaged;
+    public UnityEvent OnDamaged;
     bool isDie;
     CharacterController controller;
 
@@ -47,6 +47,8 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
                 anim.SetTrigger("IsPunching");
             else
                 anim.SetTrigger("IsPunching1");
+
+            ApplyDamage();
         }
     }
 
@@ -78,8 +80,10 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
             anim.SetTrigger("IsDamaged");
             life -= damage;
             GameManager.Data.CurLife = life;
+            OnDamaged?.Invoke();
         }
     }
+
 
     public void Die()
     {

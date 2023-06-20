@@ -11,17 +11,13 @@ public class PlayerMouseInteractor : MonoBehaviour
     public UnityEvent PlayerClicked;
     public UnityEvent GoAttack;
 
+    [SerializeField] LayerMask clickPass;
+
     private void OnInteract(InputValue value)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 1000) && value.isPressed)
-        {
-            Debug.Log($"{hit.point}");
-            mouseWorldPos = hit.point;
-            mouseWorldPos.y = 0;
-        }
 
         if (Physics.Raycast(ray, out hit, 1000) && hit.transform.tag == "Player" && value.isPressed)
             PlayerClicked?.Invoke();
@@ -29,16 +25,19 @@ public class PlayerMouseInteractor : MonoBehaviour
         else if (Physics.Raycast(ray, out hit, 1000) && hit.transform.tag == "Item" && value.isPressed)
             ItemClicked?.Invoke();
 
-        else
+        else if (Physics.Raycast(ray, out hit, 1000) && hit.transform.tag == "UI" && value.isPressed)
+            Debug.Log("UI°¡ Å¬¸¯ µÊ");
+
+        else if (Physics.Raycast(ray, out hit, 1000, clickPass))
+        {
             GoAttack?.Invoke();
-        
-        if (!value.isPressed)
             StartCoroutine(ClickDelay());
+        }
 
     }
 
     IEnumerator ClickDelay()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
     }
 }
