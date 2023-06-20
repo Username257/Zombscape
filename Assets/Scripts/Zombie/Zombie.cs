@@ -115,6 +115,11 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
                 return;
             }
         }
+
+        if (GameManager.Data.CurLife <= 0)
+        {
+            curState = State.Idle;
+        }
     }
 
     private void UpdateAttack()
@@ -150,6 +155,11 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
                 firstHit = false;
                 return;
             }
+        }
+
+        if(GameManager.Data.CurLife <= 0)
+        {
+            curState = State.Idle;
         }
     }
 

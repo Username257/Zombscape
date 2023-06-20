@@ -9,6 +9,7 @@ public class HpBar : MonoBehaviour
     private void Start()
     {
         slider = GetComponent<Slider>();
+        slider.value = GameManager.Data.CurLife;
     }
 
     private void OnEnable()

@@ -19,7 +19,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     public int randNum = 0;
     private float cosResult;
     public UnityEvent OnDamaged;
-    bool isDie;
+    public bool isDie;
     CharacterController controller;
 
     private void Start()
@@ -87,6 +87,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
     public void Die()
     {
+        GameManager.Data.CurLife = 0;
         isDie = true;
         anim.SetTrigger("IsDie");
         controller.enabled = false;

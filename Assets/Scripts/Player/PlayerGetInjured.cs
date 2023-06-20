@@ -8,10 +8,12 @@ public class PlayerGetInjured : MonoBehaviour
     public int randNum = 0;
     private Body isBleeding;
     public event UnityAction<int> OnGetInjured;
+    public UnityEvent OnDie;
     public enum Body { Neck, RArm, LArm, RLeg, LLeg, Retry }
 
     public void GetInjured()
     {
+        Debug.Log("GetInjured");
         Body whichBody = BodySelect();
 
         //none에서 scar, scar에서 bleeding이 됨
@@ -25,6 +27,7 @@ public class PlayerGetInjured : MonoBehaviour
                 break;
             case Body.RArm:
                 GameManager.Data.RArm++;
+                Debug.Log("오른팔 다쳤음을 bodyUI에게 전달");
                 OnGetInjured?.Invoke(1);
                 break;
             case Body.LArm:
@@ -40,7 +43,8 @@ public class PlayerGetInjured : MonoBehaviour
                 OnGetInjured?.Invoke(4);
                 break;
             case Body.Retry:
-                BodySelect();
+                Debug.Log("Retry");
+                GetInjured();
                 break;
         }
 
@@ -108,7 +112,11 @@ public class PlayerGetInjured : MonoBehaviour
             GameManager.Data.LArm == DataManager.State.Bleeding &&
             GameManager.Data.RLeg == DataManager.State.Bleeding &&
             GameManager.Data.LLeg == DataManager.State.Bleeding)
+        {
             GameManager.Data.CurLife = 0;
+            OnDie.Invoke();
+        }
+            
     }
 
 }

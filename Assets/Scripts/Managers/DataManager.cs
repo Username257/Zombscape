@@ -55,7 +55,7 @@ public class DataManager : MonoBehaviour
     [SerializeField] private State rArm = State.None;
     public State RArm
     {
-        get { return rLeg; }
+        get { return rArm; }
         set
         {
             rArm = value;
