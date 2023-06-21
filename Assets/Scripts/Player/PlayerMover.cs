@@ -15,6 +15,7 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private bool isFreeze;
     public bool isDie;
     public bool isDamaged;
+    private float freezeTime;
 
     private void Start()
     {
@@ -37,11 +38,13 @@ public class PlayerMover : MonoBehaviour
             return;
         }
 
-        Vector3 moveVec = new Vector3(moveDir.x, 0, moveDir.y);
-        controller.Move(moveVec * Time.deltaTime * moveSpeed);
-
-        Quaternion lookRotation = Quaternion.LookRotation(moveVec);
-        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 0.1f);
+        if (!isDamaged && !isFreeze)
+        {
+            Vector3 moveVec = new Vector3(moveDir.x, 0, moveDir.y);
+            controller.Move(moveVec * Time.deltaTime * moveSpeed);
+            Quaternion lookRotation = Quaternion.LookRotation(moveVec);
+            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 0.1f);
+        }
 
         anim.SetFloat("MoveSpeed", moveSpeed, 0.1f, Time.deltaTime);
     }
@@ -94,17 +97,28 @@ public class PlayerMover : MonoBehaviour
         controller.Move(Vector3.up * ySpeed * Time.deltaTime);
     }
 
-    public void Freeze(float time)
+    public void Freeze()
     {
-        float freezeTime =+ time;
+        if (isFreeze)
+        {
+            StopCoroutine(meltRoutine);
+        }
         isFreeze = true;
-        Invoke("Melt", freezeTime);
+        meltRoutine = StartCoroutine(FreezeTime());
     }
 
     public void Melt()
     {
+        freezeTime = 0;
         isFreeze = false;
         isDamaged = false;
+    }
+
+    Coroutine meltRoutine;
+    IEnumerator FreezeTime()
+    {
+        yield return new WaitForSeconds(1f);
+        Melt();
     }
 
     private bool GroundCheck()

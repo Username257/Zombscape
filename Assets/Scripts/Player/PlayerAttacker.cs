@@ -39,7 +39,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     {
         if (!isDie)
         {
-            playerMover.Freeze(1f);
+            playerMover.Freeze();
 
             randNum = Random.Range(0, 2);
 
@@ -48,7 +48,6 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
             else
                 anim.SetTrigger("IsPunching1");
 
-            ApplyDamage();
         }
     }
 
@@ -68,7 +67,6 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
             IDamageable damageable = collider.GetComponent<IDamageable>();
             damageable?.Damaged(damage);
-            Debug.Log("Damaged");
             StartCoroutine(ApplyDamageWaitTime());
 
         }
@@ -76,7 +74,6 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
     IEnumerator ApplyDamageWaitTime()
     {
-        Debug.Log("1초 기다림");
         yield return new WaitForSeconds(1f);
     }
 
@@ -84,7 +81,8 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     {
         if (!isDie)
         {
-            playerMover.Freeze(1f);
+            playerMover.isDamaged = true;
+            playerMover.Freeze();
             anim.SetTrigger("IsDamaged");
             life -= damage;
             GameManager.Data.CurLife = life;

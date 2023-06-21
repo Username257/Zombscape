@@ -92,7 +92,10 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
     public void Rotate()
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 10 * Time.deltaTime);
+        if (!isFreeze || !isDamaged)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 10 * Time.deltaTime);
+        }
     }
     private void UpdateIdle()
     {
@@ -110,7 +113,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
     private void UpdateFollow()
     {
-        if (!isFreeze && !isDamaged)
+        if (!isFreeze || !isDamaged)
         {
             anim.applyRootMotion = false;
             anim.SetBool("IsWalk", true);
@@ -246,11 +249,16 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
         transform.localScale = new Vector3(1, 1, 1);
     }
 
+    Coroutine meltRoutine;
+    
     public void Freeze(float time)
     {
-        float freezeTime = +time;
+        if (isFreeze)
+        {
+            StopCoroutine(meltRoutine);
+        }
         isFreeze = true;
-        Invoke("Melt", freezeTime);
+        meltRoutine = StartCoroutine(FreezeTime());
     }
 
     public void Melt()
@@ -259,5 +267,9 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
         isDamaged = false;
     }
 
-
+    IEnumerator FreezeTime()
+    {
+        yield return new WaitForSeconds(1f);
+        Melt();
+    }
 }

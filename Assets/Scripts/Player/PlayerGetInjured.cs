@@ -41,7 +41,6 @@ public class PlayerGetInjured : MonoBehaviour
                 OnGetInjured?.Invoke(4);
                 break;
             case Body.Retry:
-                Debug.Log("Retry");
                 GetInjured();
                 break;
         }

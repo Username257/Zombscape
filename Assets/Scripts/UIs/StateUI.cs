@@ -34,11 +34,11 @@ public class StateUI : PopUpUI
 
     private void Able()
     {
+        transforms["HpBar"].gameObject.SetActive(true);
         buttons["HPButton"].gameObject.SetActive(true);
         buttons["InfoButton"].gameObject.SetActive(true);
         transforms["UIBaseImage"].gameObject.SetActive(true);
         transforms["BodyInfoTextBox"].gameObject.SetActive(true);
-        transforms["HpBar"].gameObject.SetActive(true);
         transforms["BodyUI"].gameObject.SetActive(true);
 
         isAble = !isAble;
