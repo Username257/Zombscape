@@ -60,7 +60,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
         disToTarget = (player.transform.position - transform.position).magnitude;
         dir = player.transform.position - transform.position;
 
-        Rotate();
+        
 
         switch (curState)
         {
@@ -101,6 +101,8 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     {
         anim.SetBool("IsWalk", false);
 
+        nav.SetDestination(transform.position);
+
         if (disToTarget < detectRange && (GameManager.Data.CurLife > 0))
         {
             if (!isFreeze || !isDamaged)
@@ -117,6 +119,8 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
     private void UpdateFollow()
     {
+        Rotate();
+
         if (!isFreeze || !isDamaged)
         {
             anim.applyRootMotion = false;
@@ -153,6 +157,8 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
     private void UpdateAttack()
     {
+        Rotate();
+
         if (!isFreeze || !isDamaged)
         {
             anim.SetBool("IsWalk", false);
