@@ -8,7 +8,9 @@ public class PlayerGetInjured : MonoBehaviour
     public int randNum = 0;
     private Body isBleeding;
     public event UnityAction<int> OnGetInjured;
+    public UnityAction<int> OnGetBited;
     public UnityEvent OnDie;
+    private bool goBited;
     public enum Body { Neck, RArm, LArm, RLeg, LLeg, Retry }
 
     public void GetInjured()
@@ -18,28 +20,79 @@ public class PlayerGetInjured : MonoBehaviour
         //none에서 scar, scar에서 bleeding이 됨
         //bleeding은 bodySelect에서 제외됨
 
+        randNum = Random.Range(0, 101);
+
+        //5%의 확률로 물림
+        if (randNum < 5)
+            goBited = true;
+
         switch (whichBody)
         {
             case Body.Neck:
-                GameManager.Data.Neck++;
-                OnGetInjured?.Invoke(0);
+                if (goBited)
+                {
+                    OnGetBited?.Invoke(0);
+                    goBited = false;
+                }
+                else
+                {
+                    GameManager.Data.Neck++;
+                    OnGetInjured?.Invoke(0);
+                }
                 break;
+
             case Body.RArm:
-                GameManager.Data.RArm++;
-                OnGetInjured?.Invoke(1);
+                if (goBited)
+                {
+                    OnGetBited?.Invoke(1);
+                    goBited = false;
+                }
+                else
+                {
+                    GameManager.Data.RArm++;
+                    OnGetInjured?.Invoke(1);
+                }
                 break;
+
             case Body.LArm:
-                GameManager.Data.LArm++;
-                OnGetInjured?.Invoke(2);
+                if (goBited)
+                {
+                    OnGetBited?.Invoke(2);
+                    goBited = false;
+                }
+                else
+                {
+                    GameManager.Data.LArm++;
+                    OnGetInjured?.Invoke(2);
+                }
                 break;
+
             case Body.RLeg:
-                GameManager.Data.RLeg++;
-                OnGetInjured?.Invoke(3);
+                if (goBited)
+                {
+                    OnGetBited?.Invoke(3);
+                    goBited = false;
+                }
+                else
+                {
+                    GameManager.Data.RLeg++;
+                    OnGetInjured?.Invoke(3);
+                }
                 break;
+
             case Body.LLeg:
-                GameManager.Data.LLeg++;
-                OnGetInjured?.Invoke(4);
+                if (goBited)
+                {
+                    OnGetBited?.Invoke(4);
+                    goBited = false;
+                }
+                else
+                {
+                    GameManager.Data.LLeg++;
+                    OnGetInjured?.Invoke(4);
+                }
                 break;
+
             case Body.Retry:
                 GetInjured();
                 break;
@@ -115,5 +168,7 @@ public class PlayerGetInjured : MonoBehaviour
         }
             
     }
+
+
 
 }

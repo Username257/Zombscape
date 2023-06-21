@@ -8,6 +8,8 @@ public class DataManager : MonoBehaviour
 
     public event UnityAction<int> OnCurLifeChanged;
 
+    
+
     [SerializeField] private int curLife = 100;
     public int CurLife
     {

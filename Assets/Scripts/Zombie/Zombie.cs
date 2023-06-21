@@ -103,9 +103,13 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
         if (disToTarget < detectRange && (GameManager.Data.CurLife > 0))
         {
-            followTarget = player;
-            curState = State.Follow;
-            return;
+            if (!isFreeze || !isDamaged)
+            {
+                followTarget = player;
+                curState = State.Follow;
+                return;
+            }
+
         }
         if (life <= 0)
             curState = State.Dead;
@@ -162,7 +166,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
             {
                 anim.applyRootMotion = true;
                 anim.SetTrigger("IsAttack");
-                Freeze(3f);
+                Freeze();
                 firstHit = true;
             }
 
@@ -170,7 +174,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
             {
                 anim.applyRootMotion = true;
                 anim.SetTrigger("IsAttack");
-                Freeze(3f);
+                Freeze();
                 attackTime = 0;
             }
 
@@ -196,7 +200,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     {
         if (!isDie)
         {
-            Freeze(3f);
+            Freeze();
             anim.applyRootMotion = true;
             anim.SetTrigger("IsDamaged");
             isDamaged = true;
@@ -251,7 +255,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
     Coroutine meltRoutine;
     
-    public void Freeze(float time)
+    public void Freeze()
     {
         if (isFreeze)
         {
@@ -269,7 +273,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
     IEnumerator FreezeTime()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         Melt();
     }
 }

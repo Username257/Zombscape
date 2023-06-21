@@ -10,8 +10,7 @@ using UnityEngine.Events;
 
 public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 {
-    Animator anim;
-    [SerializeField] PlayerMover playerMover;
+    
     [SerializeField] int damage;
     [SerializeField, Range(0, 360)] float angle;
     [SerializeField] float range;
@@ -21,12 +20,14 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     public UnityEvent OnDamaged;
     public bool isDie;
     CharacterController controller;
+    Animator anim;
+    PlayerMover playerMover;
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
-        playerMover = GetComponent<PlayerMover>();
-        controller = GetComponent<CharacterController>();
+        anim = gameObject.GetComponent<Animator>();
+        playerMover = gameObject.GetComponent<PlayerMover>();
+        controller = gameObject.GetComponent<CharacterController>();
         
         cosResult = Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad);
     }

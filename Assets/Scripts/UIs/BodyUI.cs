@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,11 +30,13 @@ public class BodyUI : MonoBehaviour
     private void OnEnable()
     {
         playerGetInjured.OnGetInjured += ChangeImage;
+        playerGetInjured.OnGetBited += ChangeImage;
     }
 
     private void OnDisable()
     {
         playerGetInjured.OnGetInjured -= ChangeImage;
+        playerGetInjured.OnGetBited -= ChangeImage;
     }
 
     public void ChangeImage(int body)
