@@ -13,13 +13,16 @@ public class PlayerGetInjured : MonoBehaviour
     private bool goBited;
     public enum Body { Neck, RArm, LArm, RLeg, LLeg, Retry }
 
+
     public void GetInjured()
     {
+
         Body whichBody = BodySelect();
 
         //none에서 scar, scar에서 bleeding이 됨
         //bleeding은 bodySelect에서 제외됨
 
+        
         randNum = Random.Range(0, 101);
 
         //5%의 확률로 물림
@@ -31,14 +34,21 @@ public class PlayerGetInjured : MonoBehaviour
             case Body.Neck:
                 if (goBited)
                 {
-                    OnGetBited?.Invoke(0);
+                    if (GameManager.Data.Neck != DataManager.State.Bited)
+                    {
+                        GameManager.Data.Neck = DataManager.State.Bited;
+                        OnGetBited?.Invoke(0);
+                    }
+
                     goBited = false;
-                    GetInjured();
                 }
                 else
                 {
-                    GameManager.Data.Neck++;
-                    OnGetInjured?.Invoke(0);
+                    if (GameManager.Data.Neck < DataManager.State.Bleeding)
+                    {
+                        GameManager.Data.Neck++;
+                        OnGetInjured?.Invoke(0);
+                    }
 
                 }
                 break;
@@ -46,61 +56,90 @@ public class PlayerGetInjured : MonoBehaviour
             case Body.RArm:
                 if (goBited)
                 {
-                    OnGetBited?.Invoke(1);
+                    if (GameManager.Data.RArm != DataManager.State.Bited)
+                    {
+                        GameManager.Data.RArm = DataManager.State.Bited;
+                        OnGetBited?.Invoke(1);
+
+                    }
+
                     goBited = false;
-                    GetInjured();
                 }
                 else
                 {
-                    GameManager.Data.RArm++;
-                    OnGetInjured?.Invoke(1);
+                    if (GameManager.Data.RArm < DataManager.State.Bleeding)
+                    {
+                        GameManager.Data.RArm++;
+                        OnGetInjured?.Invoke(1);
+                    }
                 }
                 break;
 
             case Body.LArm:
                 if (goBited)
                 {
-                    OnGetBited?.Invoke(2);
+                    if (GameManager.Data.LArm != DataManager.State.Bited)
+                    {
+                        GameManager.Data.LArm = DataManager.State.Bited;
+                        OnGetBited?.Invoke(2);
+
+
+                    }
+                    
                     goBited = false;
-                    GetInjured();
                 }
                 else
                 {
-                    GameManager.Data.LArm++;
-                    OnGetInjured?.Invoke(2);
+                    if (GameManager.Data.LArm < DataManager.State.Bleeding)
+                    {
+                        GameManager.Data.LArm++;
+                        OnGetInjured?.Invoke(2);
+                    }
                 }
                 break;
 
             case Body.RLeg:
                 if (goBited)
                 {
-                    OnGetBited?.Invoke(3);
+                    if (GameManager.Data.RLeg != DataManager.State.Bited)
+                    {
+                        GameManager.Data.RLeg = DataManager.State.Bited;
+                        OnGetBited?.Invoke(3);
+
+                    }
+
                     goBited = false;
-                    GetInjured();
                 }
                 else
                 {
-                    GameManager.Data.RLeg++;
-                    OnGetInjured?.Invoke(3);
+                    if (GameManager.Data.RLeg < DataManager.State.Bleeding)
+                    {
+                        GameManager.Data.RLeg++;
+                        OnGetInjured?.Invoke(3);
+                    }
                 }
                 break;
 
             case Body.LLeg:
                 if (goBited)
                 {
-                    OnGetBited?.Invoke(4);
+                    if (GameManager.Data.LLeg != DataManager.State.Bited)
+                    {
+                        GameManager.Data.LLeg = DataManager.State.Bited;
+                        OnGetBited?.Invoke(4);
+
+                    }
+
                     goBited = false;
-                    GetInjured();
                 }
                 else
                 {
-                    GameManager.Data.LLeg++;
-                    OnGetInjured?.Invoke(4);
+                    if (GameManager.Data.LLeg < DataManager.State.Bleeding)
+                    {
+                        GameManager.Data.LLeg++;
+                        OnGetInjured?.Invoke(4);
+                    }
                 }
-                break;
-
-            case Body.Retry:
-                GetInjured();
                 break;
         }
 
@@ -120,16 +159,10 @@ public class PlayerGetInjured : MonoBehaviour
             randNum = Random.Range(0, 101);
             if (randNum < 70)
             {
-                if (GameManager.Data.RArm >= DataManager.State.Bleeding)
-                    return Body.Retry;
-                else 
                     return Body.RArm;
             }
             else
             {
-                if (GameManager.Data.LArm >= DataManager.State.Bleeding)
-                    return Body.Retry;
-                else
                     return Body.LArm;
             }
         }
@@ -138,24 +171,15 @@ public class PlayerGetInjured : MonoBehaviour
             randNum = Random.Range(0, 101);
             if (randNum < 50)
             {
-                if (GameManager.Data.RLeg >= DataManager.State.Bleeding)
-                    return Body.Retry;
-                else
                     return Body.RLeg;
             }
             else
             {
-                if (GameManager.Data.LLeg >= DataManager.State.Bleeding)
-                    return Body.Retry;
-                else
                     return Body.LLeg;
             }
         }
         else
         {
-            if (GameManager.Data.Neck >= DataManager.State.Bleeding)
-                return Body.Retry;
-            else
                 return Body.Neck;
         }
     }
@@ -172,7 +196,17 @@ public class PlayerGetInjured : MonoBehaviour
             GameManager.Data.CurLife = 0;
             OnDie.Invoke();
         }
-            
+
+        if (GameManager.Data.Neck == DataManager.State.Bited &&
+            GameManager.Data.RArm == DataManager.State.Bited &&
+            GameManager.Data.LArm == DataManager.State.Bited &&
+            GameManager.Data.RLeg == DataManager.State.Bited &&
+            GameManager.Data.LLeg == DataManager.State.Bited)
+        {
+            GameManager.Data.CurLife = 0;
+            OnDie.Invoke();
+        }
+
     }
 
 

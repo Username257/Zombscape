@@ -68,11 +68,13 @@ public class BodyInfoTextBox : MonoBehaviour
     private void OnEnable()
     {
         playerGetInjured.OnGetInjured += GetText;
+        playerGetInjured.OnGetBited += GetText;
     }
 
     private void OnDisable()
     {
         playerGetInjured.OnGetInjured -= GetText;
+        playerGetInjured.OnGetBited -= GetText;
     }
 
 
@@ -96,7 +98,6 @@ public class BodyInfoTextBox : MonoBehaviour
             if (GameManager.Data.Neck == DataManager.State.Bited)
             {
                 text = "목이 물림";
-               
             }
         }
 
