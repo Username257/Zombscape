@@ -33,11 +33,13 @@ public class PlayerGetInjured : MonoBehaviour
                 {
                     OnGetBited?.Invoke(0);
                     goBited = false;
+                    GetInjured();
                 }
                 else
                 {
                     GameManager.Data.Neck++;
                     OnGetInjured?.Invoke(0);
+
                 }
                 break;
 
@@ -46,6 +48,7 @@ public class PlayerGetInjured : MonoBehaviour
                 {
                     OnGetBited?.Invoke(1);
                     goBited = false;
+                    GetInjured();
                 }
                 else
                 {
@@ -59,6 +62,7 @@ public class PlayerGetInjured : MonoBehaviour
                 {
                     OnGetBited?.Invoke(2);
                     goBited = false;
+                    GetInjured();
                 }
                 else
                 {
@@ -72,6 +76,7 @@ public class PlayerGetInjured : MonoBehaviour
                 {
                     OnGetBited?.Invoke(3);
                     goBited = false;
+                    GetInjured();
                 }
                 else
                 {
@@ -85,6 +90,7 @@ public class PlayerGetInjured : MonoBehaviour
                 {
                     OnGetBited?.Invoke(4);
                     goBited = false;
+                    GetInjured();
                 }
                 else
                 {
@@ -114,14 +120,14 @@ public class PlayerGetInjured : MonoBehaviour
             randNum = Random.Range(0, 101);
             if (randNum < 70)
             {
-                if (GameManager.Data.RArm == DataManager.State.Bleeding)
+                if (GameManager.Data.RArm >= DataManager.State.Bleeding)
                     return Body.Retry;
                 else 
                     return Body.RArm;
             }
             else
             {
-                if (GameManager.Data.LArm == DataManager.State.Bleeding)
+                if (GameManager.Data.LArm >= DataManager.State.Bleeding)
                     return Body.Retry;
                 else
                     return Body.LArm;
@@ -132,14 +138,14 @@ public class PlayerGetInjured : MonoBehaviour
             randNum = Random.Range(0, 101);
             if (randNum < 50)
             {
-                if (GameManager.Data.RLeg == DataManager.State.Bleeding)
+                if (GameManager.Data.RLeg >= DataManager.State.Bleeding)
                     return Body.Retry;
                 else
                     return Body.RLeg;
             }
             else
             {
-                if (GameManager.Data.LLeg == DataManager.State.Bleeding)
+                if (GameManager.Data.LLeg >= DataManager.State.Bleeding)
                     return Body.Retry;
                 else
                     return Body.LLeg;
@@ -147,7 +153,7 @@ public class PlayerGetInjured : MonoBehaviour
         }
         else
         {
-            if (GameManager.Data.Neck == DataManager.State.Bleeding)
+            if (GameManager.Data.Neck >= DataManager.State.Bleeding)
                 return Body.Retry;
             else
                 return Body.Neck;
