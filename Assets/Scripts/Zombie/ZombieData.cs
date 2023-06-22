@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Zombie Data", menuName = "Scriptable Object/Zombie Data")]
 public class ZombieData : ScriptableObject
 {
-    [SerializeField] private string name;
-    public string Name { get { return name; } }
+    [SerializeField] private string zombieName;
+    public string Name { get { return zombieName; } }
 
     [SerializeField] private int hp;
     public int Hp { get { return hp; } }

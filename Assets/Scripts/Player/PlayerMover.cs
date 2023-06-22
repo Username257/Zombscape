@@ -15,7 +15,7 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private bool isFreeze;
     public bool isDie;
     public bool isDamaged;
-    private float freezeTime;
+
 
     private void Start()
     {
@@ -53,6 +53,7 @@ public class PlayerMover : MonoBehaviour
     {
         if (!isDie)
         {
+            anim.applyRootMotion = false;
             moveDir = value.Get<Vector2>();
             anim.SetBool("IsMove", moveDir.sqrMagnitude > 0);
             Move();
@@ -66,6 +67,8 @@ public class PlayerMover : MonoBehaviour
 
     private void OnSneak(InputValue value)
     {
+        anim.applyRootMotion = false;
+
         if (value.isPressed)
             Sneak();
         else
@@ -79,6 +82,7 @@ public class PlayerMover : MonoBehaviour
 
     private void OnRun(InputValue value)
     {
+        anim.applyRootMotion = false;
         if (value.isPressed)
             Run();
         else
@@ -97,27 +101,26 @@ public class PlayerMover : MonoBehaviour
         controller.Move(Vector3.up * ySpeed * Time.deltaTime);
     }
 
-    public void Freeze()
+    public void Freeze(float freezeTime)
     {
         if (isFreeze)
         {
             StopCoroutine(meltRoutine);
         }
         isFreeze = true;
-        meltRoutine = StartCoroutine(FreezeTime());
+        meltRoutine = StartCoroutine(FreezeTime(freezeTime));
     }
 
     public void Melt()
     {
-        freezeTime = 0;
         isFreeze = false;
         isDamaged = false;
     }
 
     Coroutine meltRoutine;
-    IEnumerator FreezeTime()
+    IEnumerator FreezeTime(float freezeTime)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(freezeTime);
         Melt();
     }
 

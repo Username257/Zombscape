@@ -11,7 +11,7 @@ using UnityEngine.Events;
 public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 {
     
-    [SerializeField] int damage;
+    [SerializeField] public int damage;
     [SerializeField, Range(0, 360)] float angle;
     [SerializeField] float range;
     [SerializeField] int life;
@@ -22,13 +22,23 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     CharacterController controller;
     Animator anim;
     PlayerMover playerMover;
+    bool isHoldingWeapon;
+    public float weaponSpeed;
+    public float legSpeed;
+    public float freezeTime;
+    Weapon weapon;
 
     private void Start()
     {
         anim = gameObject.GetComponent<Animator>();
         playerMover = gameObject.GetComponent<PlayerMover>();
         controller = gameObject.GetComponent<CharacterController>();
-        
+        weapon = gameObject.GetComponentInChildren<Weapon>();
+
+        isHoldingWeapon = false;
+        anim.SetLayerWeight(1, 0);
+        anim.SetFloat("MeleeLeg", 1f);
+
         cosResult = Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad);
     }
     private void Update()
@@ -36,18 +46,51 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
         if (life < 0)
             Die();
     }
+
+    public void HoldingWeapon()
+    {
+        isHoldingWeapon = true;
+        anim.SetLayerWeight(1, 1);
+        anim.SetFloat("MeleeSpeed", weaponSpeed);
+        anim.SetFloat("MeleeLeg", legSpeed);
+    }
+
+    public void NotHoldingWeapon()
+    {
+        isHoldingWeapon = false;
+        anim.SetLayerWeight(1, 0);
+        damage = 0;
+        freezeTime = 1;
+        legSpeed = 1;
+    }
+
     public void Hit()
     {
+
         if (!isDie)
         {
-            playerMover.Freeze();
+            anim.applyRootMotion = true;
 
-            randNum = Random.Range(0, 2);
-
-            if (randNum == 0)
-                anim.SetTrigger("IsPunching");
-            else
+            if (isHoldingWeapon)
+            {
+                playerMover.Freeze(freezeTime);
+                anim.SetTrigger("IsMelee");
                 anim.SetTrigger("IsPunching1");
+                return;
+            }
+            else
+            {
+                randNum = Random.Range(0, 2);
+
+                playerMover.Freeze(1f);
+
+                if (randNum == 0)
+                    anim.SetTrigger("IsPunching");
+                else
+                    anim.SetTrigger("IsPunching1");
+
+                return;
+            }
 
         }
     }
@@ -83,7 +126,8 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
         if (!isDie)
         {
             playerMover.isDamaged = true;
-            playerMover.Freeze();
+            playerMover.Freeze(1f);
+            anim.applyRootMotion = true;
             anim.SetTrigger("IsDamaged");
             life -= damage;
             GameManager.Data.CurLife = life;
@@ -96,6 +140,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     {
         GameManager.Data.CurLife = 0;
         isDie = true;
+        anim.applyRootMotion = true;
         anim.SetTrigger("IsDie");
         controller.enabled = false;
         playerMover.isDie = true;
