@@ -4,7 +4,7 @@ using System.Security.Authentication.ExtendedProtection;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Weapon : MonoBehaviour
+public class Weapon : Item
 {
     GameObject player;
     PlayerAttacker attacker;
@@ -15,21 +15,19 @@ public class Weapon : MonoBehaviour
     
     public virtual void OnEnable()
     {
-        if (gameObject.activeInHierarchy)
-        {
-            player = GameObject.FindWithTag("Player");
-            attacker = player.GetComponent<PlayerAttacker>();
+        player = GameObject.FindWithTag("Player");
+        attacker = player.GetComponent<PlayerAttacker>();
 
-            attacker.damage = damage;
-            attacker.weaponSpeed = speed;
-            attacker.legSpeed = legSpeed;
-            attacker.freezeTime = freezeTime;
-            attacker.HoldingWeapon();
-        }
-        else
-        {
-            attacker.NotHoldingWeapon();
-        }
-        
+        attacker.damage = damage;
+        attacker.weaponSpeed = speed;
+        attacker.legSpeed = legSpeed;
+        attacker.freezeTime = freezeTime;
+        attacker.HoldingWeapon();
+
+    }
+
+    public void OnDisable()
+    {
+        attacker.NotHoldingWeapon();
     }
 }
