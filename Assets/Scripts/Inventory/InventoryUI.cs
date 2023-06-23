@@ -12,25 +12,34 @@ public class InventoryUI : MonoBehaviour
     List<int> itemsAmount;
     List<Button> buttons;
 
+    public void Awake()
+    {
+        items = new List<Item>();
+        buttons = new List<Button>();
+        itemsAmount = new List<int>();
+    }
     public void AddItem(Item item)
     {
         if (items.Contains(item))
         {
             int index = items.FindIndex(a => a == item);
-            itemsAmount[index]++;
+            itemsAmount[index] += 1;
+            buttons[index].transform.Find("nameText").GetComponent<TMP_Text>().text = $"{items[items.Count - 1].itemName} ({itemsAmount[itemsAmount.Count - 1]})";
         }
         else
         {
             items.Add(item);
+            itemsAmount.Add(1);
 
             Button button = GameManager.Resource.Instantiate(buttonPrefab);
             button.transform.SetParent(content);
-            button.transform.Find("nameText").GetComponent<TMP_Text>().text = items[items.Count].itemName;
-            button.transform.Find("typeText").GetComponent<TMP_Text>().text = items[items.Count].itemType;
+            button.transform.Find("nameText").GetComponent<TMP_Text>().text = $"{items[items.Count - 1].itemName} ({itemsAmount[itemsAmount.Count - 1]})";
+            button.transform.Find("typeText").GetComponent<TMP_Text>().text = items[items.Count - 1].itemType;
 
             buttons.Add(button);
         }
-            
+
+
     }
 
     public void RemoveButton(Item item)
