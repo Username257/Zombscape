@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private static ResourceManager resourceManager;
     private static PoolManager poolManager;
     private static UIManager uiManager;
-    private static ItemData itemData;
+    private static Item item;
     private static InventoryUI inventoryUI;
 
     public static GameManager Instance { get { return instance; } }
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public static ResourceManager Resource { get { return resourceManager; } }
     public static PoolManager Pool { get { return poolManager; } }
     public static UIManager UI { get { return uiManager; } }
-    public static ItemData ItemData { get { return itemData; } }
+    public static Item Item { get { return item; } }
     public static InventoryUI InventoryUI { get { return inventoryUI; } }
 
     private void Awake()
@@ -67,10 +67,10 @@ public class GameManager : MonoBehaviour
         uiObj.transform.parent = transform;
         uiManager = uiObj.AddComponent<UIManager>();
 
-        GameObject itemDataObj = new GameObject();
-        itemDataObj.name = "ItemData";
-        itemDataObj.transform.parent = transform;
-        itemData = itemDataObj.AddComponent<ItemData>();
+        GameObject itemObj = new GameObject();
+        itemObj.name = "Item";
+        itemObj.transform.parent = transform;
+        item = itemObj.AddComponent<Item>();
 
         ui = GameManager.Resource.Instantiate<Canvas>("UI/InventoryUI");
         ui.gameObject.name = "InventoryCanvas";

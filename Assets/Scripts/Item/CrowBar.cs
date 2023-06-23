@@ -11,6 +11,7 @@ public class CrowBar : Weapon
     {
         inventoryUI = GameObject.FindWithTag("InventoryUI").GetComponent<InventoryUI>();
     }
+
     public CrowBar()
     {
         itemName = "¼èÁö·¿´ë";
@@ -19,9 +20,11 @@ public class CrowBar : Weapon
         prefabRoute = "Weapon/Crowbar";
     }
 
-    public void HoldCrowBar()
+    public void Hold()
     {
-        ItemData crowBar = GameManager.Resource.Instantiate<ItemData>("Weapon/Crowbar", weaponHolder);
+        //GameManager.Resource.Instantiate<Item>("Weapon/Crowbar", weaponHolder);
+        //obj.transform.SetParent(weaponHolder.transform);
+        //obj.transform.localPosition = Vector3.zero;
     }
 
     public override void HoldWeapon()

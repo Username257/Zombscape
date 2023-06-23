@@ -13,7 +13,7 @@ public class UseItem : MonoBehaviour
     }
     public void Use()
     {
-        crowBar.HoldCrowBar();
+        crowBar.Hold();
         weaponHolder.GetComponent<PlayerWeaponHolder>().HoldWeapon(crowBar);
     }
 }

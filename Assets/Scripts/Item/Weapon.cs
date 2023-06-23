@@ -15,13 +15,13 @@ public class Weapon : Item
 
     private void Awake()
     {
+        player = GameObject.FindWithTag("Player");
         weaponHolder = GameObject.FindWithTag("WeaponHolder");
     }
 
 
     public virtual void HoldWeapon()
     {
-        player = GameObject.FindWithTag("Player");
         attacker = player.GetComponent<PlayerAttacker>();
 
         attacker.damage = damage;
@@ -34,6 +34,7 @@ public class Weapon : Item
 
     public void OnDisable()
     {
+        attacker = player.GetComponent<PlayerAttacker>();
         attacker.NotHoldingWeapon();
     }
 }
