@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
 
     private Canvas inGameCanvas;
 
+
     private void Awake()
     {
         eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");

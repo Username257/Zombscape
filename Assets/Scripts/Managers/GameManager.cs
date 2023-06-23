@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
+using Unity.VisualScripting;
 using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     private static PoolManager poolManager;
     private static UIManager uiManager;
     private static ItemData itemData;
+    private static InventoryUI inventoryUI;
 
     public static GameManager Instance { get { return instance; } }
     public static DataManager Data {  get { return dataManager; } }
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
     public static PoolManager Pool { get { return poolManager; } }
     public static UIManager UI { get { return uiManager; } }
     public static ItemData ItemData { get { return itemData; } }
+    public static InventoryUI InventoryUI { get { return inventoryUI; } }
 
     private void Awake()
     {
@@ -39,6 +42,8 @@ public class GameManager : MonoBehaviour
         if (instance == this)
             instance = null;
     }
+
+    public static Canvas ui;
 
     private void InitManagers()
     {
@@ -67,5 +72,9 @@ public class GameManager : MonoBehaviour
         itemDataObj.transform.parent = transform;
         itemData = itemDataObj.AddComponent<ItemData>();
 
+        ui = GameManager.Resource.Instantiate<Canvas>("UI/InventoryUI");
+        ui.gameObject.name = "InventoryCanvas";
+        ui.AddComponent<InventoryUI>();
+        ui.sortingOrder = 100;
     }
 }

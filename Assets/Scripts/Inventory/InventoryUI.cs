@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
+    
+
     [SerializeField] private InventoryButton buttonPrefab;
     [SerializeField] RectTransform content;
     List<Item> items;
@@ -14,10 +16,14 @@ public class InventoryUI : MonoBehaviour
 
     public void Awake()
     {
+        
+
         items = new List<Item>();
         buttons = new List<InventoryButton>();
         itemsAmount = new List<int>();
     }
+
+
     public void AddItem(Item item)
     {
         if (items.Contains(item))

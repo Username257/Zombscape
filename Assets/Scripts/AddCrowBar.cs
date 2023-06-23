@@ -10,11 +10,8 @@ public class AddCrowBar : MonoBehaviour
 
     public void Add(CrowBar crowBar)
     {
-       /*
-        crowBar.HoldCrowBar();
-        weaponHolder.GetComponent<PlayerWeaponHolder>().HoldWeapon(crowBar);
-        */
         GameManager.Resource.Instantiate<GameObject>("Weapon/Crowbar", weaponHolder.transform);
-        inventoryUI.AddItem(crowBar);
+        GameObject inventoryObj = GameObject.FindGameObjectWithTag("InventoryUI");
+        inventoryObj.GetComponent<InventoryUI>().AddItem(crowBar);
     }
 }
