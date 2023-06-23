@@ -13,7 +13,7 @@ public class Weapon : Item
     protected float freezeTime;
     protected float legSpeed;
     
-    public virtual void OnEnable()
+    public virtual void HoldWeapon()
     {
         player = GameObject.FindWithTag("Player");
         attacker = player.GetComponent<PlayerAttacker>();

@@ -22,20 +22,18 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     CharacterController controller;
     Animator anim;
     PlayerMover playerMover;
-    bool isHoldingWeapon;
+    public bool isHoldingWeapon;
     public float weaponSpeed;
     public float legSpeed;
     public float freezeTime;
-    Weapon weapon;
 
-    private void Start()
+    private void Awake()
     {
         anim = gameObject.GetComponent<Animator>();
         playerMover = gameObject.GetComponent<PlayerMover>();
         controller = gameObject.GetComponent<CharacterController>();
-        weapon = gameObject.GetComponentInChildren<Weapon>();
 
-        isHoldingWeapon = false;
+
         anim.SetLayerWeight(1, 0);
         anim.SetFloat("MeleeLeg", 1f);
 
@@ -49,7 +47,6 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
     public void HoldingWeapon()
     {
-        isHoldingWeapon = true;
         anim.SetLayerWeight(1, 1);
         anim.SetFloat("MeleeSpeed", weaponSpeed);
         anim.SetFloat("MeleeLeg", legSpeed);
@@ -57,7 +54,6 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
     public void NotHoldingWeapon()
     {
-        isHoldingWeapon = false;
         anim.SetLayerWeight(1, 0);
         damage = 0;
         freezeTime = 1;
@@ -73,6 +69,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
             if (isHoldingWeapon)
             {
+                
                 playerMover.Freeze(freezeTime);
                 anim.SetTrigger("IsMelee");
                 anim.SetTrigger("IsPunching1");

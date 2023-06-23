@@ -6,16 +6,16 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    [SerializeField] private Button buttonPrefab;
+    [SerializeField] private InventoryButton buttonPrefab;
     [SerializeField] RectTransform content;
     List<Item> items;
     List<int> itemsAmount;
-    List<Button> buttons;
+    List<InventoryButton> buttons;
 
     public void Awake()
     {
         items = new List<Item>();
-        buttons = new List<Button>();
+        buttons = new List<InventoryButton>();
         itemsAmount = new List<int>();
     }
     public void AddItem(Item item)
@@ -31,7 +31,7 @@ public class InventoryUI : MonoBehaviour
             items.Add(item);
             itemsAmount.Add(1);
 
-            Button button = GameManager.Resource.Instantiate(buttonPrefab);
+            InventoryButton button = GameManager.Resource.Instantiate(buttonPrefab);
             button.transform.SetParent(content);
             button.transform.Find("nameText").GetComponent<TMP_Text>().text = $"{items[items.Count - 1].itemName} ({itemsAmount[itemsAmount.Count - 1]})";
             button.transform.Find("typeText").GetComponent<TMP_Text>().text = items[items.Count - 1].itemType;
@@ -52,5 +52,10 @@ public class InventoryUI : MonoBehaviour
             GameManager.Resource.Destroy(buttons[index]);
         }
         
+    }
+
+    public void UseItem()
+    {
+
     }
 }

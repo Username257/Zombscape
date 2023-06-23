@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class PlayerMouseInteractor : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class PlayerMouseInteractor : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
+        if (EventSystem.current.IsPointerOverGameObject(PointerInputModule.kMouseLeftId) ||
+            EventSystem.current.IsPointerOverGameObject(PointerInputModule.kMouseRightId))
+            return;
 
         if (Physics.Raycast(ray, out hit, 1000) && hit.transform.tag == "Player" && value.isPressed)
             PlayerClicked?.Invoke();

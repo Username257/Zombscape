@@ -9,7 +9,7 @@ public class Item : MonoBehaviour
     public string description;
     public InventoryUI inventoryUI;
 
-    public virtual void Start()
+    public virtual void Awake()
     {
         inventoryUI = GameObject.Find("Inventory").GetComponent<InventoryUI>();
     }

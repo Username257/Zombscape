@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class WoodAxe : Weapon
 {
-    public override void OnEnable()
+    public override void HoldWeapon()
     {
         damage = 7;
         speed = 1f;
         freezeTime = 2f;
         legSpeed = 0.3f;
-        base.OnEnable();
+        base.HoldWeapon();
     }
 }
