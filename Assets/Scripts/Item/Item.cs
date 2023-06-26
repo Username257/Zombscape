@@ -7,5 +7,4 @@ public class Item : MonoBehaviour
     public string itemName;
     public string itemType;
     public string description;
-    public string prefabRoute;
 }

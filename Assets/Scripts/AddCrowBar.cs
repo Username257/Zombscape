@@ -8,6 +8,11 @@ public class AddCrowBar : MonoBehaviour
     public InventoryUI inventoryUI;
     public GameObject weaponHolder;
 
+    private void Start()
+    {
+        inventoryUI = GameObject.FindWithTag("InventoryUI").GetComponent<InventoryUI>();
+    }
+
     public void Add(CrowBar crowBar)
     {
         GameObject obj = GameManager.Resource.Instantiate<GameObject>("Weapon/Crowbar");
@@ -15,8 +20,10 @@ public class AddCrowBar : MonoBehaviour
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localRotation = Quaternion.identity;
         obj.transform.localScale = new Vector3(1f, 1f, 1f);
+        weaponHolder.GetComponent<PlayerWeaponHolder>().HoldWeapon(crowBar);
+
         GameObject inventoryObj = GameObject.FindGameObjectWithTag("InventoryUI");
         inventoryObj.GetComponent<InventoryUI>().AddItem(crowBar);
-        weaponHolder.GetComponent<PlayerWeaponHolder>().HoldWeapon(crowBar);
+       
     }
 }

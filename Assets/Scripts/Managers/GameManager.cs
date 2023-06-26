@@ -1,3 +1,4 @@
+using Cinemachine.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
@@ -14,7 +15,6 @@ public class GameManager : MonoBehaviour
     private static PoolManager poolManager;
     private static UIManager uiManager;
     private static Item item;
-    private static InventoryUI inventoryUI;
 
     public static GameManager Instance { get { return instance; } }
     public static DataManager Data {  get { return dataManager; } }
@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     public static PoolManager Pool { get { return poolManager; } }
     public static UIManager UI { get { return uiManager; } }
     public static Item Item { get { return item; } }
-    public static InventoryUI InventoryUI { get { return inventoryUI; } }
 
     private void Awake()
     {
@@ -71,10 +70,5 @@ public class GameManager : MonoBehaviour
         itemObj.name = "Item";
         itemObj.transform.parent = transform;
         item = itemObj.AddComponent<Item>();
-
-        ui = GameManager.Resource.Instantiate<Canvas>("UI/InventoryUI");
-        ui.gameObject.name = "InventoryCanvas";
-        ui.AddComponent<InventoryUI>();
-        ui.sortingOrder = 100;
     }
 }

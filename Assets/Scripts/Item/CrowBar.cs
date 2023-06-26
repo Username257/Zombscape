@@ -17,15 +17,8 @@ public class CrowBar : Weapon
         itemName = "¼èÁö·¿´ë";
         itemType = "¹«±â";
         description = "¸Þ·Õ";
-        prefabRoute = "Weapon/Crowbar";
     }
 
-    public void Hold()
-    {
-        //GameManager.Resource.Instantiate<Item>("Weapon/Crowbar", weaponHolder);
-        //obj.transform.SetParent(weaponHolder.transform);
-        //obj.transform.localPosition = Vector3.zero;
-    }
 
     public override void HoldWeapon()
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,8 +7,6 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    
-
     [SerializeField] private InventoryButton buttonPrefab;
     [SerializeField] RectTransform content;
     List<Item> items;
@@ -16,8 +15,6 @@ public class InventoryUI : MonoBehaviour
 
     public void Awake()
     {
-        
-
         items = new List<Item>();
         buttons = new List<InventoryButton>();
         itemsAmount = new List<int>();
@@ -31,6 +28,7 @@ public class InventoryUI : MonoBehaviour
             int index = items.FindIndex(a => a == item);
             itemsAmount[index] += 1;
             buttons[index].transform.Find("nameText").GetComponent<TMP_Text>().text = $"{items[items.Count - 1].itemName} ({itemsAmount[itemsAmount.Count - 1]})";
+            
         }
         else
         {
@@ -39,6 +37,7 @@ public class InventoryUI : MonoBehaviour
 
             InventoryButton button = GameManager.Resource.Instantiate(buttonPrefab);
             button.transform.SetParent(content);
+            
             button.transform.Find("nameText").GetComponent<TMP_Text>().text = $"{items[items.Count - 1].itemName} ({itemsAmount[itemsAmount.Count - 1]})";
             button.transform.Find("typeText").GetComponent<TMP_Text>().text = items[items.Count - 1].itemType;
 
@@ -63,5 +62,13 @@ public class InventoryUI : MonoBehaviour
     public void UseItem()
     {
 
+    }
+
+    public void ContentBoxGrowUp()
+    {
+        if (itemsAmount.Count > 8)
+        {
+            content.sizeDelta += new Vector2(0, 30);
+        }
     }
 }
