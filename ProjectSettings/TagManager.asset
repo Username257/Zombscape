@@ -9,6 +9,7 @@ TagManager:
   - UI
   - InventoryUI
   - WeaponHolder
+  - Canvas
   layers:
   - Default
   - TransparentFX

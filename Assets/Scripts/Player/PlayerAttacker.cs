@@ -7,13 +7,14 @@ using Unity.VisualScripting.FullSerializer;
 using Unity.VisualScripting;
 using UnityEngine.UIElements;
 using UnityEngine.Events;
+using UnityEditor;
 
 public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 {
     
     [SerializeField] public int damage;
-    [SerializeField, Range(0, 360)] float angle;
-    [SerializeField] float range;
+    [SerializeField, Range(0, 360)] public float angle;
+    [SerializeField] public float range;
     [SerializeField] int life;
     public int randNum = 0;
     private float cosResult;
@@ -26,6 +27,8 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     public float weaponSpeed;
     public float legSpeed;
     public float freezeTime;
+    public bool debug;
+    public UnityAction OnWeild;
 
     private void Awake()
     {
@@ -39,6 +42,16 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
         cosResult = Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad);
     }
+
+    private void Start()
+    {
+        damage = 1;
+        freezeTime = 1;
+        legSpeed = 1;
+        range = 1;
+        angle = 45;
+    }
+
     private void Update()
     {
         if (life < 0)
@@ -55,9 +68,11 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     public void NotHoldingWeapon()
     {
         anim.SetLayerWeight(1, 0);
-        damage = 0;
+        damage = 1;
         freezeTime = 1;
         legSpeed = 1;
+        range = 1;
+        angle = 45;
     }
 
     public void Hit()
@@ -69,7 +84,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
             if (isHoldingWeapon)
             {
-                
+                OnWeild.Invoke();
                 playerMover.Freeze(freezeTime);
                 anim.SetTrigger("IsMelee");
                 anim.SetTrigger("IsPunching1");
@@ -144,4 +159,15 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
         playerMover.enabled = false;
         this.enabled = false;
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (!debug)
+            return;
+
+        Handles.color = Color.cyan;
+        Handles.DrawSolidArc(transform.position, transform.up, transform.forward, -angle, range);
+        Handles.DrawSolidArc(transform.position, transform.up, transform.forward, angle, range);
+    }
+
 }

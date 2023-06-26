@@ -172,7 +172,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
             {
                 anim.applyRootMotion = true;
                 anim.SetTrigger("IsAttack");
-                Freeze();
+                Freeze(3f);
                 firstHit = true;
             }
 
@@ -180,7 +180,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
             {
                 anim.applyRootMotion = true;
                 anim.SetTrigger("IsAttack");
-                Freeze();
+                Freeze(3f);
                 attackTime = 0;
             }
 
@@ -206,7 +206,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     {
         if (!isDie)
         {
-            Freeze();
+            Freeze(3f);
             anim.applyRootMotion = true;
             anim.SetTrigger("IsDamaged");
             isDamaged = true;
@@ -261,14 +261,14 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
     Coroutine meltRoutine;
     
-    public void Freeze()
+    public void Freeze(float freezeTime)
     {
         if (isFreeze)
         {
             StopCoroutine(meltRoutine);
         }
         isFreeze = true;
-        meltRoutine = StartCoroutine(FreezeTime());
+        meltRoutine = StartCoroutine(FreezeTime(freezeTime));
     }
 
     public void Melt()
@@ -277,9 +277,9 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
         isDamaged = false;
     }
 
-    IEnumerator FreezeTime()
+    IEnumerator FreezeTime(float freezeTime)
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(freezeTime);
         Melt();
     }
 }
