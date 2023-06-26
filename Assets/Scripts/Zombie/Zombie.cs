@@ -214,7 +214,6 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
             Freeze(3f);
             anim.applyRootMotion = true;
             anim.SetTrigger("IsDamaged");
-            Debug.Log("좀비가 데미지를 입었음");
             isDamaged = true;
             life -= damage;
         }
@@ -285,6 +284,12 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
     IEnumerator FreezeTime(float freezeTime)
     {
+        if (player.GetComponent<PlayerAttacker>().OnWeildIsInvoking == true)
+        {
+            player.GetComponent<PlayerAttacker>().OnWeildIsInvoking = false;
+            StopAllCoroutines();
+        }
+
         yield return new WaitForSeconds(freezeTime);
         Melt();
     }
