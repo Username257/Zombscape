@@ -25,7 +25,7 @@ public class CrowBar : Weapon
         range = 1.5f;
         freezeTime = 1f;
         legSpeed = 1f;
-        durability = 3;
+        durability = 30;
         base.HoldWeapon();
     }
 

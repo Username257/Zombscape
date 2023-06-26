@@ -29,6 +29,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     public float freezeTime;
     public bool debug;
     public UnityAction OnWeild;
+    public bool OnWeildIsInvoking;
 
     private void Awake()
     {
@@ -84,7 +85,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
             if (isHoldingWeapon)
             {
-                OnWeild.Invoke();
+
                 playerMover.Freeze(freezeTime);
                 anim.SetTrigger("IsMelee");
                 anim.SetTrigger("IsPunching1");
@@ -123,6 +124,8 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
             IDamageable damageable = collider.GetComponent<IDamageable>();
             damageable?.Damaged(damage);
+            OnWeild.Invoke();
+            OnWeildIsInvoking = true;
             StartCoroutine(ApplyDamageWaitTime());
 
         }
