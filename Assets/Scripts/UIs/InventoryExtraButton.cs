@@ -5,8 +5,6 @@ using UnityEngine.EventSystems;
 
 public class InventoryExtraButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         

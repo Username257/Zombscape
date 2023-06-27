@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -68,6 +69,7 @@ public class InventoryExtraButtonAnim : MonoBehaviour, IPointerClickHandler, IPo
             //¹ö¸®±â
         }
 
+        Destroy(parent.transform.Find("InventoryExtraButton(Clone)").gameObject);
     }
 
     public void OnPointerExit(PointerEventData eventData)
