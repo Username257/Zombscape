@@ -86,7 +86,6 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
             if (isHoldingWeapon)
             {
-
                 playerMover.Freeze(freezeTime);
                 anim.SetTrigger("IsMelee");
                 anim.SetTrigger("IsPunching1");

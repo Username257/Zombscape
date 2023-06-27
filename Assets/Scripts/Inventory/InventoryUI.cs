@@ -9,9 +9,13 @@ public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private InventoryButton buttonPrefab;
     [SerializeField] RectTransform content;
+    [SerializeField] RuntimeAnimatorController itemButton1;
+    [SerializeField] RuntimeAnimatorController itemButton2;
     public List<GameObject> items;
     List<int> itemsAmount;
     List<InventoryButton> buttons;
+    bool isEvenNumber;
+    Color color;
 
     public void Awake()
     {
@@ -23,8 +27,6 @@ public class InventoryUI : MonoBehaviour
 
     public void AddItem(GameObject item)
     {
-        //if (item.gameObject.scene.name != null) Debug.Log("AddItem: It's a gameObject!");
-        //if (item.gameObject.scene.name == null) Debug.Log("AddItem: It's a prefab!");
 
         if (items.Contains(item))
         {
@@ -41,11 +43,18 @@ public class InventoryUI : MonoBehaviour
 
             InventoryButton button = GameManager.Resource.Instantiate(buttonPrefab);
             button.transform.SetParent(content);
-            
+
+            if (!isEvenNumber)
+                button.GetComponent<Animator>().runtimeAnimatorController = itemButton1;
+            else
+                button.GetComponent<Animator>().runtimeAnimatorController = itemButton2;
+
             button.transform.Find("nameText").GetComponent<TMP_Text>().text = $"{items[items.Count - 1].GetComponent<Item>().itemName} ({itemsAmount[itemsAmount.Count - 1]})";
             button.transform.Find("typeText").GetComponent<TMP_Text>().text = items[items.Count - 1].GetComponent<Item>().itemType;
 
             buttons.Add(button);
+
+            isEvenNumber = !isEvenNumber;
 
         }
 
@@ -53,8 +62,6 @@ public class InventoryUI : MonoBehaviour
 
     public void RemoveItem(GameObject item)
     {
-        //if (item.gameObject.scene.name == null) Debug.Log("RemoveItem: It's a prefab!");
-        //if (item.gameObject.scene.name != null) Debug.Log("RemoveItem: It's a gameObject!");
 
         int index = items.FindIndex(a => a == item);
 

@@ -1077,6 +1077,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: -3341771883910641155, guid: 6b71e238e71aff14d9bf50d6a10e50cc, type: 3}
   content: {fileID: 7889742622902299920}
+  itemButton1: {fileID: 9100000, guid: 29269d25665574b41a1d8f95ccb1ee74, type: 2}
+  itemButton2: {fileID: 9100000, guid: 709dc05e4176c00418933800e523d8ec, type: 2}
+  items: []
 --- !u!1 &6326246830196098719
 GameObject:
   m_ObjectHideFlags: 0

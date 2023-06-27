@@ -65,6 +65,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        anim.enabled = true;
         anim.SetTrigger("Normal");
     }
 
