@@ -9,7 +9,7 @@ public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private InventoryButton buttonPrefab;
     [SerializeField] RectTransform content;
-    List<GameObject> items;
+    public List<GameObject> items;
     List<int> itemsAmount;
     List<InventoryButton> buttons;
 
@@ -65,11 +65,6 @@ public class InventoryUI : MonoBehaviour
             GameManager.Resource.Destroy(buttons[index].gameObject);
         }
      
-    }
-
-    public void UseItem()
-    {
-
     }
 
     public void ContentBoxGrowUp()

@@ -248,9 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 547bd36ebacd7834c867893b02b80f87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnClick:
-    m_PersistentCalls:
-      m_Calls: []
+  extraButtonPrefab: {fileID: 6987245802381352245, guid: 7e77e7cb11a6e714684b29775eb7c9b8, type: 3}
 --- !u!1 &7618791252050293337
 GameObject:
   m_ObjectHideFlags: 0

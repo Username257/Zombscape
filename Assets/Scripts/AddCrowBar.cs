@@ -20,10 +20,10 @@ public class AddCrowBar : MonoBehaviour
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localRotation = Quaternion.identity;
         obj.transform.localScale = new Vector3(1f, 1f, 1f);
-        weaponHolder.GetComponent<PlayerWeaponHolder>().HoldWeapon(obj.GetComponent<Weapon>());
 
         GameObject inventoryObj = GameObject.FindGameObjectWithTag("InventoryUI");
         inventoryObj.GetComponent<InventoryUI>().AddItem(obj);
-       
+
+        obj.SetActive(false);
     }
 }

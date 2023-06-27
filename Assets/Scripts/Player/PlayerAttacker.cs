@@ -118,18 +118,11 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
             Vector3 dirTarget = (collider.transform.position - transform.position).normalized;
 
             if (!(collider.tag == "Zombie"))
-            {
                 continue;
-            }
 
             if (Vector3.Dot(transform.forward, dirTarget) < cosResult)
-            {
-                Debug.Log("좀비가 공격 범위 안에 안 들어옴");
                 continue;
-            }
                 
-
-            Debug.Log("좀비가 tag에 잡혔다!");
 
             IDamageable damageable = collider.GetComponent<IDamageable>();
             damageable?.Damaged(damage);
