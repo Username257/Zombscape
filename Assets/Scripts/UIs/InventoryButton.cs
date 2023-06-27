@@ -12,6 +12,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
     Animator anim;
     public int index;
     InventoryUI inventoryUI;
+    public bool isClickedForUse;
 
     public void Awake()
     {
@@ -47,7 +48,14 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
         GameObject useButton = extraButton.transform.Find("UseButton").gameObject;
 
         if (transform.Find("typeText").GetComponent<TMP_Text>().text.Equals("¹«±â"))
+        {
             useButton.transform.Find("useText").GetComponent<TMP_Text>().text = "ÀåÂø";
+
+            if (isClickedForUse)
+            {
+                GameObject.Find("useText").GetComponent<TMP_Text>().text = "ÀåÂø ÇØÁ¦";
+            }
+        }
 
         if (transform.Find("typeText").GetComponent<TMP_Text>().text.Equals("À½½Ä"))
             useButton.transform.Find("useText").GetComponent<TMP_Text>().text = "¸Ô±â";

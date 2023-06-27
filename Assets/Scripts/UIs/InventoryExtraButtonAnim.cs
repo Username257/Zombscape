@@ -39,13 +39,24 @@ public class InventoryExtraButtonAnim : MonoBehaviour, IPointerClickHandler, IPo
     {
         anim.SetTrigger("Pressed");
 
-        if (inventoryUI.items[index].gameObject.GetComponent<Weapon>())
+        if (!parent.GetComponent<InventoryButton>().isClickedForUse)
+        {
+            if (inventoryUI.items[index].gameObject.GetComponent<Weapon>())
+            {
+                Item obj = inventoryUI.items[index].gameObject.GetComponent<Weapon>();
+                obj.gameObject.SetActive(true);
+                weaponHolder.GetComponent<PlayerWeaponHolder>().HoldWeapon(obj.GetComponent<Weapon>());
+
+                parent.GetComponent<InventoryButton>().isClickedForUse = true;
+            }
+        }
+        else
         {
             Item obj = inventoryUI.items[index].gameObject.GetComponent<Weapon>();
-            obj.gameObject.SetActive(true);
-            weaponHolder.GetComponent<PlayerWeaponHolder>().HoldWeapon(obj.GetComponent<Weapon>());
-        }
+            weaponHolder.GetComponent<PlayerWeaponHolder>().RemoveWeapon(obj.GetComponent<Weapon>());
 
+            parent.GetComponent<InventoryButton>().isClickedForUse = false;
+        }
 
         if (transform.Find("useText").GetComponent<TMP_Text>().text.Equals("¸Ô±â"))
         {
