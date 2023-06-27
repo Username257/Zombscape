@@ -159,13 +159,9 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     {
         Rotate();
 
-        if(player.GetComponent<PlayerAttacker>().OnWeildIsInvoking == true)
+        if (!isFreeze || !isDamaged)
         {
-            player.GetComponent<PlayerAttacker>().OnWeildIsInvoking = false;
-        }
 
-        if (!isFreeze || !isDamaged || !player.GetComponent<PlayerAttacker>().OnWeildIsInvoking)
-        {
             anim.SetBool("IsWalk", false);
 
             nav.SetDestination(transform.position);
@@ -175,6 +171,12 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
             if (!firstHit)
             {
+                if (player.GetComponent<PlayerAttacker>().OnWeildIsInvoking)
+                {
+                    player.GetComponent<PlayerAttacker>().OnWeildIsInvoking = false;
+                    return;
+                }
+
                 anim.applyRootMotion = true;
                 anim.SetTrigger("IsAttack");
                 Freeze(3f);
@@ -183,6 +185,12 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
 
             if (attackTime > 3f && firstHit)
             {
+                if (player.GetComponent<PlayerAttacker>().OnWeildIsInvoking)
+                {
+                    player.GetComponent<PlayerAttacker>().OnWeildIsInvoking = false;
+                    return;
+                }
+
                 anim.applyRootMotion = true;
                 anim.SetTrigger("IsAttack");
                 Freeze(3f);
@@ -211,6 +219,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     {
         if (!isDie)
         {
+            Debug.Log("좀비가 맞았다!");
             Freeze(3f);
             anim.applyRootMotion = true;
             anim.SetTrigger("IsDamaged");
@@ -235,23 +244,35 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
             if (Vector3.Dot(transform.forward, dirTarget) < cosResult)
                 continue;
 
+            if (player.GetComponent<PlayerAttacker>().OnWeildIsInvoking == true)
+            {
+                player.GetComponent<PlayerAttacker>().OnWeildIsInvoking = false;
+                return;
+            }
+
             IDamageable damageable = collider.GetComponent<IDamageable>();
             damageable?.Damaged(damage);
         }
     }
 
-
     public void Die()
     {
         anim.applyRootMotion = true;
-        anim.SetTrigger("IsDie");
+        anim.SetBool("IsDie", true);
+    }
+
+
+    private void AfterDie()
+    {
+        anim.enabled = false;
         this.enabled = false;
     }
 
     private void UpdateDead()
     {
         isDie = true;
-        Die();
+        if (!anim.GetBool("IsDie"))
+            Die();
     }
 
     public void Hide()
@@ -287,7 +308,7 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
         if (player.GetComponent<PlayerAttacker>().OnWeildIsInvoking == true)
         {
             player.GetComponent<PlayerAttacker>().OnWeildIsInvoking = false;
-            StopAllCoroutines();
+            Melt();
         }
 
         yield return new WaitForSeconds(freezeTime);

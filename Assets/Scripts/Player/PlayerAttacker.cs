@@ -15,6 +15,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     [SerializeField] public int damage;
     [SerializeField, Range(0, 360)] public float angle;
     [SerializeField] public float range;
+    [SerializeField] public float controlRange;
     [SerializeField] int life;
     public int randNum = 0;
     private float cosResult;
@@ -41,7 +42,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
         anim.SetLayerWeight(1, 0);
         anim.SetFloat("MeleeLeg", 1f);
 
-        cosResult = Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad);
+        cosResult = Mathf.Cos(angle * Mathf.Deg2Rad);
     }
 
     private void Start()
@@ -50,7 +51,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
         freezeTime = 1;
         legSpeed = 1;
         range = 1;
-        angle = 45;
+        //angle = 45;
     }
 
     private void Update()
@@ -110,20 +111,29 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
     public void ApplyDamage()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, range);
+        Collider[] colliders = Physics.OverlapSphere(transform.position - transform.forward * controlRange, range);
 
         foreach (Collider collider in colliders)
         {
             Vector3 dirTarget = (collider.transform.position - transform.position).normalized;
 
             if (!(collider.tag == "Zombie"))
+            {
                 continue;
+            }
 
             if (Vector3.Dot(transform.forward, dirTarget) < cosResult)
+            {
+                Debug.Log("좀비가 공격 범위 안에 안 들어옴");
                 continue;
+            }
+                
+
+            Debug.Log("좀비가 tag에 잡혔다!");
 
             IDamageable damageable = collider.GetComponent<IDamageable>();
             damageable?.Damaged(damage);
+
             if (isHoldingWeapon)
             {
                 OnWeild.Invoke();
@@ -172,8 +182,8 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
             return;
 
         Handles.color = Color.cyan;
-        Handles.DrawSolidArc(transform.position, transform.up, transform.forward, -angle, range);
-        Handles.DrawSolidArc(transform.position, transform.up, transform.forward, angle, range);
+        Handles.DrawSolidArc(transform.position - transform.forward * controlRange, transform.up, transform.forward, -angle, range);
+        Handles.DrawSolidArc(transform.position - transform.forward * controlRange, transform.up, transform.forward, angle, range);
     }
 
 }
