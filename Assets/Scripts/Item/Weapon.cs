@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "Item Data", menuName = "Scriptable Object/Item Data/Weapon", order = int.MaxValue)]
@@ -16,6 +18,7 @@ public class Weapon : Item
     public float freezeTime;
     public float legSpeed;
     public int weildTime = 0;
+    public UnityAction OnDestroyed;
 
     public static GameObject weaponHolder;
 
@@ -50,6 +53,7 @@ public class Weapon : Item
         weildTime++;
         if (weildTime >= durability)
         {
+            OnDestroyed?.Invoke();
             RemoveInInventory();
             Destroy(this.gameObject);
         }

@@ -9,10 +9,9 @@ using UnityEngine.EventSystems;
 public class InventoryExtraButtonAnim : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     Animator anim;
-    PlayerWeaponHolder holder;
     GameObject parent;
     InventoryUI inventoryUI;
-    PlayerWeaponHolder weaponHolder;
+    [SerializeField] PlayerWeaponHolder weaponHolder;
     int index;
 
     public void Awake()
@@ -24,6 +23,9 @@ public class InventoryExtraButtonAnim : MonoBehaviour, IPointerClickHandler, IPo
     public void Start()
     {
         anim.SetTrigger("Normal");
+
+        if (weaponHolder.gameObject.GetComponentInChildren<Weapon>().OnDestroyed != null)
+            weaponHolder.gameObject.GetComponentInChildren<Weapon>().OnDestroyed += WhenItsClicked;
     }
     public void GetParentAndIndex(GameObject parent, int index)
     {
@@ -40,6 +42,11 @@ public class InventoryExtraButtonAnim : MonoBehaviour, IPointerClickHandler, IPo
     {
         anim.SetTrigger("Pressed");
 
+        WhenItsClicked();
+    }
+
+    public void WhenItsClicked()
+    {
         if (!parent.GetComponent<InventoryButton>().isClickedForUse)
         {
             if (inventoryUI.items[index].gameObject.GetComponent<Weapon>())

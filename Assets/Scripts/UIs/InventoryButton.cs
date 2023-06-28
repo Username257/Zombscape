@@ -13,6 +13,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public int index;
     InventoryUI inventoryUI;
     public bool isClickedForUse;
+    public GameObject weaponHolder;
 
     public void Awake()
     {
@@ -20,11 +21,15 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         inventoryUI = GameObject.FindWithTag("InventoryUI").GetComponent<InventoryUI>();
         index = inventoryUI.items.Count - 1;
+
+        weaponHolder = GameObject.FindWithTag("WeaponHolder");
     }
 
     public void Start()
     {
         anim.SetTrigger("Normal");
+        if(weaponHolder.gameObject.GetComponentInChildren<Weapon>())
+            weaponHolder.gameObject.GetComponentInChildren<Weapon>().OnDestroyed += SetIsClickedForUse;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -37,6 +42,11 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
         anim.SetTrigger("Pressed");
         anim.enabled = false;
         MakeExtraButton();
+    }
+
+    public void SetIsClickedForUse()
+    {
+        isClickedForUse = !isClickedForUse;
     }
 
     private void MakeExtraButton()

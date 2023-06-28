@@ -219,7 +219,6 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     {
         if (!isDie)
         {
-            Debug.Log("좀비가 맞았다!");
             Freeze(3f);
             anim.applyRootMotion = true;
             anim.SetTrigger("IsDamaged");
