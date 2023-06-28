@@ -18,11 +18,11 @@ public class Item : MonoBehaviour
 
     public void AddInInventory()
     {
-        inventoryUI.AddItem(this.gameObject);
+        inventoryUI.AddItem(this.gameObject.GetComponent<Item>());
     }
     
     public virtual void RemoveInInventory()
     {
-        inventoryUI.RemoveItem(this.gameObject);
+        inventoryUI.RemoveItem(this.gameObject.GetComponent<Item>());
     }
 }

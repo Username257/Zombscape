@@ -11,7 +11,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] RectTransform content;
     [SerializeField] RuntimeAnimatorController itemButton1;
     [SerializeField] RuntimeAnimatorController itemButton2;
-    public List<GameObject> items;
+    public List<Item> items;
     List<int> itemsAmount;
     List<InventoryButton> buttons;
     bool isEvenNumber;
@@ -19,13 +19,13 @@ public class InventoryUI : MonoBehaviour
 
     public void Awake()
     {
-        items = new List<GameObject>();
+        items = new List<Item>();
         buttons = new List<InventoryButton>();
         itemsAmount = new List<int>();
     }
 
 
-    public void AddItem(GameObject item)
+    public void AddItem(Item item)
     {
 
         if (items.Contains(item))
@@ -34,7 +34,6 @@ public class InventoryUI : MonoBehaviour
 
             itemsAmount[index] += 1;
             buttons[index].transform.Find("nameText").GetComponent<TMP_Text>().text = $"{items[items.Count - 1].GetComponent<Item>().itemName} ({itemsAmount[itemsAmount.Count - 1]})";
-            
         }
         else
         {
@@ -60,7 +59,7 @@ public class InventoryUI : MonoBehaviour
 
     }
 
-    public void RemoveItem(GameObject item)
+    public void RemoveItem(Item item)
     {
 
         int index = items.FindIndex(a => a == item);

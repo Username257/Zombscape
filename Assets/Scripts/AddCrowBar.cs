@@ -15,15 +15,26 @@ public class AddCrowBar : MonoBehaviour
 
     public void Add(GameObject crowBar)
     {
-        GameObject obj = GameManager.Resource.Instantiate<GameObject>("Weapon/Crowbar");
-        obj.transform.SetParent(weaponHolder.transform);
-        obj.transform.localPosition = Vector3.zero;
-        obj.transform.localRotation = Quaternion.identity;
-        obj.transform.localScale = new Vector3(1f, 1f, 1f);
+        bool isCrowBarAlreadyExist = weaponHolder.transform.Find("Crowbar(Clone)");
+
+        GameObject obj;
+        if (!isCrowBarAlreadyExist)
+        {
+            obj = GameManager.Resource.Instantiate<GameObject>("Weapon/Crowbar");
+            obj.transform.SetParent(weaponHolder.transform);
+            obj.transform.localPosition = Vector3.zero;
+            obj.transform.localRotation = Quaternion.identity;
+            obj.transform.localScale = new Vector3(1f, 1f, 1f);
+
+            obj.SetActive(false);
+        }
+        else
+        {
+            obj = weaponHolder.transform.Find("Crowbar(Clone)").gameObject;
+        }
 
         GameObject inventoryObj = GameObject.FindGameObjectWithTag("InventoryUI");
-        inventoryObj.GetComponent<InventoryUI>().AddItem(obj);
+        inventoryObj.GetComponent<InventoryUI>().AddItem(obj.GetComponent<Item>());
 
-        obj.SetActive(false);
     }
 }
