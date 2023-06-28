@@ -28,8 +28,10 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public void Start()
     {
         anim.SetTrigger("Normal");
-        if(weaponHolder.gameObject.GetComponentInChildren<Weapon>())
-            weaponHolder.gameObject.GetComponentInChildren<Weapon>().OnDestroyed += SetIsClickedForUse;
+        for (int i = 0; i < weaponHolder.transform.childCount; i++)
+        {
+            weaponHolder.transform.GetChild(i).gameObject.GetComponentInChildren<Weapon>().OnDestroyed += SetIsClickedForUse;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

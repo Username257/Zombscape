@@ -24,8 +24,6 @@ public class InventoryExtraButtonAnim : MonoBehaviour, IPointerClickHandler, IPo
     {
         anim.SetTrigger("Normal");
 
-        if (weaponHolder.gameObject.GetComponentInChildren<Weapon>().OnDestroyed != null)
-            weaponHolder.gameObject.GetComponentInChildren<Weapon>().OnDestroyed += WhenItsClicked;
     }
     public void GetParentAndIndex(GameObject parent, int index)
     {

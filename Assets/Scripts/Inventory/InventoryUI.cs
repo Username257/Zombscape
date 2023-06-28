@@ -15,7 +15,6 @@ public class InventoryUI : MonoBehaviour
     List<int> itemsAmount;
     List<InventoryButton> buttons;
     bool isEvenNumber;
-    Color color;
 
     public void Awake()
     {
@@ -48,7 +47,8 @@ public class InventoryUI : MonoBehaviour
             else
                 button.GetComponent<Animator>().runtimeAnimatorController = itemButton2;
 
-            button.transform.Find("nameText").GetComponent<TMP_Text>().text = $"{items[items.Count - 1].GetComponent<Item>().itemName} ({itemsAmount[itemsAmount.Count - 1]})";
+            SetButtonsNameAndCount(button);
+
             button.transform.Find("typeText").GetComponent<TMP_Text>().text = items[items.Count - 1].GetComponent<Item>().itemType;
 
             buttons.Add(button);
@@ -59,18 +59,29 @@ public class InventoryUI : MonoBehaviour
 
     }
 
+    private void SetButtonsNameAndCount(InventoryButton button)
+    {
+        button.transform.Find("nameText").GetComponent<TMP_Text>().text = $"{items[items.Count - 1].GetComponent<Item>().itemName} ({itemsAmount[itemsAmount.Count - 1]})";
+    }
+
     public void RemoveItem(Item item)
     {
 
         int index = items.FindIndex(a => a == item);
 
+        if (item.gameObject.GetComponent<Weapon>())
+        {
+            GameManager.Resource.Destroy(item.gameObject);
+        }
+
         itemsAmount[index]--;
+
+        SetButtonsNameAndCount(buttons[index]);
 
         if (itemsAmount[index] <= 0)
         {
             GameManager.Resource.Destroy(buttons[index].gameObject);
         }
-     
     }
 
     public void ContentBoxGrowUp()
