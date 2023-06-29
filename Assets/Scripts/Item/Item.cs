@@ -18,7 +18,7 @@ public class Item : MonoBehaviour
 
     public void AddInInventory()
     {
-        inventoryUI.AddItem(this.gameObject.GetComponent<Item>());
+        //inventoryUI.AddItem(this.gameObject.GetComponent<Item>());
     }
     
     public virtual void RemoveInInventory()

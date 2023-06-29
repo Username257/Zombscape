@@ -1033,6 +1033,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6326246830093466125}
   - component: {fileID: 6326246830093466129}
+  - component: {fileID: 1781114329180060034}
   m_Layer: 5
   m_Name: InventoryUI
   m_TagString: InventoryUI
@@ -1080,6 +1081,18 @@ MonoBehaviour:
   itemButton1: {fileID: 9100000, guid: 29269d25665574b41a1d8f95ccb1ee74, type: 2}
   itemButton2: {fileID: 9100000, guid: 709dc05e4176c00418933800e523d8ec, type: 2}
   items: []
+--- !u!114 &1781114329180060034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6326246830093466124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d9b76d7676304488f082352c18b2ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6326246830196098719
 GameObject:
   m_ObjectHideFlags: 0

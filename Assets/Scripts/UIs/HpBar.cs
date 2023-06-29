@@ -5,26 +5,18 @@ using UnityEngine.UI;
 
 public class HpBar : MonoBehaviour
 {
-    [SerializeField] Slider slider;
-    private void Start()
+    Slider slider;
+    private void Awake()
     {
         slider = GetComponent<Slider>();
-        slider.value = GameManager.Data.CurLife;
     }
-
-    private void OnEnable()
+    private void Start()
     {
         GameManager.Data.OnCurLifeChanged += SetHpBar;
     }
-    private void OnDisable()
+
+    public void SetHpBar()
     {
-        GameManager.Data.OnCurLifeChanged -= SetHpBar;
+        slider.value = GameManager.Data.CurLife;
     }
-
-    public void SetHpBar(int curLife)
-    {
-        slider.value = curLife;
-    }
-
-
 }

@@ -16,7 +16,6 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     [SerializeField, Range(0, 360)] public float angle;
     [SerializeField] public float range;
     [SerializeField] public float controlRange;
-    [SerializeField] int life;
     public int randNum = 0;
     private float cosResult;
     public UnityEvent OnDamaged;
@@ -52,11 +51,13 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
         legSpeed = 1;
         range = 1;
         //angle = 45;
+
+        GameManager.Data.CurLife = 100;
     }
 
     private void Update()
     {
-        if (life < 0)
+        if (GameManager.Data.CurLife < 0)
             Die();
     }
 
@@ -149,8 +150,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
             playerMover.Freeze(1f);
             anim.applyRootMotion = true;
             anim.SetTrigger("IsDamaged");
-            life -= damage;
-            GameManager.Data.CurLife = life;
+            GameManager.Data.CurLife -= damage;
             OnDamaged?.Invoke();
         }
     }

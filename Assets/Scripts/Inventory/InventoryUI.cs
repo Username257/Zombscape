@@ -82,6 +82,7 @@ public class InventoryUI : MonoBehaviour
         {
             GameManager.Resource.Destroy(buttons[index].gameObject);
         }
+
     }
 
     public void ContentBoxGrowUp()

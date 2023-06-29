@@ -6,18 +6,16 @@ using UnityEngine.Events;
 public class DataManager : MonoBehaviour
 {
 
-    public event UnityAction<int> OnCurLifeChanged;
+    public event UnityAction OnCurLifeChanged;
 
-    
-
-    [SerializeField] private int curLife = 100;
+    [SerializeField] private int curLife;
     public int CurLife
     {
         get { return curLife; }
         set
         {
             curLife = value;
-            OnCurLifeChanged?.Invoke(curLife);
+            OnCurLifeChanged?.Invoke();
         }
     }
 

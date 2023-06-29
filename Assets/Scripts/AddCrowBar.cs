@@ -15,6 +15,7 @@ public class AddCrowBar : MonoBehaviour
 
     public void Add(GameObject crowBar)
     {
+
         GameObject obj;
 
         obj = GameManager.Resource.Instantiate<GameObject>("Weapon/Crowbar");

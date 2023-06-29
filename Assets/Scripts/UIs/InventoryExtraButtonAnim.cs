@@ -5,12 +5,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using static UnityEditor.Progress;
 
 public class InventoryExtraButtonAnim : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     Animator anim;
     GameObject parent;
-    InventoryUI inventoryUI;
+    [SerializeField] InventoryUI inventoryUI;
     [SerializeField] PlayerWeaponHolder weaponHolder;
     int index;
 
@@ -47,14 +48,26 @@ public class InventoryExtraButtonAnim : MonoBehaviour, IPointerClickHandler, IPo
     {
         if (!parent.GetComponent<InventoryButton>().isClickedForUse)
         {
-            if (inventoryUI.items[index].gameObject.GetComponent<Weapon>())
+            Item obj;
+            for (int i = 0; i < weaponHolder.transform.childCount; i++)
             {
-                Item obj = inventoryUI.items[index].gameObject.GetComponent<Weapon>();
-                obj.gameObject.SetActive(true);
-                weaponHolder.GetComponent<PlayerWeaponHolder>().HoldWeapon(obj.GetComponent<Weapon>());
+                weaponHolder.transform.GetChild(i).gameObject.SetActive(true);
+                obj = weaponHolder.transform.GetChild(i).gameObject.GetComponent<Weapon>();
+                weaponHolder.transform.GetChild(i).gameObject.SetActive(false);
 
-                parent.GetComponent<InventoryButton>().isClickedForUse = true;
+                Debug.Log($"{i}번째 obj는 {obj}");
+                Debug.Log($"inventoryUI의 items리스트에 obj가 있냐면 {inventoryUI.items.Contains(obj)}");
+                int index = inventoryUI.items.FindIndex(a => a == obj);
+
+                if (obj == inventoryUI.items[index].gameObject.GetComponent<Weapon>())
+                {
+                    obj.gameObject.SetActive(true);
+                    weaponHolder.GetComponent<PlayerWeaponHolder>().HoldWeapon(obj.GetComponent<Weapon>());
+
+                    parent.GetComponent<InventoryButton>().isClickedForUse = true;
+                }
             }
+
         }
         else
         {
