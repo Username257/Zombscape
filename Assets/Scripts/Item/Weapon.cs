@@ -4,64 +4,48 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 
-[CreateAssetMenu(fileName = "Item Data", menuName = "Scriptable Object/Item Data/Weapon", order = int.MaxValue)]
-public class Weapon : Item
+public class Weapon : MonoBehaviour, IUseable, IHoldable, IGetable
 {
-    GameObject player;
-    PlayerAttacker attacker;
-
-    public float angle;
-    public float range;
-    public int damage;
-    public float speed;
-    public float freezeTime;
-    public float legSpeed;
-    public int weildTime = 0;
-    public UnityAction OnDestroyed;
-
-    public static GameObject weaponHolder;
-
-    private void Awake()
+    PlayerHolder holder;
+    [SerializeField] WeaponData weaponData;
+    public WeaponData WeaponData { get { return weaponData; } }
+    int useTime;
+    int durability;
+    public void Start()
     {
-        player = GameObject.FindWithTag("Player");
-        weaponHolder = GameObject.FindWithTag("WeaponHolder");
+        holder = GameObject.FindWithTag("Holder").GetComponent<PlayerHolder>();
+        durability = weaponData.durability;
     }
 
-    public override void Start()
+    public void Hold(GameObject obj)
     {
-        base.Start();
-        attacker.OnWeild += CountWeildTime;
+        holder.GrabItem(obj);
+    }
+    public void Release(GameObject obj)
+    {
+        holder.ReleaseItem(obj);
     }
 
-    public virtual void HoldWeapon()
+    public void AddInInventory()
     {
-        attacker = player.GetComponent<PlayerAttacker>();
-
-        attacker.angle = angle;
-        attacker.damage = damage;
-        attacker.weaponSpeed = speed;
-        attacker.legSpeed = legSpeed;
-        attacker.freezeTime = freezeTime;
-        attacker.range = range;
-        attacker.HoldingWeapon();
-
+        GameManager.Inventory.AddItem(weaponData);
     }
 
-    public void CountWeildTime()
+    public void RemoveInInventory()
     {
-        weildTime++;
-        if (weildTime >= durability)
+        GameManager.Inventory.RemoveItem(weaponData);
+    }
+    public void CountUseTime()
+    {
+        useTime++;
+        if (useTime >= durability)
         {
-            OnDestroyed?.Invoke();
             RemoveInInventory();
-            Destroy(this.gameObject);
+            Release(gameObject);
         }
     }
 
-    public void OnDisable()
-    {
-        attacker = player.GetComponent<PlayerAttacker>();
-        attacker.NotHoldingWeapon();
-    }
+ 
 }

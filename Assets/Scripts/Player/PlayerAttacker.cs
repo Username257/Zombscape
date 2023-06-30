@@ -24,7 +24,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     Animator anim;
     PlayerMover playerMover;
     public bool isHoldingWeapon;
-    public float weaponSpeed;
+    public float weildSpeed;
     public float legSpeed;
     public float freezeTime;
     public bool debug;
@@ -50,7 +50,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
         freezeTime = 1;
         legSpeed = 1;
         range = 1;
-        //angle = 45;
+        angle = 45;
 
         GameManager.Data.CurLife = 100;
     }
@@ -61,10 +61,17 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
             Die();
     }
 
-    public void HoldingWeapon()
+    public void HoldingWeapon(Weapon weapon)
     {
+        damage = weapon.WeaponData.damage;
+        freezeTime = weapon.WeaponData.freezeTime;
+        legSpeed = weapon.WeaponData.legSpeed;
+        weildSpeed = weapon.WeaponData.weildSpeed;
+        range = weapon.WeaponData.range;
+        angle = weapon.WeaponData.angle;
+
         anim.SetLayerWeight(1, 1);
-        anim.SetFloat("MeleeSpeed", weaponSpeed);
+        anim.SetFloat("MeleeSpeed", weildSpeed);
         anim.SetFloat("MeleeLeg", legSpeed);
     }
 

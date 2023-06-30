@@ -5,44 +5,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class InventoryButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] GameObject extraButtonPrefab;
-    GameObject extraButton;
-    Animator anim;
-    public int index;
-    InventoryUI inventoryUI;
     public bool isClickedForUse;
-    public GameObject weaponHolder;
-
-    public void Awake()
-    {
-        anim = GetComponent<Animator>();
-
-        inventoryUI = GameObject.FindWithTag("InventoryUI").GetComponent<InventoryUI>();
-        index = inventoryUI.items.Count - 1;
-
-        weaponHolder = GameObject.FindWithTag("WeaponHolder");
-    }
-
-    public void Start()
-    {
-        anim.SetTrigger("Normal");
-        for (int i = 0; i < weaponHolder.transform.childCount; i++)
-        {
-            weaponHolder.transform.GetChild(i).gameObject.GetComponentInChildren<Weapon>().OnDestroyed += SetIsClickedForUse;
-        }
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        anim.SetTrigger("Highlighted");
-    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        anim.SetTrigger("Pressed");
-        anim.enabled = false;
         MakeExtraButton();
     }
 
@@ -53,7 +22,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     private void MakeExtraButton()
     {
-        extraButton = GameManager.Resource.Instantiate(extraButtonPrefab);
+        GameObject extraButton = GameManager.Resource.Instantiate(extraButtonPrefab);
         extraButton.transform.SetParent(transform);
         extraButton.transform.localPosition = new Vector2(290f, -27f);
 
@@ -71,14 +40,6 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         if (transform.Find("typeText").GetComponent<TMP_Text>().text.Equals("À½½Ä"))
             useButton.transform.Find("useText").GetComponent<TMP_Text>().text = "¸Ô±â";
-
-        useButton.GetComponent<InventoryExtraButtonAnim>().GetParentAndIndex(gameObject, index);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        anim.enabled = true;
-        anim.SetTrigger("Normal");
     }
 
 }

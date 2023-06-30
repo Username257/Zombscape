@@ -5,31 +5,8 @@ using static Item;
 
 public class AddCrowBar : MonoBehaviour
 {
-    public InventoryUI inventoryUI;
-    public GameObject weaponHolder;
-
-    private void Start()
-    {
-        inventoryUI = GameObject.FindWithTag("InventoryUI").GetComponent<InventoryUI>();
-    }
-
     public void Add(GameObject crowBar)
     {
-
-        GameObject obj;
-
-        obj = GameManager.Resource.Instantiate<GameObject>("Weapon/Crowbar");
-        obj.transform.SetParent(weaponHolder.transform);
-        obj.transform.localPosition = Vector3.zero;
-        obj.transform.localRotation = Quaternion.identity;
-        obj.transform.localScale = new Vector3(1f, 1f, 1f);
-
-        obj.SetActive(false);
-
-        obj = weaponHolder.transform.Find("Crowbar(Clone)").gameObject;
-
-        GameObject inventoryObj = GameObject.FindGameObjectWithTag("InventoryUI");
-        inventoryObj.GetComponent<InventoryUI>().AddItem(obj.GetComponent<Item>());
-
+        GameManager.Inventory.AddItem(crowBar.GetComponent<Weapon>().WeaponData);
     }
 }

@@ -1032,8 +1032,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6326246830093466125}
-  - component: {fileID: 6326246830093466129}
   - component: {fileID: 1781114329180060034}
+  - component: {fileID: 3114675753442309177}
   m_Layer: 5
   m_Name: InventoryUI
   m_TagString: InventoryUI
@@ -1064,23 +1064,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 657.748, y: 331.43262}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6326246830093466129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6326246830093466124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8410a5d68a799534084a8cfc39b07191, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonPrefab: {fileID: -3341771883910641155, guid: 6b71e238e71aff14d9bf50d6a10e50cc, type: 3}
-  content: {fileID: 7889742622902299920}
-  itemButton1: {fileID: 9100000, guid: 29269d25665574b41a1d8f95ccb1ee74, type: 2}
-  itemButton2: {fileID: 9100000, guid: 709dc05e4176c00418933800e523d8ec, type: 2}
-  items: []
 --- !u!114 &1781114329180060034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1093,6 +1076,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d9b76d7676304488f082352c18b2ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3114675753442309177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6326246830093466124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dddc99fba56d9149b8c597d79ab1b06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPrefab: {fileID: 4624130220322074494, guid: 24861532868c33446923ee66940c6c34, type: 3}
+  content: {fileID: 7889742622902299920}
+  anim1: {fileID: 9100000, guid: 29269d25665574b41a1d8f95ccb1ee74, type: 2}
+  anim2: {fileID: 9100000, guid: 709dc05e4176c00418933800e523d8ec, type: 2}
 --- !u!1 &6326246830196098719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,8 +1127,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -166.43933, y: -2.9831991}
-  m_SizeDelta: {x: -332.8787, y: 5.9664}
+  m_AnchoredPosition: {x: -198.5061, y: -2.9831991}
+  m_SizeDelta: {x: -397.0123, y: 5.9664}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6326246830196098658
 CanvasRenderer:

@@ -8,8 +8,8 @@ TagManager:
   - Item
   - UI
   - InventoryUI
-  - WeaponHolder
   - Canvas
+  - Holder
   layers:
   - Default
   - TransparentFX
