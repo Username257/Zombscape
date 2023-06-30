@@ -14,14 +14,14 @@ public class GameManager : MonoBehaviour
     private static ResourceManager resourceManager;
     private static PoolManager poolManager;
     private static UIManager uiManager;
-    private static Inventory inventory;
+    private static PlayersInventory inventory;
 
     public static GameManager Instance { get { return instance; } }
     public static DataManager Data {  get { return dataManager; } }
     public static ResourceManager Resource { get { return resourceManager; } }
     public static PoolManager Pool { get { return poolManager; } }
     public static UIManager UI { get { return uiManager; } }
-    public static Inventory Inventory { get { return inventory; } }
+    public static PlayersInventory Inventory { get { return inventory; } }
 
     private void Awake()
     {
@@ -69,6 +69,6 @@ public class GameManager : MonoBehaviour
         GameObject inventoryObj = new GameObject();
         inventoryObj.name = "Inventory";
         inventoryObj.transform.parent = transform;
-        inventory = inventoryObj.AddComponent<Inventory>();
+        inventory = inventoryObj.AddComponent<PlayersInventory>();
     }
 }

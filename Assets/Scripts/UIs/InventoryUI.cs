@@ -15,8 +15,27 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] RectTransform content;
     [SerializeField] RuntimeAnimatorController anim1;
     [SerializeField] RuntimeAnimatorController anim2;
+    [SerializeField] bool isOther = true;
+
+    Inventory inventory;
     bool isGetAnim1;
     List<GameObject> buttons = new List<GameObject>();
+
+    public void Start()
+    {
+        if (!isOther)
+            inventory = GameManager.Inventory.GetComponent<PlayersInventory>();
+    }
+
+    public void UpdateUI(Inventory inventory)
+    {
+        for (int i = 0; i < inventory.itemList.Count; i++)
+        {
+            AddButton(inventory.itemList[i]);
+            SetButtonsItemCount(inventory.itemList[i].itemName, inventory.itemAmount[i]);
+        }
+
+    }
 
     public void AddButton(ItemData item)
     {
