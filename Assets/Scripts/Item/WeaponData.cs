@@ -8,7 +8,6 @@ public class WeaponData : ItemData
     public float angle;
     public float range;
     public int damage;
-    public float speed;
     public float freezeTime;
     public float legSpeed;
     public float weildSpeed;

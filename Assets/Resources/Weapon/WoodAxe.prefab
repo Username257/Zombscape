@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5264617781815434199}
   - component: {fileID: 5271822342613409373}
   - component: {fileID: 5304131780703687479}
-  - component: {fileID: 3065031452553945966}
+  - component: {fileID: 3825744081070742236}
   m_Layer: 0
   m_Name: WoodAxe
   m_TagString: Untagged
@@ -99,7 +99,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43281216283244556, guid: f688b19d12b9dad4eb6ca12c4823a8cb, type: 2}
---- !u!114 &3065031452553945966
+--- !u!114 &3825744081070742236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,6 +108,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5295386268018355671}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49a959ebab2cb7840aed1f46d5dfe1b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 714ac99650a39014f873153e0108b4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: 5ebcaf143183b7d4fa3e97c290f499da, type: 2}
+  useTime: 0

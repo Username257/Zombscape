@@ -6,6 +6,7 @@ public class PlayerHolder : MonoBehaviour
 {
     PlayerAttacker attacker;
     public bool isGrabingSomething;
+    GameObject holdingObj;
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class PlayerHolder : MonoBehaviour
         item.transform.SetParent(transform);
         item.transform.localPosition = Vector3.zero;
         item.gameObject.SetActive(true);
+        holdingObj = item;
 
         isGrabingSomething = true;
 
@@ -27,13 +29,13 @@ public class PlayerHolder : MonoBehaviour
         }
     }
 
-    public void ReleaseItem(GameObject item)
+    public void ReleaseItem()
     {
-        item.gameObject.SetActive(false);
+        Destroy(holdingObj.gameObject);
 
         isGrabingSomething = false;
 
-        if (item.GetComponent<Weapon>() != null)
+        if (holdingObj.GetComponent<Weapon>() != null)
         {
             attacker.isHoldingWeapon = false;
             attacker.NotHoldingWeapon();

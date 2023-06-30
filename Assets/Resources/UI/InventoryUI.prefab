@@ -451,8 +451,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StateUI, Assembly-CSharp
+      - m_Target: {fileID: 827754779559290190}
+        m_TargetAssemblyTypeName: InventoryUIPopUp, Assembly-CSharp
         m_MethodName: OnCloseButton
         m_Mode: 1
         m_Arguments:
@@ -1034,6 +1034,7 @@ GameObject:
   - component: {fileID: 6326246830093466125}
   - component: {fileID: 1781114329180060034}
   - component: {fileID: 3114675753442309177}
+  - component: {fileID: 827754779559290190}
   m_Layer: 5
   m_Name: InventoryUI
   m_TagString: InventoryUI
@@ -1092,6 +1093,18 @@ MonoBehaviour:
   content: {fileID: 7889742622902299920}
   anim1: {fileID: 9100000, guid: 29269d25665574b41a1d8f95ccb1ee74, type: 2}
   anim2: {fileID: 9100000, guid: 709dc05e4176c00418933800e523d8ec, type: 2}
+--- !u!114 &827754779559290190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6326246830093466124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27ae64259e3dd9746b1b5ff4184c35d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6326246830196098719
 GameObject:
   m_ObjectHideFlags: 0

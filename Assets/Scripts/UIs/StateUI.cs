@@ -8,8 +8,6 @@ public class StateUI : PopUpUI
     protected override void Awake()
     {
         base.Awake();
-
-        //buttons["CloseButton"].onClick.AddListener(() => { if (isAble) Able(); else Disable(); });;
     }
 
     public void OnCloseButton()

@@ -27,9 +27,9 @@ public class Weapon : MonoBehaviour, IUseable, IHoldable, IGetable
     {
         holder.GrabItem(obj);
     }
-    public void Release(GameObject obj)
+    public void Release()
     {
-        holder.ReleaseItem(obj);
+        holder.ReleaseItem();
     }
 
     public void AddInInventory()
@@ -47,7 +47,7 @@ public class Weapon : MonoBehaviour, IUseable, IHoldable, IGetable
         if (useTime >= durability)
         {
             RemoveInInventory();
-            Release(gameObject);
+            Release();
         }
     }
 

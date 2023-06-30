@@ -7,9 +7,15 @@ using UnityEngine.EventSystems;
 
 public class InventoryExtraButton : MonoBehaviour, IPointerClickHandler
 {
+    PlayerHolder holder;
+    void Start()
+    {
+        holder = GameObject.FindWithTag("Holder").GetComponent<PlayerHolder>();
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         WhenItsClicked();
+        Destroy(gameObject);
     }
 
     public void WhenItsClicked()
@@ -20,6 +26,13 @@ public class InventoryExtraButton : MonoBehaviour, IPointerClickHandler
         if (transform.Find("useText").GetComponent<TMP_Text>().text.Equals("¿Â¬¯"))
         {
             GameManager.Inventory.HoldItem(itemName);
+            transform.parent.parent.GetComponent<InventoryButton>().isClickedForUse = true;
+        }
+
+        if (transform.Find("useText").GetComponent<TMP_Text>().text.Equals("¿Â¬¯ «ÿ¡¶"))
+        {
+            holder.ReleaseItem();
+            transform.parent.parent.GetComponent<InventoryButton>().isClickedForUse = false;
         }
 
         if (transform.Find("useText").GetComponent<TMP_Text>().text.Equals("∏‘±‚"))

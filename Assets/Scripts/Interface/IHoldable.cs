@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IHoldable
 {
     void Hold(GameObject obj);
-    void Release(GameObject obj);
+    void Release();
 }
