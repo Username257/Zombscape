@@ -9,14 +9,18 @@ using static UnityEditor.Progress;
 public class Weapon : MonoBehaviour, IUseable, IHoldable, IGetable
 {
     PlayerHolder holder;
+    PlayerAttacker attacker;
     [SerializeField] WeaponData weaponData;
     public WeaponData WeaponData { get { return weaponData; } }
-    int useTime;
+    [SerializeField] int useTime;
     int durability;
     public void Start()
     {
+        attacker = GameObject.FindWithTag("Player").GetComponent<PlayerAttacker>();
         holder = GameObject.FindWithTag("Holder").GetComponent<PlayerHolder>();
         durability = weaponData.durability;
+
+        attacker.OnWeild += CountUseTime;
     }
 
     public void Hold(GameObject obj)
