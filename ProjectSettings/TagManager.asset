@@ -10,6 +10,9 @@ TagManager:
   - InventoryUI
   - Canvas
   - Holder
+  - OthersInventoryUI
+  - UICanvas
+  - RootCanvas
   layers:
   - Default
   - TransparentFX

@@ -13,13 +13,6 @@ public class Inventory : MonoBehaviour
     public string itemName;
     public InventoryUI inventoryUI;
 
-    public void OnEnable()
-    {
-        for (int i = 0; i < itemList.Count; i++)
-        {
-            AddItem(itemList[i]);
-        }
-    }
 
     public virtual void AddItem(ItemData item)
     {

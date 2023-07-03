@@ -7,7 +7,7 @@ public class PlayerGetInjured : MonoBehaviour
 {
     public int randNum = 0;
     private Body isBleeding;
-    public event UnityAction<int> OnGetInjured;
+    public UnityAction<int> OnGetInjured;
     public UnityAction<int> OnGetBited;
     public UnityEvent OnDie;
     private bool goBited;

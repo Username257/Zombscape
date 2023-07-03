@@ -12,10 +12,12 @@ public class PoolManager : MonoBehaviour
 
     private void Awake()
     {
+
         poolDic = new Dictionary<string, ObjectPool<GameObject>>();
         poolContainer = new Dictionary<string, Transform>();
         poolRoot = new GameObject("PoolRoot").transform;
-        canvasRoot = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
+        canvasRoot = GameManager.Resource.Instantiate<Canvas>("UI/RootCanvas");
+        canvasRoot.transform.name = "RootCanvas";
     }
 
     public T Get<T>(T original, Vector3 position, Quaternion rotation, Transform parent) where T : Object

@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,10 +9,21 @@ using UnityEngine.EventSystems;
 public class InventoryButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] GameObject extraButtonPrefab;
+    string itemName;
+    public ItemData itemData;
     public bool isClickedForUse;
+    public bool isOthersInventoryUI;
+
+    public void OnEnable()
+    {
+        itemName = transform.GetChild(0).GetComponent<TMP_Text>().text;
+
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (isOthersInventoryUI)
+            return;
         MakeExtraButton();
     }
 

@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class OtherObject : MonoBehaviour, IFarmingable
 {
-    public UnityEvent OnShowInventory;
     InventoryUI otherInventoryUI;
     OthersInventory inventory;
     Collider trigger;
@@ -22,8 +21,14 @@ public class OtherObject : MonoBehaviour, IFarmingable
             ShowMyInventory();
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        otherInventoryUI.RemoveAll();
+    }
+
     public void ShowMyInventory()
     {
+        otherInventoryUI.inventory = inventory;
         otherInventoryUI.UpdateUI(inventory);
     }
 

@@ -67,6 +67,8 @@ public class BodyInfoTextBox : MonoBehaviour
 
     private void OnEnable()
     {
+        playerGetInjured = GameObject.FindWithTag("Player").GetComponent<PlayerGetInjured>();
+
         playerGetInjured.OnGetInjured += GetText;
         playerGetInjured.OnGetBited += GetText;
     }

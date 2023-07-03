@@ -17,9 +17,9 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] RuntimeAnimatorController anim2;
     [SerializeField] bool isOther = true;
 
-    Inventory inventory;
+    public Inventory inventory;
     bool isGetAnim1;
-    List<GameObject> buttons = new List<GameObject>();
+    [SerializeField] List<GameObject> buttons = new List<GameObject>();
 
     public void Start()
     {
@@ -29,18 +29,35 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateUI(Inventory inventory)
     {
-        for (int i = 0; i < inventory.itemList.Count; i++)
+        RemoveAll();
+
+        if (inventory != null)
         {
-            AddButton(inventory.itemList[i]);
-            SetButtonsItemCount(inventory.itemList[i].itemName, inventory.itemAmount[i]);
+            for (int i = 0; i < inventory.itemList.Count; i++)
+            {
+                AddButton(inventory.itemList[i]);
+                SetButtonsItemCount(inventory.itemList[i].itemName, inventory.itemAmount[i]);
+            }
         }
 
     }
 
+    public void RemoveAll()
+    {
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            Destroy(buttons[i]);
+            buttons.Remove(buttons[i]);
+        }
+    }
+
     public void AddButton(ItemData item)
     {
-        GameObject buttoninstance = MakeButtonInstance(item);
-        buttons.Add(buttoninstance);
+        GameObject buttonInstance = MakeButtonInstance(item);
+        buttonInstance.GetComponent<ButtonDrag>().GetItemData(item);
+        buttons.Add(buttonInstance);
+
+
 
         if (buttons.Count > 8)
             ContentBoxGrowUp();
@@ -72,7 +89,7 @@ public class InventoryUI : MonoBehaviour
         GameObject button = FindButton(itemName);
         if (button != null)
         {
-            button.transform.Find("amountText").GetComponent<TMP_Text>().text = $"({itemAmount})";
+            button.transform.Find("amountText").gameObject.GetComponent<TMP_Text>().text = $"({itemAmount})";
         }
     }
 

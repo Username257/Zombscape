@@ -16,11 +16,13 @@ public class BodyUI : MonoBehaviour
     [SerializeField] Sprite bited;
     [SerializeField] Sprite bandaged;
     [SerializeField] Sprite none;
-    [SerializeField] PlayerGetInjured playerGetInjured;
+    PlayerGetInjured playerGetInjured;
     enum Body { Neck, RArm, LArm, RLeg, LLeg, None}
 
     private void Awake()
     {
+        playerGetInjured = GameObject.FindWithTag("Player").GetComponent<PlayerGetInjured>();
+
         NeckImg.sprite = none;
         RArmImg.sprite = none;
         LArmImg.sprite = none;
