@@ -9,21 +9,19 @@ public class ButtonDrag : MonoBehaviour, IDragHandler, IDropHandler, IBeginDragH
 {
     public Vector2 originPos;
     Transform originParent;
-    bool isOthersInventory;
-    public bool isDropedToAnother;
-    Inventory mineInventory;
-    Inventory TargetInventory;
-    ItemData itemData;
+    public bool isEnterAnother;
+    [SerializeField] Inventory mineInventory;
+    [SerializeField] Inventory TargetInventory;
+    [SerializeField] public ItemData itemData;
     public void Start()
     {
         originParent = transform.parent;
         mineInventory = transform.parent.parent.parent.parent.GetComponent<InventoryUI>().inventory;
+
+        if (mineInventory.gameObject.GetComponent<OthersInventory>() != null)
+             TargetInventory = GameObject.FindWithTag("InventoryUI").gameObject.GetComponent<InventoryUI>().inventory;
     }
 
-    public void GetItemData(ItemData itemData)
-    {
-        this.itemData = itemData;
-    }
     public void OnBeginDrag(PointerEventData eventData)
     {
         originPos = eventData.position;
@@ -37,30 +35,36 @@ public class ButtonDrag : MonoBehaviour, IDragHandler, IDropHandler, IBeginDragH
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (isDropedToAnother)
+        if (isEnterAnother)
         {
-            mineInventory.RemoveItem(itemData);
-            TargetInventory.AddItem(itemData);
+            if (TargetInventory != null)
+            {
+                TargetInventory.AddItem(itemData);
+                mineInventory.RemoveItem(itemData);
+            }
         }
         else
             eventData.position = originPos;
 
-        isDropedToAnother = false;
+        isEnterAnother = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "OthersInventoryUI" || collision.tag == "InventoryUI")
         {
-            Debug.Log("TriggerEntered");
-            TargetInventory = collision.transform.parent.parent.parent.parent.GetComponent<InventoryUI>().inventory;
-            isDropedToAnother = true;
+            isEnterAnother = true;
         }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.position = originPos;
-        transform.SetParent(originParent);
+        if (!isEnterAnother)
+        {
+            transform.position = originPos;
+            transform.SetParent(originParent);
+        }
+        else
+            Destroy(gameObject);
     }
 }

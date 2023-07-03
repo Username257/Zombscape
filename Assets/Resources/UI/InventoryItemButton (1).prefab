@@ -285,6 +285,8 @@ GameObject:
   - component: {fileID: -3341771883910641155}
   - component: {fileID: -7891127373381431926}
   - component: {fileID: 287920236475160260}
+  - component: {fileID: 5160402574572207803}
+  - component: {fileID: -7467857850686104079}
   m_Layer: 5
   m_Name: InventoryItemButton (1)
   m_TagString: Untagged
@@ -387,7 +389,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   extraButtonPrefab: {fileID: 6987245802381352245, guid: 7e77e7cb11a6e714684b29775eb7c9b8, type: 3}
+  itemData: {fileID: 0}
   isClickedForUse: 0
+  isOthersInventoryUI: 0
 --- !u!114 &-7891127373381431926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,8 +416,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b37a2f3e241be34b81a4809f8e2d64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OriginPos: {x: 0, y: 0}
+  originPos: {x: 0, y: 0}
   isDropedToAnother: 0
+--- !u!61 &5160402574572207803
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690680430654218533}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 318.17313, y: 0.024932861}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 636.2819, y: 29.982605}
+  m_EdgeRadius: 0
+--- !u!50 &-7467857850686104079
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690680430654218533}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &7618791252050293337
 GameObject:
   m_ObjectHideFlags: 0

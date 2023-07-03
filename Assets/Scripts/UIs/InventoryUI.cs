@@ -19,7 +19,7 @@ public class InventoryUI : MonoBehaviour
 
     public Inventory inventory;
     bool isGetAnim1;
-    [SerializeField] List<GameObject> buttons = new List<GameObject>();
+    [SerializeField] public List<GameObject> buttons = new List<GameObject>();
 
     public void Start()
     {
@@ -54,10 +54,8 @@ public class InventoryUI : MonoBehaviour
     public void AddButton(ItemData item)
     {
         GameObject buttonInstance = MakeButtonInstance(item);
-        buttonInstance.GetComponent<ButtonDrag>().GetItemData(item);
+        buttonInstance.GetComponent<ButtonDrag>().itemData = item;
         buttons.Add(buttonInstance);
-
-
 
         if (buttons.Count > 8)
             ContentBoxGrowUp();
