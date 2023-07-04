@@ -7,7 +7,6 @@ public class OtherObject : MonoBehaviour, IFarmingable
 {
     InventoryUI otherInventoryUI;
     OthersInventory inventory;
-    Collider trigger;
 
     private void Start()
     {
@@ -18,7 +17,10 @@ public class OtherObject : MonoBehaviour, IFarmingable
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
+        {
             ShowMyInventory();
+            GameManager.Inventory.inventoryUI.othersInventory = inventory;
+        }
     }
 
     private void OnTriggerExit(Collider other)

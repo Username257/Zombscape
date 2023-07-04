@@ -52,16 +52,20 @@ public class Inventory : MonoBehaviour
             Debug.Log("아이템이 인벤토리에 존재하지 않는데 삭제하려고 시도함.");
         else
         {
-            itemAmount[index]--;
-            inventoryUI.SetButtonsItemCount(item.name, itemAmount[index]);
+            if (itemList[index] != null)
+            {
+                itemAmount[index]--;
+                inventoryUI.SetButtonsItemCount(item.name, itemAmount[index]);
+            }
+            
         }
 
         if (itemAmount[index] == 0)
         {
             itemAmount.RemoveAt(index);
             itemList.RemoveAt(index);
-            inventoryUI.RemoveButton(item);
             Destroy(inventoryUI.buttons[index].gameObject);
+            inventoryUI.RemoveButton(item);
         }
     }
             

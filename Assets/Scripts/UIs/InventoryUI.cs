@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using Unity.VisualScripting;
@@ -18,6 +19,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] bool isOther = true;
 
     public Inventory inventory;
+    public Inventory othersInventory;
     bool isGetAnim1;
     [SerializeField] public List<GameObject> buttons = new List<GameObject>();
 
@@ -25,6 +27,8 @@ public class InventoryUI : MonoBehaviour
     {
         if (!isOther)
             inventory = GameManager.Inventory.GetComponent<PlayersInventory>();
+        else
+            othersInventory = GameManager.Inventory.GetComponent<PlayersInventory>();
     }
 
     public void UpdateUI(Inventory inventory)
@@ -39,7 +43,6 @@ public class InventoryUI : MonoBehaviour
                 SetButtonsItemCount(inventory.itemList[i].itemName, inventory.itemAmount[i]);
             }
         }
-
     }
 
     public void RemoveAll()
@@ -55,6 +58,9 @@ public class InventoryUI : MonoBehaviour
     {
         GameObject buttonInstance = MakeButtonInstance(item);
         buttonInstance.GetComponent<ButtonDrag>().itemData = item;
+        buttonInstance.GetComponent<ButtonDrag>().SetMineInventory(inventory);
+        if (buttonInstance.GetComponent<ButtonDrag>().targetInventory == null)
+            buttonInstance.GetComponent<ButtonDrag>().SetTargetInventory(othersInventory);
         buttons.Add(buttonInstance);
 
         if (buttons.Count > 8)
@@ -84,31 +90,32 @@ public class InventoryUI : MonoBehaviour
 
     public void SetButtonsItemCount(string itemName, int itemAmount)
     {
-        GameObject button = FindButton(itemName);
-        if (button != null)
+        int index = FindButton(itemName);
+        if (index != -1)
         {
-            button.transform.Find("amountText").gameObject.GetComponent<TMP_Text>().text = $"({itemAmount})";
+            buttons[index].transform.Find("amountText").gameObject.GetComponent<TMP_Text>().text = $"({itemAmount})";
         }
     }
 
-    public GameObject FindButton(string itemName)
+    public int FindButton(string itemName)
     {
-        GameObject whichButton = null;
-
         for (int i = 0; i < buttons.Count; i++)
         {
             if (buttons[i].transform.Find("nameText").GetComponent<TMP_Text>().text == itemName)
-                whichButton = buttons[i];
+                return i;
         }
-
-        return whichButton;
+        return -1;
     }
 
     public void RemoveButton(ItemData item)
     {
-        GameObject button = FindButton(item.name);
-        Destroy(button);
-        buttons.Remove(button);
+        int index = FindButton(item.name);
+        if (index != -1)
+        {
+            buttons.Remove(buttons[index]);
+            Destroy(buttons[index].gameObject);
+        }
+        
     }
 
     public void ContentBoxGrowUp()

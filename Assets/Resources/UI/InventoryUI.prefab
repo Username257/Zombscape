@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7825486029194553392}
   m_Layer: 5
   m_Name: Content
-  m_TagString: Untagged
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 1985961316715695603}
   m_Layer: 5
   m_Name: Handle
-  m_TagString: Untagged
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 8552089831861727242}
   m_Layer: 5
   m_Name: Sliding Area
-  m_TagString: Untagged
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 6326246828822003127}
   m_Layer: 5
   m_Name: Image
-  m_TagString: UI
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 6326246829010030493}
   m_Layer: 5
   m_Name: Image (3)
-  m_TagString: UI
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 6326246829539947362}
   m_Layer: 5
   m_Name: CloseButton
-  m_TagString: UI
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 6326246829555329053}
   m_Layer: 5
   m_Name: Text (TMP) (1)
-  m_TagString: UI
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -612,7 +612,7 @@ GameObject:
   - component: {fileID: 5492519803555680790}
   m_Layer: 5
   m_Name: Scroll View
-  m_TagString: Untagged
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -868,7 +868,7 @@ GameObject:
   - component: {fileID: 6326246829682433320}
   m_Layer: 5
   m_Name: InventoryItemButton
-  m_TagString: Untagged
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -947,7 +947,7 @@ GameObject:
   - component: {fileID: 6326246830002106985}
   m_Layer: 5
   m_Name: DragBar
-  m_TagString: UI
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1035,7 +1035,6 @@ GameObject:
   - component: {fileID: 1781114329180060034}
   - component: {fileID: 3114675753442309177}
   - component: {fileID: 827754779559290190}
-  - component: {fileID: 204020028568354834}
   m_Layer: 5
   m_Name: InventoryUI
   m_TagString: InventoryUI
@@ -1096,6 +1095,7 @@ MonoBehaviour:
   anim2: {fileID: 9100000, guid: 709dc05e4176c00418933800e523d8ec, type: 2}
   isOther: 1
   inventory: {fileID: 0}
+  othersInventory: {fileID: 0}
   buttons: []
 --- !u!114 &827754779559290190
 MonoBehaviour:
@@ -1109,32 +1109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ae64259e3dd9746b1b5ff4184c35d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &204020028568354834
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6326246830093466124}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 2.390625, y: 15.217499}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 669.03174, y: 326.72345}
-  m_EdgeRadius: 0
 --- !u!1 &6326246830196098719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,7 +1122,7 @@ GameObject:
   - component: {fileID: 6326246830196098657}
   m_Layer: 5
   m_Name: nameText
-  m_TagString: Untagged
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1284,7 +1258,7 @@ GameObject:
   - component: {fileID: 1033112060430825731}
   m_Layer: 5
   m_Name: Viewport
-  m_TagString: Untagged
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1375,7 +1349,7 @@ GameObject:
   - component: {fileID: 3471900396581784838}
   m_Layer: 5
   m_Name: Scrollbar Vertical
-  m_TagString: Untagged
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1501,7 +1475,7 @@ GameObject:
   - component: {fileID: 7229589699662727735}
   m_Layer: 5
   m_Name: typeText
-  m_TagString: Untagged
+  m_TagString: InventoryUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
