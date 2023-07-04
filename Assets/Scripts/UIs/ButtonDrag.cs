@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System.Linq;
 
 public class ButtonDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
@@ -53,10 +54,10 @@ public class ButtonDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         if (other.tag == targetInventory.inventoryUI.tag)
         {
             targetInventory.AddItem(itemData);
-            targetInventory.inventoryUI.UpdateUI(targetInventory);
             mineInventory.RemoveItem(itemData);
-            mineInventory.inventoryUI.UpdateUI(mineInventory);
-            Destroy(gameObject);
+            
+            if (!mineInventory.itemList.Contains(itemData))
+                Destroy(gameObject);
         }
         
     }

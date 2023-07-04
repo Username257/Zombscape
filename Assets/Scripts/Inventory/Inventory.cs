@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,22 +8,33 @@ using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
-    public List<ItemData> itemList = new List<ItemData>();
-    public List<int> itemAmount = new List<int>();
+    [SerializeField] public static int maxSlot = 15;
+    public ItemData[] itemList;
+    public int[] itemAmount;
     public int index;
     public string itemName;
     public InventoryUI inventoryUI;
 
-
+    public void OnEnable()
+    {
+        itemList = new ItemData[maxSlot];
+        itemAmount = new int[maxSlot];
+    }
     public virtual void AddItem(ItemData item)
     {
         itemName = item.itemName;
         index = CheckExistance(item);
         if (index == -1)
         {
-            itemList.Add(item);
-            inventoryUI.AddButton(item);
-            itemAmount.Add(1);
+            index = FindEmptySlot();
+            if (index != -1)
+            {
+                itemList[index] = item;
+                itemAmount[index]++;
+                inventoryUI.AddButton(item);
+            }
+            else
+                Debug.Log("비어있는 슬롯을 못 찾음");
         }
         else
         {
@@ -31,15 +43,22 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public int FindEmptySlot()
+    {
+        for (int i = 0; i < itemList.Length; i++)
+        {
+            if (itemList[i] == null)
+                return i;
+        }
+        return -1;
+    }
+
     public int CheckExistance(ItemData item)
     {
-        if (itemList.Count != 0)
+        for (int i = 0; i < itemList.Length; i++)
         {
-            for (int i = 0; i < itemList.Count; i++)
-            {
-                if (itemList[i] == item)
-                    return i;
-            }
+            if (itemList[i] == item)
+                return i;
         }
         return -1;
     }
@@ -55,15 +74,14 @@ public class Inventory : MonoBehaviour
             if (itemList[index] != null)
             {
                 itemAmount[index]--;
-                inventoryUI.SetButtonsItemCount(item.name, itemAmount[index]);
+                inventoryUI.SetButtonsItemCount(item.itemName, itemAmount[index]);
             }
             
         }
 
         if (itemAmount[index] == 0)
         {
-            itemAmount.RemoveAt(index);
-            itemList.RemoveAt(index);
+            itemList[index] = null;
             Destroy(inventoryUI.buttons[index].gameObject);
             inventoryUI.RemoveButton(item);
         }
@@ -72,7 +90,7 @@ public class Inventory : MonoBehaviour
 
     public ItemData FindItem(string itemName)
     {
-        for (int i = 0; i < itemList.Count; i++)
+        for (int i = 0; i < maxSlot; i++)
         {
             if (itemList[i].itemName == itemName)
                 return itemList[i];

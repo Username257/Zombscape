@@ -14,10 +14,9 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
     public bool isClickedForUse;
     public bool isOthersInventoryUI;
 
-    public void OnEnable()
+    public void Start()
     {
         itemName = transform.GetChild(0).GetComponent<TMP_Text>().text;
-
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -34,9 +33,13 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
 
     private void MakeExtraButton()
     {
+        if (GameObject.FindWithTag("InventoryExtraButton") != null)
+            Destroy(GameObject.FindWithTag("InventoryExtraButton").gameObject);
+
         GameObject extraButton = GameManager.Resource.Instantiate(extraButtonPrefab);
         extraButton.transform.SetParent(transform);
         extraButton.transform.localPosition = new Vector2(290f, -27f);
+        extraButton.transform.SetParent(GameObject.FindGameObjectWithTag("UICanvas").transform);
 
         GameObject useButton = extraButton.transform.Find("UseButton").gameObject;
 
