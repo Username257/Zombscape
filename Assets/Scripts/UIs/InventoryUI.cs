@@ -116,8 +116,10 @@ public class InventoryUI : MonoBehaviour
         if (index != -1)
         {
             if (itemAmount <= 1)
+            {
+                buttons[index].transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = "";
                 return;
-
+            }
             buttons[index].transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = $"({itemAmount})";
         }
     }

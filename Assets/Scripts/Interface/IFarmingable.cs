@@ -5,6 +5,4 @@ using UnityEngine;
 public interface IFarmingable
 {
     void ShowMyInventory();
-    void GivePlayersInventory();
-    void TakePlayersInventory();
 }

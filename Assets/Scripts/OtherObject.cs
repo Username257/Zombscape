@@ -42,11 +42,4 @@ public class OtherObject : MonoBehaviour, IFarmingable
         GameManager.Inventory.inventoryUI.UpdateUI(GameManager.Inventory);
     }
 
-    public void GivePlayersInventory()
-    {
-    }
-
-    public void TakePlayersInventory()
-    {
-    }
 }
