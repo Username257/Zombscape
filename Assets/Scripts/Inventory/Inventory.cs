@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
     public int[] itemAmount;
     public int index;
     public string itemName;
-    public InventoryUI inventoryUI;
+    [SerializeField] public InventoryUI inventoryUI;
 
     public void OnEnable()
     {
@@ -32,6 +32,8 @@ public class Inventory : MonoBehaviour
             {
                 itemList[index] = item;
                 itemAmount[index]++;
+                if (inventoryUI == null)
+                    Debug.Log("InventoryUI°¡ null");
                 inventoryUI.AddButton(item);
             }
             else

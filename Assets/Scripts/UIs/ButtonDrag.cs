@@ -42,9 +42,8 @@ public class ButtonDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.SetParent(originParent);
-        transform.localPosition = originPos;
-
+        gameObject.transform.SetParent(originParent);
+        gameObject.transform.localPosition = Vector3.zero;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -55,8 +54,11 @@ public class ButtonDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         {
             targetInventory.AddItem(itemData);
             mineInventory.RemoveItem(itemData);
+            gameObject.transform.SetParent(originParent);
+            gameObject.transform.localPosition = Vector3.zero;
+
         }
-        
+
     }
 
 }

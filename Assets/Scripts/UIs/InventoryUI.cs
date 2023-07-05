@@ -41,6 +41,8 @@ public class InventoryUI : MonoBehaviour
         {
             GameObject buttonInstance = MakeButtonInstance();
             buttonInstance.GetComponent<InventoryButton>().itemData = null;
+            if (isOther)
+                buttonInstance.GetComponent<InventoryButton>().isOthersInventoryUI = true;
             buttonInstance.gameObject.SetActive(false);
             buttonInstance.transform.SetParent(content);
             buttons[i] = buttonInstance;
@@ -69,9 +71,10 @@ public class InventoryUI : MonoBehaviour
 
     public void RemoveAll()
     {
-        for (int i = 0; i < buttons.Length; i++)
+        for (int i = 0; i < 15; i++)
         {
             buttons[i].GetComponent<InventoryButton>().itemData = null;
+            buttons[i].gameObject.SetActive(false);
         }
     }
 

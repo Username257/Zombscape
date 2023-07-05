@@ -5,13 +5,15 @@ using UnityEngine;
 public class PlayerHolder : MonoBehaviour
 {
     PlayerAttacker attacker;
-    [SerializeField] PlayerEater eater;
+    PlayerEater eater;
+    PlayerMover mover;
     PlayerHolder holder;
     public bool isGrabingSomething;
     GameObject holdingObj;
 
     private void Awake()
     {
+        mover = gameObject.GetComponentInParent<PlayerMover>();
         attacker = gameObject.GetComponentInParent<PlayerAttacker>();
         eater = gameObject.GetComponentInParent<PlayerEater>();
     }
@@ -36,6 +38,7 @@ public class PlayerHolder : MonoBehaviour
         {
             eater.isHoldingFood = true;
             eater.IsHoldingFood(item.GetComponent<Food>());
+            mover.Freeze(2f);
             eattingTime = StartCoroutine(HoldTime(2f));
         }
     }

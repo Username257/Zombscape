@@ -5,25 +5,26 @@ using UnityEngine.Events;
 
 public class OtherObject : MonoBehaviour, IFarmingable
 {
-    InventoryUI otherInventoryUI;
-    OthersInventory inventory;
-    public ItemData axe;
+    [SerializeField] protected InventoryUI otherInventoryUI;
+    [SerializeField] protected Inventory inventory;
     public ItemData coneSoup;
+    public ItemData axe;
+    public bool canShowInventory;
 
-    private void Start()
+    public virtual void Start()
     {
-        inventory = gameObject.GetComponent<OthersInventory>();
+        inventory = gameObject.GetComponent<Inventory>();
         otherInventoryUI = GameObject.FindWithTag("OthersInventoryUI").GetComponent<InventoryUI>();
-        inventory.AddItem(axe);
-        inventory.AddItem(axe);
-        inventory.AddItem(axe);
+
         inventory.AddItem(coneSoup);
         inventory.AddItem(coneSoup);
+        inventory.AddItem(coneSoup);
+        inventory.AddItem(axe);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && canShowInventory)
         {
             ShowMyInventory();
             GameManager.Inventory.inventoryUI.othersInventory = inventory;
@@ -42,7 +43,6 @@ public class OtherObject : MonoBehaviour, IFarmingable
         otherInventoryUI.inventory = inventory;
         otherInventoryUI.UpdateUI(inventory);
         GameManager.Inventory.inventoryUI.othersInventory = inventory;
-        GameManager.Inventory.inventoryUI.UpdateUI(GameManager.Inventory);
     }
 
 }

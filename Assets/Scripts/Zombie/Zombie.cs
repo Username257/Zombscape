@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
-public class Zombie : MonoBehaviour, IHideable, IDamageable
+public class Zombie : OtherObject, IHideable, IDamageable
 {
     private enum State { Idle, Follow, Attack, Dead}
     private State curState;
@@ -23,7 +23,8 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     private ZombieData zombieData;
     public ZombieData ZombieData { set { zombieData = value; } }
 
-    GameObject player;
+    [SerializeField] GameObject player;
+    CapsuleCollider capCol;
     GameObject followTarget;
     float disToTarget;
     Vector3 dir;
@@ -36,11 +37,13 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     bool isDamaged;
 
 
-    public void Start()
+    public override void Start()
     {
+
         player = GameObject.FindWithTag("Player");
         nav = gameObject.GetComponent<NavMeshAgent>();
         anim = gameObject.GetComponent<Animator>();
+        capCol = gameObject.GetComponent<CapsuleCollider>();
 
         cosResult = Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad);
         curState = State.Idle;
@@ -50,6 +53,10 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
         damage = zombieData.Damage;
 
         SetAnimSpeed();
+
+        base.Start();
+
+        
     }
 
     private void Update()
@@ -258,6 +265,8 @@ public class Zombie : MonoBehaviour, IHideable, IDamageable
     {
         anim.applyRootMotion = true;
         anim.SetBool("IsDie", true);
+        canShowInventory = true;
+        capCol.isTrigger = true;
     }
 
 

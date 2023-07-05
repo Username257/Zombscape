@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 814373327266669859}
   - component: {fileID: 822895284634867373}
   - component: {fileID: 853989199177250481}
+  - component: {fileID: -8841713223027038272}
   m_Layer: 0
   m_Name: Frypan
   m_TagString: Untagged
@@ -98,3 +99,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43639649241312118, guid: 5829a2092c1224b47871f04d13141393, type: 2}
+--- !u!114 &-8841713223027038272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808954888230656053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714ac99650a39014f873153e0108b4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: bdddbd4c14304224f8e8a2f4529bcca4, type: 2}
+  useTime: 0

@@ -120,6 +120,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
     public void ApplyDamage()
     {
+        Debug.Log("ApplyDamage");
         Collider[] colliders = Physics.OverlapSphere(transform.position - transform.forward * controlRange, range);
 
         foreach (Collider collider in colliders)

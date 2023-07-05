@@ -18,7 +18,7 @@ MonoBehaviour:
   durability: 45
   angle: 60
   range: 1.5
-  damage: 6
+  damage: 10
   freezeTime: 1.5
   legSpeed: 0.5
   weildSpeed: 1
