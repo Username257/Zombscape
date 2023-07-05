@@ -7,10 +7,16 @@ using UnityEngine.EventSystems;
 
 public class InventoryExtraButton : MonoBehaviour, IPointerClickHandler
 {
+    [SerializeField] Transform parentButton;
     PlayerHolder holder;
     void Start()
     {
         holder = GameObject.FindWithTag("Holder").GetComponent<PlayerHolder>();
+    }
+
+    public void SetParentButton(Transform go)
+    {
+        parentButton = go;
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -20,24 +26,23 @@ public class InventoryExtraButton : MonoBehaviour, IPointerClickHandler
 
     public void WhenItsClicked()
     {
-        GameObject parentButton = transform.parent.parent.gameObject;
         string itemName = parentButton.transform.GetChild(0).GetComponent<TMP_Text>().text;
 
         if (transform.Find("useText").GetComponent<TMP_Text>().text.Equals("¿Â¬¯"))
         {
             GameManager.Inventory.HoldItem(itemName);
-            transform.parent.parent.GetComponent<InventoryButton>().isClickedForUse = true;
+            parentButton.GetComponent<InventoryButton>().isClickedForUse = true;
         }
 
         if (transform.Find("useText").GetComponent<TMP_Text>().text.Equals("¿Â¬¯ «ÿ¡¶"))
         {
             holder.ReleaseItem();
-            transform.parent.parent.GetComponent<InventoryButton>().isClickedForUse = false;
+            parentButton.GetComponent<InventoryButton>().isClickedForUse = false;
         }
 
         if (transform.Find("useText").GetComponent<TMP_Text>().text.Equals("∏‘±‚"))
         {
-            //∏‘±‚
+            GameManager.Inventory.HoldItem(itemName);
         }
 
         if (transform.Find("throwText"))

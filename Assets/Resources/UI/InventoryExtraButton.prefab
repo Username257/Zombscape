@@ -442,6 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e6f645a877774439979a607a8d0acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentButton: {fileID: 0}
 --- !u!224 &8932397452189430684 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 870827003507123574, guid: 10fae122533561740a42a2643b0198a0, type: 3}

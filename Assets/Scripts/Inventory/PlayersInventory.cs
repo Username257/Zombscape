@@ -25,7 +25,7 @@ public class PlayersInventory : Inventory
 
     public GameObject MakeItemInstanceToHold(ItemData itemData)
     {
-        GameObject item = GameManager.Resource.Instantiate<GameObject>($"Weapon/{itemData.name}");
+        GameObject item = GameManager.Resource.Instantiate<GameObject>($"Item/{itemData.name}");
         item.SetActive(false);
         return item;
     }

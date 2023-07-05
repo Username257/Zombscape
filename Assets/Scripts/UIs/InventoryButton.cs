@@ -39,6 +39,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
         GameObject extraButton = GameManager.Resource.Instantiate(extraButtonPrefab);
         extraButton.transform.SetParent(transform);
         extraButton.transform.localPosition = new Vector2(290f, -27f);
+        extraButton.transform.GetChild(0).GetComponent<InventoryExtraButton>().SetParentButton(gameObject.transform);
         extraButton.transform.SetParent(GameObject.FindGameObjectWithTag("UICanvas").transform);
 
         GameObject useButton = extraButton.transform.Find("UseButton").gameObject;

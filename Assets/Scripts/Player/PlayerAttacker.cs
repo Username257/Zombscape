@@ -116,6 +116,8 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
         }
     }
 
+    Coroutine damageTime;
+
     public void ApplyDamage()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position - transform.forward * controlRange, range);
@@ -139,11 +141,12 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
                 OnWeild.Invoke();
                 OnWeildIsInvoking = true;
             }
-            StartCoroutine(ApplyDamageWaitTime());
+            damageTime = StartCoroutine(ApplyDamageWaitTime());
 
         }
     }
 
+    
     IEnumerator ApplyDamageWaitTime()
     {
         yield return new WaitForSeconds(1f);

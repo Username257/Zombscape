@@ -8,6 +8,7 @@ public class OtherObject : MonoBehaviour, IFarmingable
     InventoryUI otherInventoryUI;
     OthersInventory inventory;
     public ItemData axe;
+    public ItemData coneSoup;
 
     private void Start()
     {
@@ -16,6 +17,8 @@ public class OtherObject : MonoBehaviour, IFarmingable
         inventory.AddItem(axe);
         inventory.AddItem(axe);
         inventory.AddItem(axe);
+        inventory.AddItem(coneSoup);
+        inventory.AddItem(coneSoup);
     }
 
     private void OnTriggerEnter(Collider other)

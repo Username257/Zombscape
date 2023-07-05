@@ -1094,6 +1094,7 @@ MonoBehaviour:
   anim1: {fileID: 9100000, guid: 29269d25665574b41a1d8f95ccb1ee74, type: 2}
   anim2: {fileID: 9100000, guid: 709dc05e4176c00418933800e523d8ec, type: 2}
   isOther: 1
+  data: {fileID: 11400000, guid: 5ebcaf143183b7d4fa3e97c290f499da, type: 2}
   inventory: {fileID: 0}
   othersInventory: {fileID: 0}
   buttons: []

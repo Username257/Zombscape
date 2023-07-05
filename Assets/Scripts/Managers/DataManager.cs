@@ -19,6 +19,16 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private float curHunger;
+    public float CurHunger
+    {
+        get { return curHunger; }
+        set
+        {
+            curHunger = value;
+        }
+    }
+
     public enum State { None, Scar, Bleeding, Bited, Bandaged };
 
     [SerializeField] private State neck = State.None;

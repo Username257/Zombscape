@@ -27,6 +27,7 @@ public class InventoryUI : MonoBehaviour
     public void Start()
     {
         buttons = new GameObject[15];
+        MakeButtonPool();
 
         if (!isOther)
             inventory = GameManager.Inventory.GetComponent<PlayersInventory>();
@@ -34,15 +35,30 @@ public class InventoryUI : MonoBehaviour
             othersInventory = GameManager.Inventory.GetComponent<PlayersInventory>();
     }
 
+    public void MakeButtonPool()
+    {
+        for (int i = 0; i < 15; i++)
+        {
+            GameObject buttonInstance = MakeButtonInstance();
+            buttonInstance.GetComponent<InventoryButton>().itemData = null;
+            buttonInstance.gameObject.SetActive(false);
+            buttonInstance.transform.SetParent(content);
+            buttons[i] = buttonInstance;
+        }
+
+    }
     public void UpdateUI(Inventory inventory)
     {
         RemoveAll();
 
         if (inventory != null)
         {
-            for (int i = 0; i < inventory.itemList.Length; i++)
+            for (int i = 0; i < 15; i++)
             {
                 if (inventory.itemList[i] == null)
+                    continue;
+
+                if (inventory.itemList[i].itemName == null)
                     continue;
 
                 AddButton(inventory.itemList[i]);
@@ -55,8 +71,7 @@ public class InventoryUI : MonoBehaviour
     {
         for (int i = 0; i < buttons.Length; i++)
         {
-            Destroy(buttons[i]);
-            buttons[i] = null;
+            buttons[i].GetComponent<InventoryButton>().itemData = null;
         }
     }
 
@@ -64,31 +79,39 @@ public class InventoryUI : MonoBehaviour
     {
         if (inventory != null)
         {
-            GameObject buttonInstance = MakeButtonInstance(item);
-            buttonInstance.GetComponent<ButtonDrag>().itemData = item;
-            buttonInstance.GetComponent<InventoryButton>().itemData = item;
-            buttonInstance.GetComponent<ButtonDrag>().SetMineInventory(inventory);
-            buttonInstance.GetComponent<ButtonDrag>().SetTargetInventory(othersInventory);
-
             int index = FindEmptySlot();
-            if (index != -1)
-                buttons[index] = buttonInstance;
 
             if (index == -1)
-                ContentBoxGrowUp();
+                return;
+
+            buttons[index].SetActive(true);
+
+            buttons[index].transform.GetChild(0).GetComponent<TMP_Text>().text = $"{item.itemName}";
+            buttons[index].transform.GetChild(2).GetComponent<TMP_Text>().text = $"{item.itemType}";
+
+            float nameTextPos = buttons[index].transform.GetChild(0).GetComponent<RectTransform>().localPosition.x;
+            float spacing = buttons[index].transform.GetChild(0).GetComponent<TMP_Text>().text.Length * 15f;
+            buttons[index].transform.GetChild(1).GetComponent<RectTransform>().localPosition = new Vector3(nameTextPos + spacing, 0, 0);
+
+            buttons[index].transform.GetChild(1).GetComponent<TMP_Text>().text = "";
+
+            buttons[index].GetComponent<ButtonDrag>().itemData = item;
+            buttons[index].GetComponent<InventoryButton>().itemData = item;
+            buttons[index].GetComponent<ButtonDrag>().SetMineInventory(inventory);
+            buttons[index].GetComponent<ButtonDrag>().SetTargetInventory(othersInventory);
         }
     }
     public int FindEmptySlot()
     {
         for (int i = 0; i < buttons.Length; i++)
         {
-            if (buttons[i] == null)
+            if (buttons[i].GetComponent<InventoryButton>().itemData == null)
                 return i;
         }
         return -1;
     }
 
-    private GameObject MakeButtonInstance(ItemData item)
+    private GameObject MakeButtonInstance()
     {
         GameObject buttonInstance = GameManager.Resource.Instantiate<GameObject>(buttonPrefab);
         buttonInstance.transform.SetParent(content.transform, false);
@@ -98,14 +121,6 @@ public class InventoryUI : MonoBehaviour
         else
             buttonInstance.GetComponent<Animator>().runtimeAnimatorController = anim2;
         isGetAnim1 = !isGetAnim1;
-
-        buttonInstance.transform.GetChild(0).GetComponent<TMP_Text>().text = $"{item.itemName}";
-        buttonInstance.transform.GetChild(2).GetComponent<TMP_Text>().text = $"{item.itemType}";
-
-        int spacing = item.itemName.Length * 8;
-        buttonInstance.transform.GetChild(1).GetComponent<RectTransform>().localPosition += new Vector3(spacing, 0, 0);
-
-        buttonInstance.transform.GetChild(1).GetComponent<TMP_Text>().text = "";
         
         return buttonInstance;
     }
@@ -128,7 +143,8 @@ public class InventoryUI : MonoBehaviour
     {
         for (int i = 0; i < buttons.Length; i++)
         {
-            if (buttons[i] == null)
+            
+            if (buttons[i].GetComponent<InventoryButton>().itemData == null)
                 continue;
 
             if (buttons[i].transform.GetChild(0).GetComponent<TMP_Text>().text == itemName)
@@ -142,8 +158,8 @@ public class InventoryUI : MonoBehaviour
         int index = FindButton(item.itemName);
         if (index != -1)
         {
-            Destroy(buttons[index].gameObject);
-            buttons[index] = null;
+            buttons[index].gameObject.SetActive(false);
+            buttons[index].GetComponent<InventoryButton>().itemData = null;
         }
         
     }
