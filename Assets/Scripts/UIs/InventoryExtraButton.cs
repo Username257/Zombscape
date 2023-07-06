@@ -30,6 +30,8 @@ public class InventoryExtraButton : MonoBehaviour, IPointerClickHandler
 
         if (transform.Find("useText").GetComponent<TMP_Text>().text.Equals("ÀåÂø"))
         {
+            if (holder.isGrabingSomething)
+                holder.ReleaseItem();
             GameManager.Inventory.HoldItem(itemName);
             parentButton.GetComponent<InventoryButton>().isClickedForUse = true;
         }
@@ -42,6 +44,8 @@ public class InventoryExtraButton : MonoBehaviour, IPointerClickHandler
 
         if (transform.Find("useText").GetComponent<TMP_Text>().text.Equals("¸Ô±â"))
         {
+            if (holder.isGrabingSomething)
+                holder.ReleaseItem();
             GameManager.Inventory.HoldItem(itemName);
         }
 

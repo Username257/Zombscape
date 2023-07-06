@@ -15,6 +15,10 @@ public class ButtonDrag : MonoBehaviour, IDragHandler
     public InventoryButton button;
     public bool isUsed;
 
+    public void Start()
+    {
+        gameObject.SetActive(false);
+    }
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = eventData.position;

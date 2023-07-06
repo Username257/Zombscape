@@ -20,8 +20,7 @@ public class Zombie : OtherObject, IHideable, IDamageable
     [SerializeField] float range;
     [SerializeField] private bool isFreeze;
     
-    private ZombieData zombieData;
-    public ZombieData ZombieData { set { zombieData = value; } }
+    public ZombieData zombieData;
 
     [SerializeField] GameObject player;
     CapsuleCollider capCol;
@@ -37,7 +36,7 @@ public class Zombie : OtherObject, IHideable, IDamageable
     bool isDamaged;
 
 
-    public override void Start()
+    public new void Start()
     {
         player = GameObject.FindWithTag("Player");
         nav = gameObject.GetComponent<NavMeshAgent>();
@@ -53,7 +52,9 @@ public class Zombie : OtherObject, IHideable, IDamageable
 
         SetAnimSpeed();
 
-        base.Start();
+        GetComponent<OthersInventory>().Init();
+
+        otherInventoryUI = GameObject.FindWithTag("OthersInventoryUI").GetComponent<InventoryUI>();
     }
 
     private void Update()

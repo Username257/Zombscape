@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.WSA;
 
 public class InventoryButton : MonoBehaviour, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
@@ -16,6 +17,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IDragHandler
     [SerializeField] GameObject tempButton;
     public Inventory inventory;
     public Inventory othersInventory;
+    PlayerAttacker attacker;
     public void Awake()
     {
         tempButton = GameObject.FindWithTag("tempButton");
@@ -25,6 +27,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IDragHandler
     {
         tempButton.gameObject.SetActive(false);
         itemName = transform.GetChild(0).GetComponent<TMP_Text>().text;
+        attacker = GameObject.FindWithTag("Player").GetComponent<PlayerAttacker>();
     }
     public void SetInventory(Inventory mine, Inventory other)
     {
@@ -83,10 +86,8 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IDragHandler
         {
             useButton.transform.Find("useText").GetComponent<TMP_Text>().text = "ÀåÂø";
 
-            if (isClickedForUse)
-            {
-                GameObject.Find("useText").GetComponent<TMP_Text>().text = "ÀåÂø ÇØÁ¦";
-            }
+            if (attacker.isHoldingWeapon)
+                useButton.transform.Find("useText").GetComponent<TMP_Text>().text = "ÀåÂø ÇØÁ¦";
         }
 
         if (transform.Find("typeText").GetComponent<TMP_Text>().text.Equals("À½½Ä"))
