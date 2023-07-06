@@ -15,6 +15,7 @@ TagManager:
   - RootCanvas
   - InventoryExtraButton
   - tempButton
+  - RandomInventoryGenerator
   layers:
   - Default
   - TransparentFX

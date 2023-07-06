@@ -101,6 +101,8 @@ public class InventoryUI : MonoBehaviour
             buttons[index].GetComponent<InventoryButton>().itemData = item;
             buttons[index].GetComponent<InventoryButton>().SetInventory(inventory, othersInventory);
 
+            if (index > 8)
+                ContentBoxGrowUp();
         }
     }
     public int FindEmptySlot()
@@ -168,6 +170,6 @@ public class InventoryUI : MonoBehaviour
 
     public void ContentBoxGrowUp()
     {
-        content.sizeDelta += new Vector2(0, 30);
+        content.sizeDelta = new Vector2(content.sizeDelta.x, content.sizeDelta.y + 30);
     }
 }

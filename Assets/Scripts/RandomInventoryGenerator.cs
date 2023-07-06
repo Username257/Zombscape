@@ -49,6 +49,6 @@ public class RandomInventoryGenerator : MonoBehaviour
 
     private int ItemNums()
     {
-        return randNum = random.Next(0, 14);
+        return randNum = random.Next(1, 14);
     }
 }
