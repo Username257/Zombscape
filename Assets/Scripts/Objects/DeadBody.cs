@@ -6,8 +6,8 @@ public class DeadBody : OtherObject
 {
     private new void Start()
     {
-        GetComponent<OtherObject>().Init();
         GetComponent<OthersInventory>().Init();
-        AddItem();
+
+        base.Start();
     }
 }

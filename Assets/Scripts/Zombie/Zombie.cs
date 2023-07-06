@@ -54,10 +54,8 @@ public class Zombie : OtherObject, IDamageable
         
         GetComponent<OtherObject>().Init();
         GetComponent<OthersInventory>().Init();
-        GetComponent<OtherObject>().AddItem();
         canShowInventory = false;
 
-        otherInventoryUI = GameObject.FindWithTag("OthersInventoryUI").GetComponent<InventoryUI>();
     }
 
     private void Update()

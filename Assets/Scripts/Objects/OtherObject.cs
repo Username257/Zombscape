@@ -1,3 +1,4 @@
+using Palmmedia.ReportGenerator.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +7,9 @@ using UnityEngine.Events;
 public class OtherObject : MonoBehaviour, IFarmingable
 {
     [SerializeField] protected InventoryUI otherInventoryUI;
+    RandomInventoryGenerator generator;
     public InventoryUI OtherInventoryUI { get { return otherInventoryUI; } set { otherInventoryUI = value; } }
     [SerializeField] protected Inventory inventory;
-    public ItemData coneSoup;
-    public ItemData axe;
-    public ItemData crowbar;
     public bool canShowInventory = true;
 
     public void Start()
@@ -21,16 +20,13 @@ public class OtherObject : MonoBehaviour, IFarmingable
     {
         inventory = gameObject.GetComponent<Inventory>();
         otherInventoryUI = GameObject.FindWithTag("OthersInventoryUI").GetComponent<InventoryUI>();
+        InventoryGenerate();
     }
 
-    public void AddItem()
+    public void InventoryGenerate()
     {
-        inventory.AddItem(coneSoup);
-        inventory.AddItem(coneSoup);
-        inventory.AddItem(coneSoup);
-        inventory.AddItem(axe);
-        inventory.AddItem(crowbar);
-        inventory.AddItem(crowbar);
+        generator = GameObject.FindWithTag("RandomInventoryGenerator").GetComponent<RandomInventoryGenerator>();
+        generator.SetInventory(inventory);
     }
 
     private void OnTriggerEnter(Collider other)
