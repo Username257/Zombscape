@@ -14,6 +14,7 @@ TagManager:
   - UICanvas
   - RootCanvas
   - InventoryExtraButton
+  - tempButton
   layers:
   - Default
   - TransparentFX

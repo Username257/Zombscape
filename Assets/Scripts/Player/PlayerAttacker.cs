@@ -37,7 +37,6 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
         playerMover = gameObject.GetComponent<PlayerMover>();
         controller = gameObject.GetComponent<CharacterController>();
 
-
         anim.SetLayerWeight(1, 0);
         anim.SetFloat("MeleeLeg", 1f);
 
@@ -85,6 +84,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
         angle = 45;
     }
 
+    Coroutine animWait;
     public void Hit()
     {
 
@@ -101,14 +101,25 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
             }
             else
             {
+                anim.SetLayerWeight(1, 1);
+                animWait = StartCoroutine(AnimationWaitTime(0.3f));
+
                 randNum = Random.Range(0, 2);
 
                 playerMover.Freeze(1f);
 
                 if (randNum == 0)
+                {
                     anim.SetTrigger("IsPunching");
+                    anim.SetTrigger("IsHandPunching1");
+                }
+
                 else
+                {
                     anim.SetTrigger("IsPunching1");
+                    anim.SetTrigger("IsHandPunching2");
+
+                }
 
                 return;
             }
@@ -151,6 +162,12 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     IEnumerator ApplyDamageWaitTime()
     {
         yield return new WaitForSeconds(1f);
+    }
+
+    IEnumerator AnimationWaitTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        anim.SetLayerWeight(1, 0);
     }
 
     public void Damaged(int damage)
