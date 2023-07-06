@@ -40,6 +40,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler, IDragHandler
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
+        tempButton.GetComponent<ButtonDrag>().isUsed = false;
         tempButton.GetComponent<ButtonDrag>().targetInventory = othersInventory;
         tempButton.GetComponent<ButtonDrag>().mineInventory = inventory;
         tempButton.GetComponent<ButtonDrag>().button = this;

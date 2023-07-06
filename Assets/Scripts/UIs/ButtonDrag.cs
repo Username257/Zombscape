@@ -13,6 +13,7 @@ public class ButtonDrag : MonoBehaviour, IDragHandler
     [SerializeField] public Inventory targetInventory;
     [SerializeField] public ItemData itemData;
     public InventoryButton button;
+    public bool isUsed;
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -25,11 +26,12 @@ public class ButtonDrag : MonoBehaviour, IDragHandler
         if (other.tag == null || targetInventory == null)
             return;
 
-        if (other.tag == targetInventory.inventoryUI.tag)
+        if (other.tag == targetInventory.inventoryUI.tag && !isUsed)
         {
             targetInventory.AddItem(itemData);
             mineInventory.RemoveItem(itemData);
             gameObject.SetActive(false);
+            isUsed = true;
         }
     }
 
