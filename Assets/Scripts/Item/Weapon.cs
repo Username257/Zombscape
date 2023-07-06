@@ -21,6 +21,12 @@ public class Weapon : MonoBehaviour, IUseable, IGetable
         durability = weaponData.durability;
 
         attacker.OnWeild += CountUseTime;
+
+        if (weaponData.itemName == "»ƒ∂Û¿Ã∆“")
+        {
+            gameObject.transform.SetParent(holder.transform.Find("FryingPanPosition").transform);
+            gameObject.transform.localPosition = Vector3.zero;
+        }
     }
 
     public void AddInInventory()
