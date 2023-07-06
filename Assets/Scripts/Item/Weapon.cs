@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UIElements;
 using static UnityEditor.Progress;
 
-public class Weapon : MonoBehaviour, IUseable, IHoldable, IGetable
+public class Weapon : MonoBehaviour, IUseable, IGetable
 {
     PlayerHolder holder;
     PlayerAttacker attacker;
@@ -21,15 +21,6 @@ public class Weapon : MonoBehaviour, IUseable, IHoldable, IGetable
         durability = weaponData.durability;
 
         attacker.OnWeild += CountUseTime;
-    }
-
-    public void Hold(GameObject obj)
-    {
-        holder.GrabItem(obj);
-    }
-    public void Release()
-    {
-        holder.ReleaseItem();
     }
 
     public void AddInInventory()
@@ -47,7 +38,6 @@ public class Weapon : MonoBehaviour, IUseable, IHoldable, IGetable
         if (useTime >= durability)
         {
             RemoveInInventory();
-            Release();
         }
     }
 

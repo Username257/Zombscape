@@ -7,9 +7,8 @@ public class PlayerHolder : MonoBehaviour
     PlayerAttacker attacker;
     PlayerEater eater;
     PlayerMover mover;
-    PlayerHolder holder;
     public bool isGrabingSomething;
-    GameObject holdingObj;
+    public GameObject holdingObj;
 
     private void Awake()
     {
@@ -66,6 +65,7 @@ public class PlayerHolder : MonoBehaviour
         if (holdingObj.GetComponent<Food>() != null)
         {
             eater.isHoldingFood = false;
+            holdingObj.GetComponent<Food>().CountUseTime();
         }
     }
 

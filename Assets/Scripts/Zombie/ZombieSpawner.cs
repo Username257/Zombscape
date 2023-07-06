@@ -24,6 +24,5 @@ public class ZombieSpawner : MonoBehaviour
         Zombie newZombie = Instantiate(zombiePrefab).GetComponent<Zombie>();
         newZombie.zombieData = zombieDatas[randNum];
         newZombie.transform.position = new Vector3(player.transform.position.x + 10f, 0, player.transform.position.z + 10f);
-        newZombie.OtherInventoryUI = GameObject.FindWithTag("OthersInventoryUI").GetComponent<InventoryUI>();
     }
 }

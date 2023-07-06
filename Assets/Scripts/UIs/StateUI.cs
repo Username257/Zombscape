@@ -4,12 +4,30 @@ using UnityEngine;
 
 public class StateUI : PopUpUI
 {
-    private bool isAble;
+    public bool isAble = true;
+    public bool isState;
     protected override void Awake()
     {
         base.Awake();
     }
 
+    public void Start()
+    {
+        Able();
+        transforms["State"].gameObject.SetActive(true);
+        transforms["Info"].gameObject.SetActive(false);
+    }
+
+    public void OnStateButton()
+    {
+        transforms["State"].gameObject.SetActive(true);
+        transforms["Info"].gameObject.SetActive(false);
+    }
+    public void OnInfoButton()
+    {
+        transforms["State"].gameObject.SetActive(false);
+        transforms["Info"].gameObject.SetActive(true);
+    }
     public void OnCloseButton()
     {
         if (isAble) 
@@ -20,24 +38,20 @@ public class StateUI : PopUpUI
 
     private void Disable()
     {
-        buttons["HPButton"].gameObject.SetActive(false);
-        buttons["InfoButton"].gameObject.SetActive(false);
+        transforms["Buttons"].gameObject.SetActive(false);
         transforms["UIBaseImage"].gameObject.SetActive(false);
-        transforms["BodyInfoTextBox"].gameObject.SetActive(false);
-        transforms["HpBar"].gameObject.SetActive(false);
-        transforms["BodyUI"].gameObject.SetActive(false);
+        transforms["State"].gameObject.SetActive(false);
+        transforms["Info"].gameObject.SetActive(false);
 
         isAble = !isAble;
     }
 
     private void Able()
     {
-        transforms["HpBar"].gameObject.SetActive(true);
-        buttons["HPButton"].gameObject.SetActive(true);
-        buttons["InfoButton"].gameObject.SetActive(true);
+        transforms["Buttons"].gameObject.SetActive(true);
         transforms["UIBaseImage"].gameObject.SetActive(true);
-        transforms["BodyInfoTextBox"].gameObject.SetActive(true);
-        transforms["BodyUI"].gameObject.SetActive(true);
+        transforms["State"].gameObject.SetActive(true);
+        transforms["Info"].gameObject.SetActive(true);
 
         isAble = !isAble;
     }

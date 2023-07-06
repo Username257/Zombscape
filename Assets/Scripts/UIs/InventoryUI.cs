@@ -26,7 +26,7 @@ public class InventoryUI : MonoBehaviour
 
     public void Start()
     {
-        buttons = new GameObject[15];
+        buttons = new GameObject[Inventory.maxSlot];
         MakeButtonPool();
 
         if (!isOther)
@@ -37,7 +37,7 @@ public class InventoryUI : MonoBehaviour
 
     public void MakeButtonPool()
     {
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < Inventory.maxSlot; i++)
         {
             GameObject buttonInstance = MakeButtonInstance();
             buttonInstance.GetComponent<InventoryButton>().itemData = null;
@@ -55,7 +55,7 @@ public class InventoryUI : MonoBehaviour
 
         if (inventory != null)
         {
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < Inventory.maxSlot; i++)
             {
                 if (inventory.itemList[i] == null)
                     continue;
@@ -71,7 +71,7 @@ public class InventoryUI : MonoBehaviour
 
     public void RemoveAll()
     {
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < Inventory.maxSlot; i++)
         {
             buttons[i].GetComponent<InventoryButton>().itemData = null;
             buttons[i].gameObject.SetActive(false);

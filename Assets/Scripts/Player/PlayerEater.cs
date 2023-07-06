@@ -26,7 +26,6 @@ public class PlayerEater : MonoBehaviour
             anim.SetTrigger("IsDrinking");
         else
             anim.SetTrigger("IsEating");
-
     }
 
 }

@@ -4,7 +4,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.WSA;
 
-public class Food : MonoBehaviour, IHoldable, IGetable, IUseable
+public class Food : MonoBehaviour, IGetable, IUseable
 {
     PlayerHolder holder;
     [SerializeField] FoodData foodData;
@@ -17,14 +17,6 @@ public class Food : MonoBehaviour, IHoldable, IGetable, IUseable
         holder = GameObject.FindWithTag("Holder").GetComponent<PlayerHolder>();
         durability = foodData.durability;
     }
-    public void Hold(GameObject obj)
-    {
-        holder.GrabItem(obj);
-    }
-    public void Release()
-    {
-        holder.ReleaseItem();
-    }
 
     public void AddInInventory()
     {
@@ -34,6 +26,7 @@ public class Food : MonoBehaviour, IHoldable, IGetable, IUseable
     public void RemoveInInventory()
     {
         GameManager.Inventory.RemoveItem(foodData);
+        Destroy(gameObject);
     }
 
     public void CountUseTime()
@@ -42,7 +35,6 @@ public class Food : MonoBehaviour, IHoldable, IGetable, IUseable
         if (useTime >= durability)
         {
             RemoveInInventory();
-            Release();
         }
     }
 

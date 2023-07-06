@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
-public class Zombie : OtherObject, IHideable, IDamageable
+public class Zombie : OtherObject, IDamageable
 {
     private enum State { Idle, Follow, Attack, Dead}
     private State curState;
@@ -51,8 +51,11 @@ public class Zombie : OtherObject, IHideable, IDamageable
         damage = zombieData.Damage;
 
         SetAnimSpeed();
-
+        
+        GetComponent<OtherObject>().Init();
         GetComponent<OthersInventory>().Init();
+        GetComponent<OtherObject>().AddItem();
+        canShowInventory = false;
 
         otherInventoryUI = GameObject.FindWithTag("OthersInventoryUI").GetComponent<InventoryUI>();
     }
@@ -279,16 +282,6 @@ public class Zombie : OtherObject, IHideable, IDamageable
         isDie = true;
         if (!anim.GetBool("IsDie"))
             Die();
-    }
-
-    public void Hide()
-    {
-        transform.localScale = new Vector3(0, 0, 0);
-    }
-
-    public void Show()
-    {
-        transform.localScale = new Vector3(1, 1, 1);
     }
 
     Coroutine meltRoutine;

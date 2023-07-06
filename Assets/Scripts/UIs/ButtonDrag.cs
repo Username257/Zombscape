@@ -30,6 +30,9 @@ public class ButtonDrag : MonoBehaviour, IDragHandler
         if (other.tag == null || targetInventory == null)
             return;
 
+        if (targetInventory.FindEmptySlot() == -1)
+            return;
+
         if (other.tag == targetInventory.inventoryUI.tag && !isUsed)
         {
             targetInventory.AddItem(itemData);
