@@ -39,7 +39,6 @@ public class Zombie : OtherObject, IHideable, IDamageable
 
     public override void Start()
     {
-
         player = GameObject.FindWithTag("Player");
         nav = gameObject.GetComponent<NavMeshAgent>();
         anim = gameObject.GetComponent<Animator>();
@@ -55,8 +54,6 @@ public class Zombie : OtherObject, IHideable, IDamageable
         SetAnimSpeed();
 
         base.Start();
-
-        
     }
 
     private void Update()

@@ -16,6 +16,11 @@ public class OtherObject : MonoBehaviour, IFarmingable
         inventory = gameObject.GetComponent<Inventory>();
         otherInventoryUI = GameObject.FindWithTag("OthersInventoryUI").GetComponent<InventoryUI>();
 
+        AddItem();
+    }
+
+    public void AddItem()
+    {
         inventory.AddItem(coneSoup);
         inventory.AddItem(coneSoup);
         inventory.AddItem(coneSoup);

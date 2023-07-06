@@ -98,10 +98,9 @@ public class InventoryUI : MonoBehaviour
 
             buttons[index].transform.GetChild(1).GetComponent<TMP_Text>().text = "";
 
-            buttons[index].GetComponent<ButtonDrag>().itemData = item;
             buttons[index].GetComponent<InventoryButton>().itemData = item;
-            buttons[index].GetComponent<ButtonDrag>().SetMineInventory(inventory);
-            buttons[index].GetComponent<ButtonDrag>().SetTargetInventory(othersInventory);
+            buttons[index].GetComponent<InventoryButton>().SetInventory(inventory, othersInventory);
+
         }
     }
     public int FindEmptySlot()
