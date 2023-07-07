@@ -19,6 +19,7 @@ public class PlayersInventory : Inventory
         {
             ItemData itemData = FindItem(itemName);
             GameObject item = MakeItemInstanceToHold(itemData);
+            item.transform.SetParent(holder.transform);
             holder.GrabItem(item);
         }
     }
@@ -26,7 +27,6 @@ public class PlayersInventory : Inventory
     public GameObject MakeItemInstanceToHold(ItemData itemData)
     {
         GameObject item = GameManager.Resource.Instantiate<GameObject>($"Item/{itemData.name}");
-        item.SetActive(false);
         return item;
     }
 

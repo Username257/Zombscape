@@ -8,10 +8,12 @@ public class PlayerEater : MonoBehaviour
     [SerializeField] float curHunger;
     public bool isHoldingFood;
     Animator anim;
+    PlayerMover mover;
 
     private void Start()
     {
         anim = gameObject.GetComponent<Animator>();
+        mover = gameObject.GetComponent<PlayerMover>();
     }
     public void IsHoldingFood(Food food)
     {
@@ -26,6 +28,8 @@ public class PlayerEater : MonoBehaviour
             anim.SetTrigger("IsDrinking");
         else
             anim.SetTrigger("IsEating");
+
+        mover.Freeze(2f);
     }
 
 }

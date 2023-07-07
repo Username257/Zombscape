@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UIElements;
 using static UnityEditor.Progress;
 
-public class Weapon : MonoBehaviour, IUseable, IGetable
+public class Weapon : Item, IUseable, IGetable
 {
     PlayerHolder holder;
     PlayerAttacker attacker;
@@ -14,6 +14,12 @@ public class Weapon : MonoBehaviour, IUseable, IGetable
     public WeaponData WeaponData { get { return weaponData; } }
     [SerializeField] int useTime;
     int durability;
+
+    public Weapon(ItemData data) : base(data)
+    {
+        data = weaponData;
+    }
+
     public void Start()
     { 
         attacker = GameObject.FindWithTag("Player").GetComponent<PlayerAttacker>();

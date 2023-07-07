@@ -21,7 +21,9 @@ public class PlayerHolder : MonoBehaviour
 
     public void GrabItem(GameObject item)
     {
-        if (CheckExistance(item) == -1)
+        int index = CheckExistance(item.gameObject);
+        
+        if (index == -1 || holdingObjs.Count == 0)
         {
             item.transform.SetParent(transform);
             item.transform.localPosition = Vector3.zero;
@@ -32,8 +34,8 @@ public class PlayerHolder : MonoBehaviour
         }
         else
         {
-            holdingObjs[CheckExistance(item)].SetActive(true);
-            holdingObj = holdingObjs[CheckExistance(item)];
+            holdingObjs[index].SetActive(true);
+            holdingObj = holdingObjs[index];
             Destroy(item);
         }
 
@@ -60,8 +62,10 @@ public class PlayerHolder : MonoBehaviour
     {
         for (int i = 0; i < holdingObjs.Count; i++)
         {
-            if (holdingObjs[i].gameObject.GetComponent<Weapon>().WeaponData == item.gameObject.GetComponent<Weapon>().WeaponData)
+            holdingObjs[i].gameObject.SetActive(true);
+            if (holdingObjs[i].gameObject.name == item.gameObject.name)
                 return i;
+            holdingObjs[i].gameObject.SetActive(false);
         }
         return -1;
     }
