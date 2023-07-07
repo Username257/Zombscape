@@ -16,5 +16,5 @@ MonoBehaviour:
   itemType: 1
   description: 
   durability: 1
-  satisfy: 50
+  satisfy: 0
   isDrink: 1

@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine.UIElements;
 using UnityEngine.Events;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 
 public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 {
@@ -30,6 +31,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     public bool debug;
     public UnityAction OnWeild;
     public bool OnWeildIsInvoking;
+    float time;
 
     private void Awake()
     {
@@ -58,6 +60,20 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     {
         if (GameManager.Data.CurLife < 0)
             Die();
+
+        if(GameManager.Data.CurHunger < 30)
+        {
+            time += Time.deltaTime;
+
+            if (time > 5)
+            {
+                GameManager.Data.CurLife++;
+                time = 0;
+                if (GameManager.Data.CurLife > 100)
+                    GameManager.Data.CurLife = 100;
+            }
+        }
+
     }
 
     public void HoldingWeapon(Weapon weapon)

@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class BodyInfoTextBox : MonoBehaviour
 {
     [SerializeField] PlayerGetInjured playerGetInjured;
+    PlayerEater eater;
     [SerializeField] GameObject buttonPrefab;
     [SerializeField] RectTransform Box;
     string text;
@@ -68,15 +69,18 @@ public class BodyInfoTextBox : MonoBehaviour
     private void OnEnable()
     {
         playerGetInjured = GameObject.FindWithTag("Player").GetComponent<PlayerGetInjured>();
+        eater = GameObject.FindWithTag("Player").GetComponent<PlayerEater>();
 
         playerGetInjured.OnGetInjured += GetText;
         playerGetInjured.OnGetBited += GetText;
+        eater.OnHealed += GetText;
     }
 
     private void OnDisable()
     {
         playerGetInjured.OnGetInjured -= GetText;
         playerGetInjured.OnGetBited -= GetText;
+        eater.OnHealed -= GetText;
     }
 
 

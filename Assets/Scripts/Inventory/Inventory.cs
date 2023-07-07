@@ -130,6 +130,8 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < maxSlot; i++)
         {
+            if (itemList[i].itemName == null)
+                continue;
             if (itemList[i].itemName == itemName)
                 return itemList[i];
         }

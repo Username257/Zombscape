@@ -24,7 +24,6 @@ public class InventoryUI : MonoBehaviour
     bool isGetAnim1;
     [SerializeField] public GameObject[] buttons;
     int maxCapacity;
-
     public void Start()
     {
         buttons = new GameObject[Inventory.maxSlot];
@@ -34,6 +33,7 @@ public class InventoryUI : MonoBehaviour
             inventory = GameManager.Inventory.GetComponent<PlayersInventory>();
         else
             othersInventory = GameManager.Inventory.GetComponent<PlayersInventory>();
+
     }
 
     public void SetObjName(string name)
@@ -57,6 +57,7 @@ public class InventoryUI : MonoBehaviour
     }
     public void UpdateUI(Inventory inventory)
     {
+        content.sizeDelta = new Vector2(content.sizeDelta.x, 0);
         RemoveAll();
 
         if (inventory != null)
@@ -70,6 +71,7 @@ public class InventoryUI : MonoBehaviour
                     continue;
 
                 AddButton(inventory.itemList[i]);
+                ContentBoxGrowUp();
                 SetButtonsItemCount(inventory.itemList[i].itemName, inventory.itemAmount[i]);
             }
         }
@@ -106,9 +108,6 @@ public class InventoryUI : MonoBehaviour
 
             buttons[index].GetComponent<InventoryButton>().itemData = item;
             buttons[index].GetComponent<InventoryButton>().SetInventory(inventory, othersInventory);
-
-            if (index > 6)
-                ContentBoxGrowUp();
         }
     }
     public int FindEmptySlot()
@@ -176,6 +175,6 @@ public class InventoryUI : MonoBehaviour
 
     public void ContentBoxGrowUp()
     {
-        content.sizeDelta = new Vector2(content.sizeDelta.x, content.sizeDelta.y + 30);
+        content.sizeDelta = new Vector2(content.sizeDelta.x, content.sizeDelta.y + 40);
     }
 }

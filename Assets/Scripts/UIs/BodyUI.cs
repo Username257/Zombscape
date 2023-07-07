@@ -17,11 +17,13 @@ public class BodyUI : MonoBehaviour
     [SerializeField] Sprite bandaged;
     [SerializeField] Sprite none;
     PlayerGetInjured playerGetInjured;
+    PlayerEater eater;
     enum Body { Neck, RArm, LArm, RLeg, LLeg, None}
 
     private void Awake()
     {
         playerGetInjured = GameObject.FindWithTag("Player").GetComponent<PlayerGetInjured>();
+        eater = GameObject.FindWithTag("Player").GetComponent<PlayerEater>();
 
         NeckImg.sprite = none;
         RArmImg.sprite = none;
@@ -33,12 +35,14 @@ public class BodyUI : MonoBehaviour
     {
         playerGetInjured.OnGetInjured += ChangeImage;
         playerGetInjured.OnGetBited += ChangeImage;
+        eater.OnHealed += ChangeImage;
     }
 
     private void OnDisable()
     {
         playerGetInjured.OnGetInjured -= ChangeImage;
         playerGetInjured.OnGetBited -= ChangeImage;
+        eater.OnHealed -= ChangeImage;
     }
 
     public void ChangeImage(int body)
