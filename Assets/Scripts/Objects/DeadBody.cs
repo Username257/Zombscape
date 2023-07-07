@@ -9,5 +9,6 @@ public class DeadBody : OtherObject
         GetComponent<OthersInventory>().Init();
 
         base.Start();
+        objName = "Ω√√º";
     }
 }

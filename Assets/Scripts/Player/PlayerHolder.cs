@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class PlayerHolder : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerHolder : MonoBehaviour
     PlayerEater eater;
     PlayerMover mover;
     public bool isGrabingSomething;
+    public List<GameObject> holdingObjs = new List<GameObject>();
     public GameObject holdingObj;
 
     private void Awake()
@@ -19,11 +21,21 @@ public class PlayerHolder : MonoBehaviour
 
     public void GrabItem(GameObject item)
     {
-        item.transform.SetParent(transform);
-        item.transform.localPosition = Vector3.zero;
-        item.transform.localRotation = Quaternion.identity;
-        item.gameObject.SetActive(true);
-        holdingObj = item;
+        if (CheckExistance(item) == -1)
+        {
+            item.transform.SetParent(transform);
+            item.transform.localPosition = Vector3.zero;
+            item.transform.localRotation = Quaternion.identity;
+            item.gameObject.SetActive(true);
+            holdingObjs.Add(item);
+            holdingObj = item;
+        }
+        else
+        {
+            holdingObjs[CheckExistance(item)].SetActive(true);
+            holdingObj = holdingObjs[CheckExistance(item)];
+            Destroy(item);
+        }
 
         isGrabingSomething = true;
 
@@ -44,6 +56,16 @@ public class PlayerHolder : MonoBehaviour
 
     Coroutine eattingTime;
 
+    private int CheckExistance(GameObject item)
+    {
+        for (int i = 0; i < holdingObjs.Count; i++)
+        {
+            if (holdingObjs[i].gameObject.GetComponent<Weapon>().WeaponData == item.gameObject.GetComponent<Weapon>().WeaponData)
+                return i;
+        }
+        return -1;
+    }
+
     IEnumerator HoldTime(float holdTime)
     {
         yield return new WaitForSeconds(holdTime);
@@ -52,7 +74,7 @@ public class PlayerHolder : MonoBehaviour
 
     public void ReleaseItem()
     {
-        Destroy(holdingObj.gameObject);
+        holdingObj.SetActive(false);
 
         isGrabingSomething = false;
 

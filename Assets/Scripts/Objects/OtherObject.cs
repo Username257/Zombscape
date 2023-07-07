@@ -12,6 +12,8 @@ public class OtherObject : MonoBehaviour, IFarmingable
     [SerializeField] protected Inventory inventory;
     public bool canShowInventory = true;
 
+    public string objName;
+
     public void Start()
     {
         Init();
@@ -20,6 +22,7 @@ public class OtherObject : MonoBehaviour, IFarmingable
     {
         inventory = gameObject.GetComponent<Inventory>();
         otherInventoryUI = GameObject.FindWithTag("OthersInventoryUI").GetComponent<InventoryUI>();
+        GetComponent<OthersInventory>().Init();
         InventoryGenerate();
     }
 
@@ -35,6 +38,7 @@ public class OtherObject : MonoBehaviour, IFarmingable
         {
             ShowMyInventory();
             GameManager.Inventory.inventoryUI.othersInventory = inventory;
+            otherInventoryUI.SetObjName($"{objName}의 인벤토리");
         }
     }
 
@@ -42,7 +46,7 @@ public class OtherObject : MonoBehaviour, IFarmingable
     {
         otherInventoryUI.RemoveAll();
         otherInventoryUI.inventory = null;
-
+        otherInventoryUI.SetObjName(" ");
     }
 
     public void ShowMyInventory()

@@ -81,7 +81,10 @@ public class Inventory : MonoBehaviour
         itemName = item.name;
         int index = CheckExistance(item);
         if (index == -1)
+        {
             Debug.Log("아이템이 인벤토리에 존재하지 않는데 삭제하려고 시도함.");
+            return;
+        }
         else
         {
             if (itemList[index] != null)

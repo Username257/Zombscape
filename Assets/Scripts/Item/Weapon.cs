@@ -15,18 +15,19 @@ public class Weapon : MonoBehaviour, IUseable, IGetable
     [SerializeField] int useTime;
     int durability;
     public void Start()
-    {
+    { 
         attacker = GameObject.FindWithTag("Player").GetComponent<PlayerAttacker>();
         holder = GameObject.FindWithTag("Holder").GetComponent<PlayerHolder>();
         durability = weaponData.durability;
 
         attacker.OnWeild += CountUseTime;
 
-        if (weaponData.itemName == "»ƒ∂Û¿Ã∆“")
+        if (this.gameObject.GetComponent<Weapon>().weaponData.itemName == "»ƒ∂Û¿Ã∆“")
         {
-            gameObject.transform.SetParent(holder.transform.Find("FryingPanPosition").transform);
+            gameObject.transform.SetParent(holder.transform.Find("FryingPanHolder").gameObject.transform);
             gameObject.transform.localPosition = Vector3.zero;
         }
+            
     }
 
     public void AddInInventory()
@@ -43,7 +44,9 @@ public class Weapon : MonoBehaviour, IUseable, IGetable
         useTime++;
         if (useTime >= durability)
         {
+            holder.ReleaseItem();
             RemoveInInventory();
+            useTime = 0;
         }
     }
 

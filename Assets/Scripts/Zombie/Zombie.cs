@@ -24,6 +24,7 @@ public class Zombie : OtherObject, IDamageable
 
     [SerializeField] GameObject player;
     CapsuleCollider capCol;
+    SphereCollider sphereCol;
     GameObject followTarget;
     float disToTarget;
     Vector3 dir;
@@ -38,10 +39,13 @@ public class Zombie : OtherObject, IDamageable
 
     public new void Start()
     {
+        objName = "Ω√√º";
+
         player = GameObject.FindWithTag("Player");
         nav = gameObject.GetComponent<NavMeshAgent>();
         anim = gameObject.GetComponent<Animator>();
         capCol = gameObject.GetComponent<CapsuleCollider>();
+        sphereCol = gameObject.GetComponent<SphereCollider>();
 
         cosResult = Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad);
         curState = State.Idle;
@@ -49,6 +53,8 @@ public class Zombie : OtherObject, IDamageable
         life = zombieData.Hp;
         moveSpeed = zombieData.MoveSpeed;
         damage = zombieData.Damage;
+        sphereCol.enabled = false;
+
 
         SetAnimSpeed();
         
@@ -60,13 +66,12 @@ public class Zombie : OtherObject, IDamageable
 
     private void Update()
     {
+
         if (life < 0)
             curState = State.Dead;
 
         disToTarget = (player.transform.position - transform.position).magnitude;
         dir = player.transform.position - transform.position;
-
-        
 
         switch (curState)
         {
@@ -104,7 +109,8 @@ public class Zombie : OtherObject, IDamageable
         }
     }
     private void UpdateIdle()
-    {
+    { 
+
         anim.SetBool("IsWalk", false);
 
         nav.SetDestination(transform.position);
@@ -122,6 +128,7 @@ public class Zombie : OtherObject, IDamageable
         if (life <= 0)
             curState = State.Dead;
     }
+
 
     private void UpdateFollow()
     {
@@ -266,6 +273,7 @@ public class Zombie : OtherObject, IDamageable
         anim.SetBool("IsDie", true);
         canShowInventory = true;
         capCol.isTrigger = true;
+        sphereCol.enabled = true;
     }
 
 

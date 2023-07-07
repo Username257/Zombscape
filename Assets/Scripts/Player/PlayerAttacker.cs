@@ -142,14 +142,17 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
             if (Vector3.Dot(transform.forward, dirTarget) < cosResult)
                 continue;
-                
+           
+            if (collider.isTrigger == true)
+                continue;
 
             IDamageable damageable = collider.GetComponent<IDamageable>();
             damageable?.Damaged(damage);
 
+            
             if (isHoldingWeapon)
             {
-                OnWeild.Invoke();
+                OnWeild?.Invoke();
                 OnWeildIsInvoking = true;
             }
             damageTime = StartCoroutine(ApplyDamageWaitTime());

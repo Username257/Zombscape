@@ -17,6 +17,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] RuntimeAnimatorController anim1;
     [SerializeField] RuntimeAnimatorController anim2;
     [SerializeField] bool isOther = true;
+    [SerializeField] TMP_Text objName;
 
     public Inventory inventory;
     public Inventory othersInventory;
@@ -33,6 +34,11 @@ public class InventoryUI : MonoBehaviour
             inventory = GameManager.Inventory.GetComponent<PlayersInventory>();
         else
             othersInventory = GameManager.Inventory.GetComponent<PlayersInventory>();
+    }
+
+    public void SetObjName(string name)
+    {
+        objName.text = name;
     }
 
     public void MakeButtonPool()
@@ -101,7 +107,7 @@ public class InventoryUI : MonoBehaviour
             buttons[index].GetComponent<InventoryButton>().itemData = item;
             buttons[index].GetComponent<InventoryButton>().SetInventory(inventory, othersInventory);
 
-            if (index > 8)
+            if (index > 6)
                 ContentBoxGrowUp();
         }
     }

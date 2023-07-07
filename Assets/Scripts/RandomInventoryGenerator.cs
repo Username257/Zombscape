@@ -37,12 +37,12 @@ public class RandomInventoryGenerator : MonoBehaviour
 
         if (i < 70)
         {
-            i = GetRandomNum(0, 11);
+            i = GetRandomNum(0, 12);
             return foodDatas[i];
         }
         else
         {
-            i = GetRandomNum(0, 2);
+            i = GetRandomNum(0, 3);
             return weaponDatas[i];
         }
     }
