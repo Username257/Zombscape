@@ -51,8 +51,8 @@ public class PlayerHolder : MonoBehaviour
         {
             eater.isHoldingFood = true;
             eater.IsHoldingFood(item.GetComponent<Food>());
-            mover.Freeze(2f);
-            eattingTime = StartCoroutine(HoldTime(2f));
+            mover.Freeze(2.5f);
+            eattingTime = StartCoroutine(HoldTime(3f));
         }
     }
 

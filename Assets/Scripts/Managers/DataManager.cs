@@ -19,6 +19,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    public event UnityAction OnCurHungerChanged;
     [SerializeField] private float curHunger;
     public float CurHunger
     {
@@ -26,6 +27,7 @@ public class DataManager : MonoBehaviour
         set
         {
             curHunger = value;
+            OnCurHungerChanged?.Invoke();
         }
     }
 

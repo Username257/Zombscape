@@ -94,6 +94,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
             if (isHoldingWeapon)
             {
+                GameManager.Data.CurHunger += 5;
                 playerMover.Freeze(freezeTime);
                 anim.SetTrigger("IsMelee");
                 anim.SetTrigger("IsPunching1");
@@ -107,6 +108,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
                 randNum = Random.Range(0, 2);
 
                 playerMover.Freeze(1f);
+                GameManager.Data.CurHunger += 3;
 
                 if (randNum == 0)
                 {

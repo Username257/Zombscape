@@ -9,6 +9,7 @@ public class PlayerMover : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
 
+    PlayerEater eater;
     private CharacterController controller;
     private Vector3 moveDir;
     private Animator anim;
@@ -20,6 +21,7 @@ public class PlayerMover : MonoBehaviour
 
     private void Start()
     {
+        eater = gameObject.GetComponent<PlayerEater>();
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         moveSpeed = 3f;
