@@ -13,6 +13,7 @@ public class PlayerEater : MonoBehaviour
     public int randNum = 0;
     bool isHealed;
     public UnityAction<int> OnHealed;
+    public UnityAction OnDie;
 
     private void Start()
     {
@@ -31,7 +32,9 @@ public class PlayerEater : MonoBehaviour
 
         if (GameManager.Data.CurHunger > 100)
         {
+            OnDie?.Invoke();
             attacker.Die();
+            GameManager.Ending.CurState = EndingManager.deathState.dByHunger;
             GameManager.Data.CurHunger = 100;
             this.enabled = false;
         }
@@ -115,6 +118,7 @@ public class PlayerEater : MonoBehaviour
                 {
                     GameManager.Data.RLeg = DataManager.State.None;
                     OnHealed?.Invoke(3);
+                    
                     isHealed = true;
                     break;
                 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f90b20e633a4614ea5e585cf0617eb2, type: 3}
   m_Name: FastWalker
   m_EditorClassIdentifier: 
-  name: fast
+  zombieName: 
   hp: 15
-  damage: 5
+  damage: 10
   moveSpeed: 3

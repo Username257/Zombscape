@@ -9,7 +9,7 @@ public class PlayerGetInjured : MonoBehaviour
     private Body isBleeding;
     public UnityAction<int> OnGetInjured;
     public UnityAction<int> OnGetBited;
-    public UnityEvent OnDie;
+    public UnityAction OnDie;
     private bool goBited;
     public enum Body { Neck, RArm, LArm, RLeg, LLeg, Retry }
 
@@ -194,7 +194,8 @@ public class PlayerGetInjured : MonoBehaviour
             GameManager.Data.LLeg == DataManager.State.Bleeding)
         {
             GameManager.Data.CurLife = 0;
-            OnDie.Invoke();
+            GameManager.Ending.CurState = EndingManager.deathState.dByBleed;
+            OnDie?.Invoke();
         }
 
         if (GameManager.Data.Neck == DataManager.State.Bited &&
@@ -204,7 +205,8 @@ public class PlayerGetInjured : MonoBehaviour
             GameManager.Data.LLeg == DataManager.State.Bited)
         {
             GameManager.Data.CurLife = 0;
-            OnDie.Invoke();
+            GameManager.Ending.CurState = EndingManager.deathState.dByBleed;
+            OnDie?.Invoke();
         }
 
     }

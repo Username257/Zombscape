@@ -1,6 +1,7 @@
 using Palmmedia.ReportGenerator.Core;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,7 +13,7 @@ public class OtherObject : MonoBehaviour, IFarmingable
     [SerializeField] protected Inventory inventory;
     public bool canShowInventory = true;
 
-    public string objName;
+    [SerializeField] public string objName;
 
     public void Start()
     {
@@ -20,8 +21,10 @@ public class OtherObject : MonoBehaviour, IFarmingable
     }
     public void Init()
     {
-        inventory = gameObject.GetComponent<Inventory>();
+
+        inventory = gameObject.AddComponent<OthersInventory>();
         otherInventoryUI = GameObject.FindWithTag("OthersInventoryUI").GetComponent<InventoryUI>();
+
         GetComponent<OthersInventory>().Init();
         InventoryGenerate();
     }

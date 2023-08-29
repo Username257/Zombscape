@@ -6,9 +6,9 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
-public class Zombie : OtherObject, IDamageable
+public class Zombie : MonoBehaviour, IDamageable
 {
-    private enum State { Idle, Follow, Attack, Dead}
+    private enum State { Idle, Walk, Follow, Attack, Dead}
     private State curState;
 
     [SerializeField] float detectRange;
@@ -36,10 +36,22 @@ public class Zombie : OtherObject, IDamageable
     bool firstHit;
     bool isDamaged;
 
+    OtherObject otherObject;
+    float randomTime;
 
-    public new void Start()
+    Vector3 randomPos;
+    float time;
+
+
+    public void Awake()
     {
-        objName = "시체";
+        otherObject = GetComponent<OtherObject>();
+    }
+
+    public void Start()
+    {
+
+        otherObject.objName = "시체";
 
         player = GameObject.FindWithTag("Player");
         nav = gameObject.GetComponent<NavMeshAgent>();
@@ -58,9 +70,7 @@ public class Zombie : OtherObject, IDamageable
 
         SetAnimSpeed();
         
-        GetComponent<OtherObject>().Init();
-        GetComponent<OthersInventory>().Init();
-        canShowInventory = false;
+        otherObject.canShowInventory = false;
 
     }
 
@@ -77,6 +87,9 @@ public class Zombie : OtherObject, IDamageable
         {
             case State.Idle:
                 UpdateIdle();
+                break;
+            case State.Walk:
+                UpdateWalk();
                 break;
             case State.Follow:
                 UpdateFollow();
@@ -127,6 +140,71 @@ public class Zombie : OtherObject, IDamageable
         }
         if (life <= 0)
             curState = State.Dead;
+
+
+        if (time <= 0)
+        {
+            randomTime = Random.Range(1, 10);
+        }
+
+        if (time < randomTime)
+        {
+            time += Time.deltaTime;
+        }
+
+        if (time >= randomTime)
+        {
+            randomPos = Random.insideUnitSphere * 5f;
+            randomPos = new Vector3(transform.position.x - randomPos.x, transform.position.y, transform.position.z - randomPos.z);
+
+            time = 0;
+            curState = State.Walk;
+        }
+
+
+
+    }
+
+    private void UpdateWalk()
+    {
+        if (time <= 0)
+        {
+            randomTime = Random.Range(2, 10);
+        }
+
+        if (time < randomTime)
+        {
+            time += Time.deltaTime;
+        }
+
+        if (time >= randomTime)
+        {
+            time = 0;
+            curState = State.Idle;
+        }
+
+        if (disToTarget < detectRange && (GameManager.Data.CurLife > 0))
+        {
+            if (!isFreeze || !isDamaged)
+            {
+                followTarget = player;
+                curState = State.Follow;
+                return;
+            }
+
+        }
+        if (life <= 0)
+            curState = State.Dead;
+
+        anim.applyRootMotion = false;
+        anim.SetBool("IsWalk", true);
+
+        nav.isStopped = false;
+        nav.SetDestination(randomPos);
+        nav.speed = moveSpeed;
+        
+        if (Vector3.Distance(transform.position, randomPos) < 0.1f)
+            curState = State.Idle;
     }
 
 
@@ -271,7 +349,7 @@ public class Zombie : OtherObject, IDamageable
     {
         anim.applyRootMotion = true;
         anim.SetBool("IsDie", true);
-        canShowInventory = true;
+        otherObject.canShowInventory = true;
         capCol.isTrigger = true;
         sphereCol.enabled = true;
     }

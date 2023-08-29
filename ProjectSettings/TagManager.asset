@@ -16,6 +16,10 @@ TagManager:
   - InventoryExtraButton
   - tempButton
   - RandomInventoryGenerator
+  - Farmingable
+  - DirectionalLight
+  - TimeManager
+  - RandomPositionGenerator
   layers:
   - Default
   - TransparentFX
@@ -25,8 +29,8 @@ TagManager:
   - UI
   - Zombie
   - Obstacle
-  - 
-  - 
+  - Ground
+  - SpawnPot
   - 
   - 
   - 

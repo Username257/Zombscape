@@ -35,7 +35,7 @@ public class RandomInventoryGenerator : MonoBehaviour
     {
         int i = GetRandomNum(0, 100);
 
-        if (i < 70)
+        if (i < 90)
         {
             i = GetRandomNum(0, 12);
             return foodDatas[i];
@@ -49,6 +49,6 @@ public class RandomInventoryGenerator : MonoBehaviour
 
     private int ItemNums()
     {
-        return randNum = random.Next(1, 14);
+        return randNum = random.Next(1, 7);
     }
 }

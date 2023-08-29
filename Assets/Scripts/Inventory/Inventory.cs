@@ -32,9 +32,8 @@ public class Inventory : MonoBehaviour
             {
                 itemList[index] = item;
                 itemAmount[index]++;
-                if (inventoryUI == null)
-                    Debug.Log("InventoryUI가 null");
-                inventoryUI.AddButton(item);
+                if (inventoryUI != null)
+                    inventoryUI.AddButton(item);
             }
             else
                 Debug.Log("비어있는 슬롯을 못 찾음");

@@ -207,6 +207,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     public void Die()
     {
         GameManager.Data.CurLife = 0;
+        GameManager.Ending.CurState = EndingManager.deathState.dByAttack;
         isDie = true;
         anim.applyRootMotion = true;
         anim.SetTrigger("IsDie");
