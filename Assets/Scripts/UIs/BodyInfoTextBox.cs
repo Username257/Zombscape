@@ -40,6 +40,8 @@ public class BodyInfoTextBox : MonoBehaviour
         GetPivot();
 
         texts[pivot].GetComponentInChildren<TMP_Text>().text = text;
+        if (text == "")
+            texts[pivot].SetActive(false);
         texts[pivot].SetActive(true);
         textsBody[pivot] = curBody;
     }
@@ -105,6 +107,9 @@ public class BodyInfoTextBox : MonoBehaviour
             {
                 text = "목이 물림";
             }
+
+            if (GameManager.Data.Neck == DataManager.State.None)
+                text = "";
         }
 
         if (body == 1)
@@ -126,7 +131,10 @@ public class BodyInfoTextBox : MonoBehaviour
                 text = "오른팔이 물림";
                
             }
-               
+
+            if (GameManager.Data.RArm == DataManager.State.None)
+                text = "";
+
         }
 
 
@@ -149,6 +157,8 @@ public class BodyInfoTextBox : MonoBehaviour
 
                 text = "왼팔이 물림";
             }
+            if (GameManager.Data.LArm == DataManager.State.None)
+                text = "";
         }
         
 
@@ -167,7 +177,9 @@ public class BodyInfoTextBox : MonoBehaviour
             {
                 text = "오른다리가 물림";
             }
-                
+            if (GameManager.Data.RLeg == DataManager.State.None)
+                text = "";
+
         }
 
 
@@ -189,11 +201,12 @@ public class BodyInfoTextBox : MonoBehaviour
             {
                 text = "왼다리가 물림";
             }
-            
+            if (GameManager.Data.LLeg == DataManager.State.None)
+                text = "";
+
         }
 
         MakeButtonGetText();
-
 
     }
 }

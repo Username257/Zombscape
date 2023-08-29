@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class DataManager : MonoBehaviour
 {
+    [SerializeField] private string playerName;
+    public string PlayerName { get { return playerName; } set { playerName = value; } }
 
     public event UnityAction OnCurLifeChanged;
 
@@ -84,6 +86,11 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    public void Awake()
+    {
+        if (playerName == null)
+            playerName = "¾Æ¹«°³";
+    }
 
 
 
