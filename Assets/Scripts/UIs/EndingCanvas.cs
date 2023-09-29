@@ -2,28 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EndingCanvas : MonoBehaviour
 {
     [SerializeField] TMP_Text text;
     [SerializeField] GameObject blackScreen;
+    [SerializeField] Button title;
     [SerializeField] float typeSpeed;
     string message;
     string death;
     Coroutine typeRoutine;
+    EndingManager endingManager;
+    TimeManager timeManager;
 
     public void Start()
     {
         blackScreen.SetActive(false);
         text.gameObject.SetActive(false);
+        title.gameObject.SetActive(false);
+        endingManager = GameObject.FindWithTag("EndingManager").GetComponent<EndingManager>();
+        timeManager = GameObject.FindWithTag("TimeManager").GetComponent<TimeManager>();
     }
 
     public void SetEndingCanvas()
     {
         blackScreen.SetActive(true);
         text.gameObject.SetActive(true);
+        title.gameObject.SetActive(true);
 
-        switch (GameManager.Ending.curState)
+        switch (endingManager.curState)
         {
             case EndingManager.deathState.dByHunger:
                 death = "굶주림";
@@ -40,11 +49,19 @@ public class EndingCanvas : MonoBehaviour
             case EndingManager.deathState.Alive:
                 break;
         }
-
-        message = $"{GameManager.Data.PlayerName}(이)가 사망하였습니다. \n생존일수 : {GameManager.Time.curDay} \n사망원인 : {death}";
+        GameObject.FindWithTag("UICanvas").gameObject.SetActive(false);
+        message = $"{GameManager.Data.PlayerName}(이)가 사망하였습니다. \n생존일수 : {timeManager.curDay} \n사망원인 : {death}";
 
         blackScreen.GetComponent<Animator>().SetTrigger("start");
         typeRoutine = StartCoroutine(Typing());
+    }
+
+    public void Change()
+    {
+        blackScreen.SetActive(false);
+        text.gameObject.SetActive(false);
+        title.gameObject.SetActive(false);
+        SceneManager.LoadScene("Title");
     }
 
     IEnumerator Typing()

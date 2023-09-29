@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: "\uB3C4\uB07C"
   itemType: 0
   description: 
-  durability: 30
+  durability: 3
   angle: 60
   range: 1.5
   damage: 10

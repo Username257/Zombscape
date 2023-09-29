@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
             GameObject timeObj = resourceManager.Instantiate<GameObject>(timeManagerPrefab);
             timeObj.name = "TimeManager";
             timeObj.transform.parent = transform;
+            timeObj.transform.tag = "TimeManager";
         }
 
         if (initEnding)
@@ -113,6 +114,7 @@ public class GameManager : MonoBehaviour
             GameObject endingObj = resourceManager.Instantiate<GameObject>(endingManagerPrefab);
             endingObj.name = "EndingManager";
             endingObj.transform.parent = transform;
+            endingObj.transform.tag = "EndingManager";
         }
     }
 }

@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 using UnityEngine.Windows;
 
 public class PlayerMover : MonoBehaviour
@@ -17,7 +19,10 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private bool isFreeze;
     public bool isDie;
     public bool isDamaged;
-
+    public UnityAction<string> playMoveSound;
+    string str;
+    int num;
+    float time;
 
     private void Start()
     {
@@ -50,7 +55,22 @@ public class PlayerMover : MonoBehaviour
         }
 
         anim.SetFloat("MoveSpeed", moveSpeed, 0.1f, Time.deltaTime);
+
+        time += Time.deltaTime;
+        if (time > 0.5f)
+        {
+            num = Random.Range(0, 2);
+            if (num == 0)
+                str = "step";
+            else
+                str = "step2";
+
+            playMoveSound?.Invoke(str);
+
+            time = 0;
+        }
     }
+
 
     private void OnMove(InputValue value)
     {

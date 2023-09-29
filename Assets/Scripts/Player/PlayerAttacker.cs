@@ -32,6 +32,7 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
     public UnityAction OnWeild;
     public bool OnWeildIsInvoking;
     float time;
+    public UnityAction<string> playAttackSound;
 
     private void Awake()
     {
@@ -167,7 +168,14 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
             IDamageable damageable = collider.GetComponent<IDamageable>();
             damageable?.Damaged(damage);
 
-            
+            num = Random.Range(0, 2);
+            if (num == 0)
+                str = "punch";
+            else
+                str = "punch2";
+
+            playAttackSound?.Invoke(str);
+
             if (isHoldingWeapon)
             {
                 OnWeild?.Invoke();
@@ -190,6 +198,8 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
         anim.SetLayerWeight(1, 0);
     }
 
+    string str;
+    int num;
     public void Damaged(int damage)
     {
         if (!isDie)
@@ -198,6 +208,15 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
             playerMover.Freeze(1f);
             anim.applyRootMotion = true;
             anim.SetTrigger("IsDamaged");
+
+            num = Random.Range(0, 2);
+            if (num == 0)
+                str = "ow";
+            else
+                str = "argh";
+
+            playAttackSound?.Invoke(str);
+
             GameManager.Data.CurLife -= damage;
             OnDamaged?.Invoke();
         }
@@ -206,8 +225,9 @@ public class PlayerAttacker : MonoBehaviour, IHitable, IDamageable
 
     public void Die()
     {
+        EndingManager endingManager = GameObject.FindWithTag("EndingManager").GetComponent<EndingManager>();
         GameManager.Data.CurLife = 0;
-        GameManager.Ending.CurState = EndingManager.deathState.dByAttack;
+        endingManager.CurState = EndingManager.deathState.dByAttack;
         isDie = true;
         anim.applyRootMotion = true;
         anim.SetTrigger("IsDie");

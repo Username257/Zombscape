@@ -17,6 +17,8 @@ public class PlayersInventory : Inventory
     {
         if (!holder.isGrabingSomething)
         {
+            if (itemName == null)
+                return;
             ItemData itemData = FindItem(itemName);
             GameObject item = MakeItemInstanceToHold(itemData);
             item.transform.SetParent(holder.transform);

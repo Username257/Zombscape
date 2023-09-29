@@ -127,6 +127,11 @@ public class Inventory : MonoBehaviour
 
     public ItemData FindItem(string itemName)
     {
+        if (itemName == null)
+        {
+            Debug.Log("item name is null");
+            return null;
+        }
         for (int i = 0; i < maxSlot; i++)
         {
             if (itemList[i].itemName == null)

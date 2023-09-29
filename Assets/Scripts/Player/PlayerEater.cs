@@ -14,6 +14,7 @@ public class PlayerEater : MonoBehaviour
     bool isHealed;
     public UnityAction<int> OnHealed;
     public UnityAction OnDie;
+    public UnityAction<string> playEatSound;
 
     private void Start()
     {
@@ -67,7 +68,8 @@ public class PlayerEater : MonoBehaviour
                 
             }
         }
-            
+
+        playEatSound?.Invoke("eat");
 
         if (food.FoodData.isDrink)
             anim.SetTrigger("IsDrinking");

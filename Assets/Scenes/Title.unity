@@ -1628,6 +1628,7 @@ GameObject:
   - component: {fileID: 378870507}
   - component: {fileID: 378870506}
   - component: {fileID: 378870505}
+  - component: {fileID: 378870508}
   m_Layer: 5
   m_Name: Start
   m_TagString: Untagged
@@ -1699,7 +1700,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 378870506}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 378870508}
+        m_TargetAssemblyTypeName: SceneChange, Assembly-CSharp
+        m_MethodName: Change
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &378870506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1738,6 +1751,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378870503}
   m_CullTransparentMesh: 1
+--- !u!114 &378870508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378870503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88289b61a23ec95408574e2b2fa96eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: GameScene
 --- !u!1 &390304910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,7 +1918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &478306995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4079,8 +4105,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 899263452}
-        m_TargetAssemblyTypeName: EnableCanvas, Assembly-CSharp
-        m_MethodName: enableCanvas
+        m_TargetAssemblyTypeName: SceneChange, Assembly-CSharp
+        m_MethodName: Change
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4137,10 +4163,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 899263447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1200a9b667eefda4193e2ef3c64e664b, type: 3}
+  m_Script: {fileID: 11500000, guid: 88289b61a23ec95408574e2b2fa96eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 478306994}
+  sceneName: GameScene
 --- !u!1 &1060218478
 GameObject:
   m_ObjectHideFlags: 0
@@ -5663,11 +5689,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f50f350e5976474e82724270f1b5142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeManagerPrefab: {fileID: 0}
+  endingManagerPrefab: {fileID: 0}
   initData: 1
   initResource: 1
   initPool: 0
   initUi: 0
   initInventory: 0
+  initTime: 0
+  initEnding: 0
 --- !u!4 &1572928146
 Transform:
   m_ObjectHideFlags: 0
