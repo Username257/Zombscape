@@ -20,7 +20,7 @@ public class BodyUI : MonoBehaviour
     PlayerEater eater;
     enum Body { Neck, RArm, LArm, RLeg, LLeg, None}
 
-    private void Awake()
+    private void Init()
     {
         playerGetInjured = GameObject.FindWithTag("Player").GetComponent<PlayerGetInjured>();
         eater = GameObject.FindWithTag("Player").GetComponent<PlayerEater>();
@@ -33,16 +33,24 @@ public class BodyUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        playerGetInjured.OnGetInjured += ChangeImage;
-        playerGetInjured.OnGetBited += ChangeImage;
-        eater.OnHealed += ChangeImage;
+        if (playerGetInjured != null && eater != null)
+        {
+            playerGetInjured.OnGetInjured += ChangeImage;
+            playerGetInjured.OnGetBited += ChangeImage;
+            eater.OnHealed += ChangeImage;
+        }
+
     }
 
     private void OnDisable()
     {
-        playerGetInjured.OnGetInjured -= ChangeImage;
-        playerGetInjured.OnGetBited -= ChangeImage;
-        eater.OnHealed -= ChangeImage;
+        if (playerGetInjured != null && eater != null)
+        {
+            playerGetInjured.OnGetInjured -= ChangeImage;
+            playerGetInjured.OnGetBited -= ChangeImage;
+            eater.OnHealed -= ChangeImage;
+        }
+            
     }
 
     public void ChangeImage(int body)

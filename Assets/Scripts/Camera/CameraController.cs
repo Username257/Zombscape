@@ -11,6 +11,10 @@ public class CameraController : MonoBehaviour
     private float scrollScale;
     private float curSize;
 
+    private void Start()
+    {
+        player = GameObject.FindWithTag("Player");
+    }
     private void Update()
     {
         ScampPlayer();

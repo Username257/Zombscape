@@ -17,8 +17,17 @@ public class OtherObject : MonoBehaviour, IFarmingable
 
     public void Start()
     {
-        Init();
+        StartCoroutine(FindRoutine());
     }
+    IEnumerator FindRoutine()
+    {
+        yield return new WaitUntil(() => { return GameObject.FindWithTag("OthersInventoryUI"); });
+
+        Init();
+
+        yield break;
+    }
+
     public void Init()
     {
 
@@ -47,9 +56,13 @@ public class OtherObject : MonoBehaviour, IFarmingable
 
     private void OnTriggerExit(Collider other)
     {
-        otherInventoryUI.RemoveAll();
-        otherInventoryUI.inventory = null;
-        otherInventoryUI.SetObjName(" ");
+        if (otherInventoryUI != null)
+        {
+            otherInventoryUI.RemoveAll();
+            otherInventoryUI.inventory = null;
+            otherInventoryUI.SetObjName(" ");
+        }
+        
     }
 
     public void ShowMyInventory()

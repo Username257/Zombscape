@@ -19,8 +19,11 @@ public class BodyInfoTextBox : MonoBehaviour
     private Body curBody;
     enum Body { Neck, RArm, LArm, RLeg, LLeg, None }
 
-    private void Start()
+    private void Init()
     {
+        playerGetInjured = GameObject.FindWithTag("Player").GetComponent<PlayerGetInjured>();
+        eater = GameObject.FindWithTag("Player").GetComponent<PlayerEater>();
+
         texts = new GameObject[5];
         textsBody = new Body[5];
         for (int i = 0; i < 5; i++)
@@ -70,19 +73,24 @@ public class BodyInfoTextBox : MonoBehaviour
 
     private void OnEnable()
     {
-        playerGetInjured = GameObject.FindWithTag("Player").GetComponent<PlayerGetInjured>();
-        eater = GameObject.FindWithTag("Player").GetComponent<PlayerEater>();
-
-        playerGetInjured.OnGetInjured += GetText;
-        playerGetInjured.OnGetBited += GetText;
-        eater.OnHealed += GetText;
+        if (playerGetInjured != null && eater != null)
+        {
+            playerGetInjured.OnGetInjured += GetText;
+            playerGetInjured.OnGetBited += GetText;
+            eater.OnHealed += GetText;
+        }
+       
     }
 
     private void OnDisable()
     {
-        playerGetInjured.OnGetInjured -= GetText;
-        playerGetInjured.OnGetBited -= GetText;
-        eater.OnHealed -= GetText;
+        if (playerGetInjured != null && eater != null)
+        {
+            playerGetInjured.OnGetInjured -= GetText;
+            playerGetInjured.OnGetBited -= GetText;
+            eater.OnHealed -= GetText;
+        }
+           
     }
 
 

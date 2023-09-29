@@ -8,7 +8,7 @@ public class SetTimeUIManager : MonoBehaviour
     [SerializeField] TMP_Text timeText;
     [SerializeField] TMP_Text dayText;
 
-    private void Start()
+    public void Init()
     {
         TimeManager timeManager = GameObject.FindWithTag("TimeManager").GetComponent<TimeManager>();
 

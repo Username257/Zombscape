@@ -27,12 +27,12 @@ public class TimeManager : MonoBehaviour
     [SerializeField] float timer;
 
 
-    public void Start()
+    public void Init()
     {
         curHour = startHour;
         curMinute = startMinute;
 
-        SetTimeText();
+        StartCoroutine(FindTimeUIRoutine());
 
         if (curHour >= 22 || curHour <= 2)
             directionalLight.GetComponent<Light>().color = skyColorList[5];
@@ -48,9 +48,22 @@ public class TimeManager : MonoBehaviour
             directionalLight.GetComponent<Light>().color = skyColorList[4];
     }
 
+    IEnumerator FindTimeUIRoutine()
+    {
+        yield return new WaitUntil(() => { return GameObject.FindWithTag("TimeUI"); });
+
+        timeText = GameObject.FindWithTag("TimeUI").transform.GetChild(2).GetComponent<TMP_Text>();
+        dayText = GameObject.FindWithTag("TimeUI").transform.GetChild(3).GetComponent<TMP_Text>();
+        SetTimeText();
+
+        yield break;
+    }
+
     public void Update()
     {
-        CountTimeByRealTime();
+        if (timeText != null)
+            CountTimeByRealTime();
+
     }
 
     Coroutine directionalLightRoutine;

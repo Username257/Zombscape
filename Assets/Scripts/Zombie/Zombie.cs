@@ -45,7 +45,6 @@ public class Zombie : MonoBehaviour, IDamageable
     float time;
     float soundTime;
     int num;
-    [SerializeField] bool playSound;
 
     public void Awake()
     {
@@ -165,22 +164,18 @@ public class Zombie : MonoBehaviour, IDamageable
             curState = State.Walk;
         }
 
-        if (playSound)
+        soundTime += Time.deltaTime;
+        if (soundTime > 6f)
         {
-            soundTime += Time.deltaTime;
-            if (soundTime < 3f)
-            {
-                num = Random.Range(0, 2);
-                if (num == 0)
-                    sound.transform.GetChild(4).GetComponent<AudioSource>().Play();
-                else
-                    sound.transform.GetChild(5).GetComponent<AudioSource>().Play();
-
-            }
+            num = Random.Range(0, 2);
+            if (num == 0)
+                sound.transform.GetChild(6).GetComponent<AudioSource>().Play();
             else
-                soundTime = 0;
+                sound.transform.GetChild(7).GetComponent<AudioSource>().Play();
+
+            soundTime = 0;
         }
-        
+
 
     }
 
@@ -225,20 +220,16 @@ public class Zombie : MonoBehaviour, IDamageable
         if (Vector3.Distance(transform.position, randomPos) < 0.1f)
             curState = State.Idle;
 
-        if (playSound)
+        soundTime += Time.deltaTime;
+        if (soundTime > 0.5f)
         {
-            soundTime += Time.deltaTime;
-            if (soundTime < 2f)
-            {
-                num = Random.Range(0, 2);
-                if (num == 0)
-                    sound.transform.GetChild(6).GetComponent<AudioSource>().Play();
-                else
-                    sound.transform.GetChild(7).GetComponent<AudioSource>().Play();
-
-            }
+            num = Random.Range(0, 2);
+            if (num == 0)
+                sound.transform.GetChild(0).GetComponent<AudioSource>().Play();
             else
-                soundTime = 0;
+                sound.transform.GetChild(1).GetComponent<AudioSource>().Play();
+            soundTime = 0;
+
         }
     }
 
@@ -280,20 +271,16 @@ public class Zombie : MonoBehaviour, IDamageable
         if (life <= 0)
             curState = State.Dead;
 
-        if (playSound)
+        soundTime += Time.deltaTime;
+        if (soundTime > 0.5f)
         {
-            soundTime += Time.deltaTime;
-            if (soundTime < 2f)
-            {
-                num = Random.Range(0, 2);
-                if (num == 0)
-                    sound.transform.GetChild(6).GetComponent<AudioSource>().Play();
-                else
-                    sound.transform.GetChild(7).GetComponent<AudioSource>().Play();
-
-            }
+            num = Random.Range(0, 2);
+            if (num == 0)
+                sound.transform.GetChild(0).GetComponent<AudioSource>().Play();
             else
-                soundTime = 0;
+                sound.transform.GetChild(1).GetComponent<AudioSource>().Play();
+            soundTime = 0;
+
         }
     }
 
@@ -322,14 +309,11 @@ public class Zombie : MonoBehaviour, IDamageable
                 anim.applyRootMotion = true;
                 anim.SetTrigger("IsAttack");
 
-                if (playSound)
-                {
-                    num = Random.Range(0, 2);
-                    if (num == 0)
-                        sound.transform.GetChild(0).GetComponent<AudioSource>().Play();
-                    else
-                        sound.transform.GetChild(1).GetComponent<AudioSource>().Play();
-                }
+                num = Random.Range(0, 2);
+                if (num == 0)
+                    sound.transform.GetChild(2).GetComponent<AudioSource>().Play();
+                else
+                    sound.transform.GetChild(3).GetComponent<AudioSource>().Play();
 
                 Freeze(3f);
                 firstHit = true;
@@ -346,14 +330,11 @@ public class Zombie : MonoBehaviour, IDamageable
                 anim.applyRootMotion = true;
                 anim.SetTrigger("IsAttack");
 
-                if (playSound)
-                {
-                    num = Random.Range(0, 2);
-                    if (num == 0)
-                        sound.transform.GetChild(0).GetComponent<AudioSource>().Play();
-                    else
-                        sound.transform.GetChild(1).GetComponent<AudioSource>().Play();
-                }
+                num = Random.Range(0, 2);
+                if (num == 0)
+                    sound.transform.GetChild(2).GetComponent<AudioSource>().Play();
+                else
+                    sound.transform.GetChild(3).GetComponent<AudioSource>().Play();
 
 
                 Freeze(3f);
@@ -386,14 +367,11 @@ public class Zombie : MonoBehaviour, IDamageable
             anim.applyRootMotion = true;
             anim.SetTrigger("IsDamaged");
 
-            if (playSound)
-            {
-                num = Random.Range(0, 2);
-                if (num == 0)
-                    sound.transform.GetChild(2).GetComponent<AudioSource>().Play();
-                else
-                    sound.transform.GetChild(3).GetComponent<AudioSource>().Play();
-            }
+            num = Random.Range(0, 2);
+            if (num == 0)
+                sound.transform.GetChild(4).GetComponent<AudioSource>().Play();
+            else
+                sound.transform.GetChild(5).GetComponent<AudioSource>().Play();
 
 
             isDamaged = true;

@@ -23,7 +23,16 @@ public class EndingCanvas : MonoBehaviour
         text.gameObject.SetActive(false);
         title.gameObject.SetActive(false);
         endingManager = GameObject.FindWithTag("EndingManager").GetComponent<EndingManager>();
+        StartCoroutine(FindRoutine());
+    }
+
+    IEnumerator FindRoutine()
+    {
+        yield return new WaitUntil(() => { return GameObject.FindGameObjectWithTag("TimeManager"); });
+
         timeManager = GameObject.FindWithTag("TimeManager").GetComponent<TimeManager>();
+
+        yield break;
     }
 
     public void SetEndingCanvas()

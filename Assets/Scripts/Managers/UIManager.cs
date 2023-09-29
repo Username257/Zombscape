@@ -13,16 +13,21 @@ public class UIManager : MonoBehaviour
 
     private Canvas windowCanvas;
 
-    private Canvas uiCanvas;
+    [SerializeField] private GameObject uiCanvas;
 
 
-    private void Awake()
+    public void Init()
     {
-        eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");
+        //eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");
 
-        uiCanvas = GameManager.Resource.Instantiate<Canvas>("UI/UICanvas");
+        uiCanvas = GameManager.Resource.Instantiate<GameObject>("UI/UICanvas");
+        uiCanvas.transform.SetParent(GameObject.FindWithTag("RootCanvas").transform);
         uiCanvas.gameObject.name = "UICanvas";
-        uiCanvas.sortingOrder = 100;
+        uiCanvas.GetComponent<Canvas>().sortingOrder = 100;
+
+        uiCanvas.transform.GetChild(1).GetComponent<InventoryUI>().Init();
+        uiCanvas.transform.GetChild(2).GetComponent<InventoryUI>().Init();
+        GameManager.Inventory.Init();
 
     }
 

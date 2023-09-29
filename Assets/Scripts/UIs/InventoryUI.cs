@@ -24,7 +24,7 @@ public class InventoryUI : MonoBehaviour
     bool isGetAnim1;
     [SerializeField] public GameObject[] buttons;
     int maxCapacity;
-    public void Start()
+    public void Init()
     {
         buttons = new GameObject[Inventory.maxSlot];
         MakeButtonPool();

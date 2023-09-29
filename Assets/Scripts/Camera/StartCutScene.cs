@@ -11,7 +11,7 @@ public class StartCutScene : MonoBehaviour
 
     private void Start()
     {
-        transform.position = player.transform.position + new Vector3(0, 11, -10);
+        transform.position = GameObject.FindWithTag("Player").transform.position + new Vector3(0, 11, -10);
 
         GetComponent<Camera>().orthographicSize = startSize;
     }

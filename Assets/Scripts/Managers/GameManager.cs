@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.WSA;
 
 public class GameManager : MonoBehaviour
 {
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     public static Canvas ui;
 
-    private void InitManagers()
+    public void InitManagers()
     {
         if (initData)
         {
@@ -103,10 +104,7 @@ public class GameManager : MonoBehaviour
 
         if (initTime)
         {
-            GameObject timeObj = resourceManager.Instantiate<GameObject>(timeManagerPrefab);
-            timeObj.name = "TimeManager";
-            timeObj.transform.parent = transform;
-            timeObj.transform.tag = "TimeManager";
+            StartCoroutine(FindTimeManagerRoutine());
         }
 
         if (initEnding)
@@ -116,5 +114,14 @@ public class GameManager : MonoBehaviour
             endingObj.transform.parent = transform;
             endingObj.transform.tag = "EndingManager";
         }
+    }
+
+    IEnumerator FindTimeManagerRoutine()
+    {
+        yield return new WaitUntil(() => { return GameObject.FindGameObjectWithTag("TimeManager"); });
+
+        timeManager = GameObject.FindWithTag("TimeManager").GetComponent<TimeManager>();
+        
+        yield break;
     }
 }

@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class SetPlayerStartPosition : MonoBehaviour
 {
-    [SerializeField] GameObject player;
     [SerializeField] List<Transform> positions = new List<Transform>();
     int index;
 
     public void Awake()
     {
         index = Random.Range(0, positions.Count);
-        player.transform.position = positions[index].position;
+        GameObject.FindWithTag("Player").transform.position = positions[index].position;
     }
 }
