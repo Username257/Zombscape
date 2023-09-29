@@ -658,6 +658,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 6017976150455374234, guid: 6a95091a6e2a3254d829127520c7ba77, type: 3}
+      propertyPath: m_text
+      value: "\uC544\uBB34\uAC1C"
+      objectReference: {fileID: 0}
     - target: {fileID: 6099016788298629626, guid: 6a95091a6e2a3254d829127520c7ba77, type: 3}
       propertyPath: m_Name
       value: RLegImage
@@ -692,7 +696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7341904736141776003, guid: 6a95091a6e2a3254d829127520c7ba77, type: 3}
       propertyPath: m_TagString
-      value: UI
+      value: BodyInfoTextBox
       objectReference: {fileID: 0}
     - target: {fileID: 7430394823373184735, guid: 6a95091a6e2a3254d829127520c7ba77, type: 3}
       propertyPath: m_Color.b
@@ -732,7 +736,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8749333405033389596, guid: 6a95091a6e2a3254d829127520c7ba77, type: 3}
       propertyPath: m_TagString
-      value: UI
+      value: BodyUI
       objectReference: {fileID: 0}
     - target: {fileID: 8805872505667750898, guid: 6a95091a6e2a3254d829127520c7ba77, type: 3}
       propertyPath: m_SizeDelta.x
@@ -839,6 +843,8 @@ MonoBehaviour:
   bited: {fileID: 21300000, guid: 339d64cb75b78db4abd60176195a3d4e, type: 3}
   bandaged: {fileID: 21300000, guid: cb9f967ebac8f9048959d977c87d7a3d, type: 3}
   none: {fileID: 21300000, guid: 745ef34ac2700d045851d04ad73d704c, type: 3}
+  playerGetInjured: {fileID: 0}
+  eater: {fileID: 0}
 --- !u!1 &3701557414281646195 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7145168910945978088, guid: 6a95091a6e2a3254d829127520c7ba77, type: 3}
@@ -1093,6 +1099,10 @@ PrefabInstance:
     - target: {fileID: 5103101520612846203, guid: f01719b9feab80c499f307a5c050f5c3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326246829555329053, guid: f01719b9feab80c499f307a5c050f5c3, type: 3}
+      propertyPath: m_text
+      value: "\uC544\uBB34\uAC1C\uC758 \uAC00\uBC29"
       objectReference: {fileID: 0}
     - target: {fileID: 6326246829591870309, guid: f01719b9feab80c499f307a5c050f5c3, type: 3}
       propertyPath: m_Name

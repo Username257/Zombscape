@@ -35,7 +35,8 @@ public class PlayerEater : MonoBehaviour
         {
             OnDie?.Invoke();
             attacker.Die();
-            GameManager.Ending.CurState = EndingManager.deathState.dByHunger;
+            EndingManager endingManager = GameObject.FindWithTag("EndingManager").GetComponent<EndingManager>();
+            endingManager.CurState = EndingManager.deathState.dByHunger;
             GameManager.Data.CurHunger = 100;
             this.enabled = false;
         }

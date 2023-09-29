@@ -19,11 +19,23 @@ public class BodyInfoTextBox : MonoBehaviour
     private Body curBody;
     enum Body { Neck, RArm, LArm, RLeg, LLeg, None }
 
-    private void Init()
+    public void Start()
     {
+        StartCoroutine(FindRoutine());
+        Init();
+    }
+    IEnumerator FindRoutine()
+    {
+        yield return new WaitUntil(() => { return GameObject.FindWithTag("Player"); });
+
         playerGetInjured = GameObject.FindWithTag("Player").GetComponent<PlayerGetInjured>();
         eater = GameObject.FindWithTag("Player").GetComponent<PlayerEater>();
 
+        yield break;
+    }
+
+    private void Init()
+    {
         texts = new GameObject[5];
         textsBody = new Body[5];
         for (int i = 0; i < 5; i++)

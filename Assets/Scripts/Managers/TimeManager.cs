@@ -29,6 +29,9 @@ public class TimeManager : MonoBehaviour
 
     public void Init()
     {
+        
+
+
         curHour = startHour;
         curMinute = startMinute;
 
@@ -71,7 +74,7 @@ public class TimeManager : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer > 2.3f)
+        if (timer > 1.5f)
         {
             curMinute++;
             timer = 0;

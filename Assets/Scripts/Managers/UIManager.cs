@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,7 +14,7 @@ public class UIManager : MonoBehaviour
 
     private Canvas windowCanvas;
 
-    [SerializeField] private GameObject uiCanvas;
+    [SerializeField] public GameObject uiCanvas;
 
 
     public void Init()
@@ -28,6 +29,9 @@ public class UIManager : MonoBehaviour
         uiCanvas.transform.GetChild(1).GetComponent<InventoryUI>().Init();
         uiCanvas.transform.GetChild(2).GetComponent<InventoryUI>().Init();
         GameManager.Inventory.Init();
+
+        GameObject.FindWithTag("TimeManager").GetComponent<TimeManager>().timeText = uiCanvas.transform.GetChild(4).GetChild(2).GetComponent<TMP_Text>();
+        GameObject.FindWithTag("TimeManager").GetComponent<TimeManager>().dayText = uiCanvas.transform.GetChild(4).GetChild(3).GetComponent<TMP_Text>();
 
     }
 

@@ -205,7 +205,8 @@ public class PlayerGetInjured : MonoBehaviour
             GameManager.Data.LLeg == DataManager.State.Bited)
         {
             GameManager.Data.CurLife = 0;
-            GameManager.Ending.CurState = EndingManager.deathState.dByBleed;
+            EndingManager endingManager = GameObject.FindWithTag("EndingManager").GetComponent<EndingManager>();
+            endingManager.CurState = EndingManager.deathState.dByBleed;
             OnDie?.Invoke();
         }
 

@@ -16,21 +16,30 @@ public class BodyUI : MonoBehaviour
     [SerializeField] Sprite bited;
     [SerializeField] Sprite bandaged;
     [SerializeField] Sprite none;
-    PlayerGetInjured playerGetInjured;
-    PlayerEater eater;
-    enum Body { Neck, RArm, LArm, RLeg, LLeg, None}
+    [SerializeField] PlayerGetInjured playerGetInjured;
+    [SerializeField] PlayerEater eater;
+    public enum Body { Neck, RArm, LArm, RLeg, LLeg, None}
 
-    private void Init()
+    public void Start()
     {
-        playerGetInjured = GameObject.FindWithTag("Player").GetComponent<PlayerGetInjured>();
-        eater = GameObject.FindWithTag("Player").GetComponent<PlayerEater>();
-
         NeckImg.sprite = none;
         RArmImg.sprite = none;
         LArmImg.sprite = none;
         RLegImg.sprite = none;
         LLegImg.sprite = none;
+
+        StartCoroutine(FindRoutine());
     }
+    IEnumerator FindRoutine()
+    {
+        yield return new WaitUntil(() => { return GameObject.FindWithTag("Player"); });
+
+        playerGetInjured = GameObject.FindWithTag("Player").GetComponent<PlayerGetInjured>();
+        eater = GameObject.FindWithTag("Player").GetComponent<PlayerEater>();
+
+        yield break;
+    }
+
     private void OnEnable()
     {
         if (playerGetInjured != null && eater != null)

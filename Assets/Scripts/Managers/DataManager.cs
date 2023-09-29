@@ -42,6 +42,8 @@ public class DataManager : MonoBehaviour
         set
         {
             neck = value;
+            GameObject.FindWithTag("BodyUI").GetComponent<BodyUI>().ChangeImage(0);
+            GameObject.FindWithTag("BodyInfoTextBox").GetComponent<BodyInfoTextBox>().GetText(0);
         }
     }
 
@@ -52,6 +54,8 @@ public class DataManager : MonoBehaviour
         set
         {
             rLeg = value;
+            GameObject.FindWithTag("BodyUI").GetComponent<BodyUI>().ChangeImage(3);
+            GameObject.FindWithTag("BodyInfoTextBox").GetComponent<BodyInfoTextBox>().GetText(3);
         }
     }
 
@@ -62,6 +66,8 @@ public class DataManager : MonoBehaviour
         set
         {
             lLeg = value;
+            GameObject.FindWithTag("BodyUI").GetComponent<BodyUI>().ChangeImage(4);
+            GameObject.FindWithTag("BodyInfoTextBox").GetComponent<BodyInfoTextBox>().GetText(4);
         }
     }
 
@@ -73,6 +79,8 @@ public class DataManager : MonoBehaviour
         set
         {
             rArm = value;
+            GameObject.FindWithTag("BodyUI").GetComponent<BodyUI>().ChangeImage(1);
+            GameObject.FindWithTag("BodyInfoTextBox").GetComponent<BodyInfoTextBox>().GetText(1);
         }
     }
 
@@ -83,13 +91,17 @@ public class DataManager : MonoBehaviour
         set
         {
             lArm = value;
+            GameObject.FindWithTag("BodyUI").GetComponent<BodyUI>().ChangeImage(2);
+            GameObject.FindWithTag("BodyInfoTextBox").GetComponent<BodyInfoTextBox>().GetText(2);
         }
     }
 
     public void Awake()
     {
         if (playerName == null)
+        {
             playerName = "¾Æ¹«°³";
+        }
     }
 
 
